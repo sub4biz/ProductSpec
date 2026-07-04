@@ -6,12 +6,12 @@ ProductSpec.io is one implementation of the Standard. The Standard itself is neu
 
 ## Where This Sits
 
-OpenProductSpec operates at the product spec layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, scope, user experience, acceptance criteria, and success metrics.
+Product Spec Standard operates at the product spec layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, scope, user experience, acceptance criteria, and success metrics.
 
 OpenSpec and Spec Kit operate at the engineering spec layer. OpenSpec's flow is propose -> apply -> archive. Spec Kit's flow is constitution -> specify -> clarify -> plan -> tasks -> analyze -> implement. Those artifacts live in the repo and are consumed by AI agents to build code.
 
 ```text
-Product Spec (OpenProductSpec) -> Engineering Spec (OpenSpec / Spec Kit) -> Code (agents)
+Product Spec (Product Spec Standard) -> Engineering Spec (OpenSpec / Spec Kit) -> Code (agents)
 what / why                       how / plan / tasks                         implementation
 strategic intent                 technical decomposition                    running system
 ```
