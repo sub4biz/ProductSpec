@@ -1,6 +1,6 @@
-# Product Spec Standard Roadmap
+# ProductSpec Roadmap
 
-The Product Spec Standard starts as a small Markdown format and grows toward a stable semantic model for product intent.
+ProductSpec starts as a small Markdown serialization and grows toward a stable semantic model for product intent.
 
 ## v0.1: Document Format
 
@@ -19,7 +19,7 @@ Includes:
 
 ## v0.2: Validation And Conformance
 
-Goal: make the Standard easier for other tools to adopt correctly.
+Goal: make ProductSpec easier for other tools to adopt correctly.
 
 Planned additions:
 
@@ -42,7 +42,7 @@ Planned additions:
 - File naming conventions for trace files stored beside specs.
 - Link conventions for GitHub, issue trackers, engineering specs, experiments, and evals.
 
-Decision Trace should remain optional so the core Product Spec format stays easy to adopt.
+Decision Trace should remain optional so the core ProductSpec document format stays easy to adopt.
 
 ## v0.4: Outcomes And Tool Links
 

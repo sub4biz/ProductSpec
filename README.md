@@ -1,19 +1,25 @@
-# Product Spec Standard
+# ProductSpec
 
-The Product Spec Standard is an open format for product intent before implementation.
+ProductSpec is an open standard for Product Specs: human-readable, AI-executable documents that capture product intent before implementation.
 
-It is designed for product specs that need to be read by humans, reviewed by product tools, and executed by AI agents downstream.
+ProductSpec is designed for Product Specs that need to be read by humans, reviewed by product tools, and executed by AI agents downstream.
 
-ProductSpec.io is one implementation of the Standard. The Standard itself is neutral: it defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
+ProductSpec.io is one implementation of ProductSpec. ProductSpec itself is neutral: it defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
+
+## Naming
+
+- `ProductSpec` is the open standard, project, repository, and ecosystem.
+- `Product Spec` is the artifact a person writes.
+- `ProductSpec.io` is a managed implementation of ProductSpec.
 
 ## Where This Sits
 
-Product Spec Standard operates at the intent layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, scope, user experience, acceptance criteria, and success metrics.
+ProductSpec operates at the intent layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, scope, user experience, acceptance criteria, and success metrics.
 
 OpenSpec and Spec Kit operate at the engineering spec layer. OpenSpec's flow is propose -> apply -> archive. Spec Kit's flow is constitution -> specify -> clarify -> plan -> tasks -> analyze -> implement. Those artifacts live in the repo and are consumed by AI agents to build code.
 
 ```text
-Product Spec (Product Spec Standard) -> Engineering Spec (OpenSpec / Spec Kit) -> Code (agents)
+Product Spec (ProductSpec) -> Engineering Spec (OpenSpec / Spec Kit) -> Code (agents)
 what / why                       how / plan / tasks                         implementation
 strategic intent                 technical decomposition                    running system
 ```
@@ -22,7 +28,7 @@ Both layers are SDD. Both use the spec as a control system. They serve different
 
 ## What Is Included
 
-- `SPEC.md`: the canonical v0.1 format.
+- `SPEC.md`: the canonical v0.1 standard.
 - `ROADMAP.md`: the planned path from v0.1 to a stable semantic model.
 - `docs/vision.md`: the public vision for ProductSpec as the intent layer.
 - `docs/decision-trace.md`: the future optional reasoning-trail extension.

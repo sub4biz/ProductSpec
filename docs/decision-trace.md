@@ -1,6 +1,6 @@
 # Decision Trace
 
-Decision Trace is a planned optional extension to the Product Spec Standard.
+Decision Trace is a planned optional extension to ProductSpec.
 
 A Product Spec captures the current product intent. A Decision Trace captures the reasoning that produced it.
 
@@ -65,7 +65,7 @@ They can also live in other systems. The open standard should define the portabl
 
 ## Versioning
 
-Decision Trace should not block adoption of the core Product Spec format.
+Decision Trace should not block adoption of the core ProductSpec document format.
 
 The likely path is:
 

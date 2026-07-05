@@ -1,12 +1,12 @@
-# Product Spec Standard v0.1
+# ProductSpec v0.1
 
 ## Intent
 
-The Product Spec Standard defines a portable Markdown format for product specs.
+ProductSpec defines a portable format for Product Specs.
 
 It is meant for documents that should be readable by humans, reviewable by product tools, and executable by AI agents downstream.
 
-The Standard defines structure and interoperability. It does not define taste, quality, or reviewer behavior.
+ProductSpec defines structure and interoperability. It does not define taste, quality, or reviewer behavior.
 
 ## File Format
 

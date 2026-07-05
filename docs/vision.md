@@ -4,7 +4,7 @@ ProductSpec is the open standard for software intent before implementation.
 
 As software development becomes AI-native, writing code becomes less scarce. The bottleneck moves upstream: expressing what should be built, why it matters, what tradeoffs are accepted, what must be true before launch, and how success will be measured after launch.
 
-ProductSpec starts as a product spec format. It becomes the intent layer when downstream systems compile from it and report back to it.
+ProductSpec starts as a Product Spec document format. It becomes the intent layer when downstream systems compile from it and report back to it.
 
 ```text
 ProductSpec -> Engineering Spec -> Code -> Evaluation -> Learning
@@ -41,9 +41,9 @@ strategic intent            technical decomposition                    running s
 
 Both layers are spec-driven development. They serve different roles with different artifacts.
 
-## What The Standard Defines
+## What ProductSpec Defines
 
-The Standard defines interoperability, not taste.
+ProductSpec defines interoperability, not taste.
 
 It defines:
 
