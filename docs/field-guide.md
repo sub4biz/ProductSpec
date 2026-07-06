@@ -77,7 +77,22 @@ Hypothesis names the expected behavior change. Success Metrics quantify it.
 
 **Example:**
 
-> In: paste a YouTube URL, generate a transcript, search within it, jump to timestamps, and copy passages with citations. Out: multi-video projects, team workspaces, non-YouTube video imports, and automated citation-format switching. Cut from this version: speaker diarization and transcript editing.
+````markdown
+```productspec-scope
+in:
+  - paste a YouTube URL
+  - generate a transcript
+  - search within one transcript
+  - copy passages with citations
+out:
+  - multi-video projects
+  - team workspaces
+  - non-YouTube video imports
+cut:
+  - speaker diarization
+  - transcript editing
+```
+````
 
 **Common mistake:** treating scope as a feature wish list. Scope should help the team say no.
 
@@ -183,11 +198,22 @@ If you can mark it pass/fail before launch by inspecting the built artifact, it 
 
 **Example:**
 
-> 60% of first-time users who create a transcript run at least one search.
->
-> 35% of first-time users copy at least one timestamped passage.
->
-> Median time from URL paste to first copied passage is under 3 minutes.
+````markdown
+```productspec-success-metrics
+- id: first_session_search_rate
+  metric: first_session_transcript_search_rate
+  target: ">= 60%"
+  window: first session after transcript creation
+  segment: first-time transcript creators
+  source: product_analytics
+- id: timestamped_quote_copy_rate
+  metric: timestamped_quote_copy_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+  segment: first-time transcript creators
+  source: product_analytics
+```
+````
 
 **Relationship to Hypothesis:**
 

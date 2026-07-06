@@ -1,6 +1,6 @@
 # Validator Reference
 
-ProductSpec v0.5.0 ships a TypeScript reference validator and CLI.
+ProductSpec v0.6.0 ships a TypeScript reference validator and CLI.
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate path/to/file.product-spec.md
@@ -18,7 +18,9 @@ The validator returns errors for structurally invalid Product Specs and warnings
 - canonical section IDs
 - `custom-<kebab-name>` section IDs
 - presence of mandatory sections
+- structured scope inside Scope
 - structured AI evals inside Acceptance Criteria
+- structured success metrics inside Success Metrics
 
 Some parser behavior is intentionally outside the JSON Schema:
 
@@ -91,6 +93,33 @@ Required fields:
 - `checks`
 
 Fix: place the block inside Acceptance Criteria, include every required field, set `pass_threshold` to a number greater than `0` and less than or equal to `1`, and include at least one check.
+
+### `invalid_structured_scope`
+
+A `productspec-scope` block is malformed or placed outside Scope.
+
+Supported fields:
+
+- `in`
+- `out`
+- `cut`
+
+Fix: place the block inside Scope, use only supported fields, and include at least one non-empty item.
+
+### `invalid_success_metric`
+
+A `productspec-success-metrics` block is malformed or incomplete.
+
+Required fields:
+
+- `id`
+- `metric`
+- `target`
+- `window`
+- `segment`
+- `source`
+
+Fix: place the block inside Success Metrics, include every required field, and use snake_case for `id`.
 
 ### `missing_required_section`
 

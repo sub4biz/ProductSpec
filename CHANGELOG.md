@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.6.0 - Structured Scope And Success Metrics
+
+ProductSpec v0.6.0 keeps the Product Spec document shape at `spec_format_version:
+"0.1"` and adds optional structured blocks for Scope and Success Metrics.
+
+Added:
+
+- Optional `productspec-scope` fenced blocks inside Scope.
+- Optional `productspec-success-metrics` fenced blocks inside Success Metrics.
+- Parser and JSON Schema support for extracting structured scope and success metrics.
+- Validation for malformed structured scope and success metric blocks.
+
 ## v0.5.0 - AI Evals
 
 ProductSpec v0.5.0 keeps the Product Spec document shape at `spec_format_version:

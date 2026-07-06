@@ -45,7 +45,15 @@ export interface ProductSpecSection {
   id: string;
   label: string;
   content: string;
+  scope?: ProductSpecScope;
   ai_evals?: ProductSpecAiEval[];
+  success_metrics?: ProductSpecSuccessMetric[];
+}
+
+export interface ProductSpecScope {
+  in: string[];
+  out: string[];
+  cut: string[];
 }
 
 export interface ProductSpecAiEval {
@@ -55,6 +63,15 @@ export interface ProductSpecAiEval {
   evaluator: string;
   pass_threshold: number;
   checks: string[];
+}
+
+export interface ProductSpecSuccessMetric {
+  id: string;
+  metric: string;
+  target: string;
+  window: string;
+  segment: string;
+  source: string;
 }
 
 export interface ProductSpecDocument {
@@ -165,6 +182,12 @@ function validationErrorFor(error: unknown): ProductSpecValidationError {
   if (message.includes("Invalid AI eval")) {
     return { code: "invalid_ai_eval", message, path: "sections.acceptance_criteria.ai_evals" };
   }
+  if (message.includes("Invalid structured scope")) {
+    return { code: "invalid_structured_scope", message, path: "sections.scope.scope" };
+  }
+  if (message.includes("Invalid success metric")) {
+    return { code: "invalid_success_metric", message, path: "sections.success_metrics.success_metrics" };
+  }
   return { code: "invalid_product_spec", message };
 }
 
@@ -235,6 +258,25 @@ function validateDocument(document: ProductSpecDocument): {
   }
 
   for (const section of document.sections) {
+    if (section.scope) {
+      const path = `sections.${section.id}.scope`;
+      if (section.id !== "scope") {
+        errors.push({
+          code: "invalid_structured_scope",
+          message: "Structured scope blocks belong in Scope.",
+          path
+        });
+      }
+      const items = [...section.scope.in, ...section.scope.out, ...section.scope.cut];
+      if (!items.length || items.some((item) => !item.trim())) {
+        errors.push({
+          code: "invalid_structured_scope",
+          message: "Invalid structured scope: include at least one non-empty in, out, or cut item.",
+          path
+        });
+      }
+    }
+
     for (const [index, aiEval] of (section.ai_evals ?? []).entries()) {
       const path = `sections.${section.id}.ai_evals.${index}`;
       if (section.id !== "acceptance_criteria") {
@@ -265,6 +307,34 @@ function validateDocument(document: ProductSpecDocument): {
         errors.push({
           code: "invalid_ai_eval",
           message: "Invalid AI eval: checks must include at least one non-empty item.",
+          path
+        });
+      }
+    }
+
+    for (const [index, metric] of (section.success_metrics ?? []).entries()) {
+      const path = `sections.${section.id}.success_metrics.${index}`;
+      if (section.id !== "success_metrics") {
+        errors.push({
+          code: "invalid_success_metric",
+          message: "Structured success metric blocks belong in Success Metrics.",
+          path
+        });
+      }
+      const missingFields = ["id", "metric", "target", "window", "segment", "source"].filter(
+        (field) => !String(metric[field as keyof ProductSpecSuccessMetric] ?? "").trim()
+      );
+      if (missingFields.length) {
+        errors.push({
+          code: "invalid_success_metric",
+          message: `Invalid success metric: missing ${missingFields.join(", ")}.`,
+          path
+        });
+      }
+      if (metric.id && !/^[a-z0-9]+(?:_[a-z0-9]+)*$/.test(metric.id)) {
+        errors.push({
+          code: "invalid_success_metric",
+          message: "Invalid success metric: id must use snake_case.",
           path
         });
       }
@@ -352,14 +422,43 @@ function parseSections(
     const end = matches[index + 1]?.index ?? body.length;
     const id = sectionIdForLabel(label, customSections);
     const content = body.slice(start, end).trim();
+    const scope = parseScopeBlock(content);
     const ai_evals = parseAiEvalBlocks(content);
+    const success_metrics = parseSuccessMetricBlocks(content);
     return {
       id,
       label,
       content,
-      ...(ai_evals.length ? { ai_evals } : {})
+      ...(scope ? { scope } : {}),
+      ...(ai_evals.length ? { ai_evals } : {}),
+      ...(success_metrics.length ? { success_metrics } : {})
     };
   });
+}
+
+function parseScopeBlock(content: string): ProductSpecScope | undefined {
+  const blockPattern = /```productspec-scope\n([\s\S]*?)\n```/g;
+  const blocks = [...content.matchAll(blockPattern)];
+  if (!blocks.length) return undefined;
+
+  const scope: ProductSpecScope = { in: [], out: [], cut: [] };
+  for (const block of blocks) {
+    let category: keyof ProductSpecScope | undefined;
+    for (const line of block[1].split("\n")) {
+      if (!line.trim()) continue;
+      const categoryMatch = /^(in|out|cut):$/.exec(line.trim());
+      if (categoryMatch) {
+        category = categoryMatch[1] as keyof ProductSpecScope;
+        continue;
+      }
+      if (category && line.startsWith("  - ")) {
+        scope[category].push(unquote(line.replace(/^  - /, "")));
+        continue;
+      }
+      throw new Error(`Invalid structured scope block line: ${line}`);
+    }
+  }
+  return scope;
 }
 
 function parseAiEvalBlocks(content: string): ProductSpecAiEval[] {
@@ -421,6 +520,48 @@ function assignAiEvalValue(target: Partial<ProductSpecAiEval>, line: string) {
     target.checks = [];
     return;
   }
+  target[key] = unquote(match[2]) as never;
+}
+
+function parseSuccessMetricBlocks(content: string): ProductSpecSuccessMetric[] {
+  const blockPattern = /```productspec-success-metrics\n([\s\S]*?)\n```/g;
+  return [...content.matchAll(blockPattern)].flatMap((match) => parseSuccessMetricList(match[1]));
+}
+
+function parseSuccessMetricList(raw: string): ProductSpecSuccessMetric[] {
+  const metrics: Array<Partial<ProductSpecSuccessMetric>> = [];
+  let current: Partial<ProductSpecSuccessMetric> | undefined;
+
+  for (const line of raw.split("\n")) {
+    if (!line.trim()) continue;
+    if (line.startsWith("- ")) {
+      current = {};
+      metrics.push(current);
+      assignSuccessMetricValue(current, line.slice(2));
+      continue;
+    }
+    if (!current) throw new Error("Invalid success metric block: expected list item.");
+    if (line.startsWith("  ")) {
+      assignSuccessMetricValue(current, line.trim());
+      continue;
+    }
+    throw new Error(`Invalid success metric block line: ${line}`);
+  }
+
+  return metrics.map((metric) => ({
+    id: String(metric.id ?? ""),
+    metric: String(metric.metric ?? ""),
+    target: String(metric.target ?? ""),
+    window: String(metric.window ?? ""),
+    segment: String(metric.segment ?? ""),
+    source: String(metric.source ?? "")
+  }));
+}
+
+function assignSuccessMetricValue(target: Partial<ProductSpecSuccessMetric>, line: string) {
+  const match = /^([A-Za-z0-9_]+):\s*(.*)$/.exec(line);
+  if (!match) throw new Error(`Invalid success metric block line: ${line}`);
+  const key = match[1] as keyof ProductSpecSuccessMetric;
   target[key] = unquote(match[2]) as never;
 }
 

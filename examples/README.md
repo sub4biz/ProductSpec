@@ -18,9 +18,9 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 ## What To Notice
 
 - `problem` and `hypothesis` explain the product bet.
-- `scope` separates what ships now from what is deliberately excluded.
+- `scope` separates what ships now from what is deliberately excluded. Use `productspec-scope` when tools should parse it.
 - `acceptance_criteria` defines the build contract. For AI products, structured eval thresholds live here.
-- `success_metrics` defines the market contract after launch.
+- `success_metrics` defines the market contract after launch. Use `productspec-success-metrics` when tools should compare targets to outcomes.
 - `user_experience` is optional and points to the externally observable experience when one exists.
 - `spec_revision` in frontmatter tracks the revision of this Product Spec's intent, separate from `spec_format_version`.
 

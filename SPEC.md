@@ -80,6 +80,48 @@ Display labels are implementation-specific, except that tools should render `ai`
 - Dashboard or report.
 - Internal tool screen.
 
+Structured scope may be included in `scope` with a fenced `productspec-scope` block:
+
+````markdown
+```productspec-scope
+in:
+  - transcript search
+  - timestamped quote copy
+out:
+  - team libraries
+cut:
+  - speaker labels
+```
+````
+
+Structured scope supports:
+
+- `in`: what ships in this version.
+- `out`: what is explicitly outside this version.
+- `cut`: what was considered and deliberately removed.
+
+Structured success metrics may be included in `success_metrics` with a fenced `productspec-success-metrics` block:
+
+````markdown
+```productspec-success-metrics
+- id: quote_copy_rate
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+  segment: first-time transcript creators
+  source: product_analytics
+```
+````
+
+Each success metric item requires:
+
+- `id`: stable snake_case metric identifier.
+- `metric`: metric name.
+- `target`: threshold or target value.
+- `window`: time window for reading the metric.
+- `segment`: user, account, or traffic segment.
+- `source`: analytics, warehouse, survey, or other measurement source.
+
 For products with AI features, AI eval thresholds belong in `acceptance_criteria`, not `success_metrics`. Success metrics are post-launch product and business outcomes. Acceptance criteria are pre-launch build gates.
 
 Structured AI evals may be included in `acceptance_criteria` with a fenced `productspec-ai-evals` block:

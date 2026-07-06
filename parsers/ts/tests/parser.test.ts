@@ -205,10 +205,156 @@ In: transcript search, timestamp citations, and quote copy.
     if (!result.valid) expect(result.errors.map((error) => error.code)).toContain("invalid_ai_eval");
   });
 
+  it("extracts structured scope and success metrics", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Transcript Search"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+\`\`\`productspec-scope
+in:
+  - transcript search
+  - timestamped quote copy
+out:
+  - team libraries
+cut:
+  - speaker labels
+\`\`\`
+
+## Acceptance Criteria
+
+- User can search one transcript by phrase.
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: quote_copy_rate
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+  segment: first-time transcript creators
+  source: product_analytics
+\`\`\`
+`;
+
+    const parsed = parseProductSpecMarkdown(markdown);
+    const scope = parsed.sections.find((section) => section.id === "scope");
+    const successMetrics = parsed.sections.find((section) => section.id === "success_metrics");
+
+    expect(scope?.scope).toEqual({
+      in: ["transcript search", "timestamped quote copy"],
+      out: ["team libraries"],
+      cut: ["speaker labels"]
+    });
+    expect(successMetrics?.success_metrics).toEqual([
+      {
+        id: "quote_copy_rate",
+        metric: "copied_timestamped_quote_rate",
+        target: ">= 35%",
+        window: "within 7 days of transcript creation",
+        segment: "first-time transcript creators",
+        source: "product_analytics"
+      }
+    ]);
+    expect(parseProductSpecMarkdown(serializeProductSpecMarkdown(parsed))).toEqual(parsed);
+  });
+
+  it("rejects malformed structured scope and success metric blocks", () => {
+    const malformedScope = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Malformed Scope"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+\`\`\`productspec-scope
+maybe:
+  - transcript search
+\`\`\`
+
+## Acceptance Criteria
+
+- User can search one transcript by phrase.
+
+## Success Metrics
+
+- 35% copy a timestamped quote.
+`);
+    expect(malformedScope.valid).toBe(false);
+    if (!malformedScope.valid) {
+      expect(malformedScope.errors.map((error) => error.code)).toContain("invalid_structured_scope");
+    }
+
+    const malformedMetric = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Malformed Metrics"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+In: transcript search.
+
+## Acceptance Criteria
+
+- User can search one transcript by phrase.
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: quote_copy_rate
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+\`\`\`
+`);
+    expect(malformedMetric.valid).toBe(false);
+    if (!malformedMetric.valid) {
+      expect(malformedMetric.errors.map((error) => error.code)).toContain("invalid_success_metric");
+    }
+  });
+
   it("ships conformance fixtures for valid and invalid Product Specs", () => {
     const fixtures = [
       "conformance/valid/minimal.product-spec.md",
       "conformance/valid/with-user-experience.product-spec.md",
+      "conformance/valid/with-structured-scope-and-metrics.product-spec.md",
       "conformance/valid/with-ai-evals.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md",
       "conformance/invalid/missing-frontmatter.product-spec.md",
@@ -225,6 +371,7 @@ In: transcript search, timestamp citations, and quote copy.
     const validFixtures = [
       "conformance/valid/minimal.product-spec.md",
       "conformance/valid/with-user-experience.product-spec.md",
+      "conformance/valid/with-structured-scope-and-metrics.product-spec.md",
       "conformance/valid/with-ai-evals.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md"
     ];
@@ -275,6 +422,7 @@ In: transcript search, timestamp citations, and quote copy.
       type: "integer",
       minimum: 1
     });
+    expect(schema.properties.sections.items.properties.scope.required).toEqual(["in", "out", "cut"]);
     expect(schema.properties.sections.items.properties.ai_evals.items.required).toEqual([
       "id",
       "type",
@@ -282,6 +430,14 @@ In: transcript search, timestamp citations, and quote copy.
       "evaluator",
       "pass_threshold",
       "checks"
+    ]);
+    expect(schema.properties.sections.items.properties.success_metrics.items.required).toEqual([
+      "id",
+      "metric",
+      "target",
+      "window",
+      "segment",
+      "source"
     ]);
   });
 

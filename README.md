@@ -17,6 +17,8 @@ what / why      how / plan / tasks   implementation   outcome
 
 ProductSpec is neutral. It defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
 
+Design principle: structure the parts machines must execute or compare. Leave the parts humans must reason about readable.
+
 ## Living Specs
 
 Product Specs are living documents. They should change when evidence, scope, design, acceptance criteria, or success metrics change.
@@ -69,9 +71,22 @@ If incoming tickets are automatically labeled by urgency, customer tier, and lik
 
 ## Scope
 
-In: ticket ingestion, urgency labels, customer-tier lookup, owner recommendation, confidence score, reviewer override, and audit log.
-
-Out: auto-replies, direct ticket reassignment, customer-visible status changes, and custom routing rules.
+```productspec-scope
+in:
+  - ticket ingestion
+  - urgency labels
+  - customer-tier lookup
+  - owner recommendation
+  - confidence score
+  - reviewer override
+  - audit log
+out:
+  - auto-replies
+  - direct ticket reassignment
+  - customer-visible status changes
+cut:
+  - custom routing rules
+```
 
 ## Acceptance Criteria
 
@@ -87,7 +102,14 @@ Out: auto-replies, direct ticket reassignment, customer-visible status changes, 
 
 ## Success Metrics
 
-- Median time to first human response for account-risk tickets falls below 15 minutes during business hours.
+```productspec-success-metrics
+- id: account_risk_response_time
+  metric: median_time_to_first_human_response
+  target: "< 15 minutes"
+  window: business hours
+  segment: account-risk tickets
+  source: helpdesk_analytics
+```
 ````
 
 See `examples/ai-support-triage.product-spec.md` for the complete version.
