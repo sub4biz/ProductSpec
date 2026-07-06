@@ -40,6 +40,80 @@ Good issues from PMs and product leaders often start with:
 
 Use `Discussion`, `Example request`, or `Section vocabulary proposal` issues. Pull requests are welcome, but a clear issue with a real example is enough to move the standard forward.
 
+## How To Comment On Default Sections
+
+Use a `General spec discussion` issue when you want to comment on the default sections:
+
+- `problem`
+- `hypothesis`
+- `scope`
+- `acceptance_criteria`
+- `success_metrics`
+
+You do not need to open a pull request for this. An issue is the right starting point.
+
+Example issue:
+
+```md
+Title: Discussion: Acceptance Criteria and Success Metrics are unclear
+
+In my org, PMs confuse Acceptance Criteria and Success Metrics because both are written as measurable outcomes.
+
+Example:
+
+- Acceptance Criteria: Search returns matching transcript passages with timestamps.
+- Success Metrics: 35% of first-time users copy at least one timestamped passage.
+
+Suggested change:
+
+The field guide should say that Acceptance Criteria are checked before launch, while Success Metrics are measured after launch.
+```
+
+Maintainers can then discuss the proposal and decide whether it should become a docs change, example change, vocabulary change, schema change, or no change.
+
+## How To Propose A Section Vocabulary Change
+
+Use a `Section vocabulary proposal` issue when you want to add, remove, rename, or change a canonical section.
+
+Example issue:
+
+```md
+Title: Section proposal: add "constraints"
+
+Proposed section ID:
+constraints
+
+Section type:
+Optional
+
+What current gap does this solve?
+Some enterprise Product Specs need to name legal, compliance, operational, or migration constraints that shape the solution but do not belong in Scope.
+
+Example usage:
+
+## Constraints
+
+- Must preserve existing SSO behavior.
+- Must not store customer ticket bodies outside the customer's workspace.
+- Must support SOC 2 audit export requirements.
+
+Validation expectations:
+No special validation in v0.x. The section should be preserved and ordered after Scope.
+
+Compatibility and migration impact:
+Existing Product Specs remain valid. Tools that do not understand `constraints` should preserve it as an unknown or custom section.
+```
+
+After discussion, a section vocabulary change usually needs a pull request because it may touch:
+
+- `SPEC.md`
+- `schema/product-spec.schema.json`
+- `parsers/ts/src/index.ts`
+- conformance fixtures
+- examples
+- `docs/field-guide.md`
+- `CHANGELOG.md`
+
 ## Change Process
 
 Use the lightweight ProductSpec process:
@@ -82,6 +156,28 @@ Warnings should help authors improve a valid Product Spec. Errors should be rese
 ## Example Contributions
 
 Examples should be realistic, specific, and valid.
+
+Running validation does not submit anything. It only checks your local file.
+
+To contribute an example:
+
+```bash
+git clone https://github.com/<your-user>/ProductSpec.git
+cd ProductSpec
+npm install
+npm ci --prefix parsers/ts
+
+git checkout -b add-your-example
+cp examples/minimal.product-spec.md examples/your-example.product-spec.md
+
+npm run validate -- examples/your-example.product-spec.md
+
+git add examples/your-example.product-spec.md
+git commit -m "Add example Product Spec"
+git push origin add-your-example
+```
+
+Then open a pull request against `gokulrajaram/ProductSpec`. Maintainers review the pull request before the example becomes part of the standard repo.
 
 Run:
 
