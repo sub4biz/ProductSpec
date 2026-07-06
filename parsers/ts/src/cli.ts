@@ -11,6 +11,10 @@ if (command !== "validate" || !filePath) {
 
 const result = validateProductSpecMarkdown(readFileSync(filePath, "utf8"));
 
+for (const warning of result.warnings) {
+  console.warn(`warning ${warning.code}: ${warning.message}`);
+}
+
 if (result.valid) {
   console.log(`${filePath}: valid`);
   process.exit(0);

@@ -106,6 +106,156 @@ In: CSV upload and row-level error responses.
     }
   });
 
+  it("warns when required sections are present but too thin", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Thin Spec"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+TBD
+
+## Hypothesis
+
+If onboarding improves, users activate.
+
+## Scope
+
+In: onboarding.
+
+## Acceptance Criteria
+
+- Users can finish onboarding.
+
+## Success Metrics
+
+Activation rises.
+`;
+
+    const result = validateProductSpecMarkdown(markdown);
+
+    expect(result.valid).toBe(true);
+    if (result.valid) {
+      expect(result.warnings.map((warning) => warning.code)).toContain("empty_required_section");
+      expect(result.warnings.map((warning) => warning.code)).toContain("thin_required_section");
+    }
+  });
+
+  it("rejects duplicate sections, out-of-order required sections, and invalid custom IDs", () => {
+    const duplicate = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Duplicate Spec"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Teams cannot import records reliably.
+
+## Problem
+
+This is duplicated.
+
+## Hypothesis
+
+If imports expose a clear upload path, teams will trust onboarding.
+
+## Scope
+
+In: CSV upload and row-level errors.
+
+## Acceptance Criteria
+
+- Valid CSV files create import jobs.
+
+## Success Metrics
+
+- 80% of imports complete without support contact.
+`);
+    expect(duplicate.valid).toBe(false);
+    if (!duplicate.valid) expect(duplicate.errors.map((error) => error.code)).toContain("duplicate_section");
+
+    const outOfOrder = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Out Of Order Spec"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Teams cannot import records reliably.
+
+## Scope
+
+In: CSV upload and row-level errors.
+
+## Hypothesis
+
+If imports expose a clear upload path, teams will trust onboarding.
+
+## Acceptance Criteria
+
+- Valid CSV files create import jobs.
+
+## Success Metrics
+
+- 80% of imports complete without support contact.
+`);
+    expect(outOfOrder.valid).toBe(false);
+    if (!outOfOrder.valid) expect(outOfOrder.errors.map((error) => error.code)).toContain("invalid_section_order");
+
+    const invalidCustom = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Invalid Custom Spec"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+custom_sections:
+  - id: "notes"
+    label: "Notes"
+    after: "success_metrics"
+---
+
+## Problem
+
+Teams cannot import records reliably.
+
+## Hypothesis
+
+If imports expose a clear upload path, teams will trust onboarding.
+
+## Scope
+
+In: CSV upload and row-level errors.
+
+## Acceptance Criteria
+
+- Valid CSV files create import jobs.
+
+## Success Metrics
+
+- 80% of imports complete without support contact.
+
+## Notes
+
+Keep this around.
+`);
+    expect(invalidCustom.valid).toBe(false);
+    if (!invalidCustom.valid) expect(invalidCustom.errors.map((error) => error.code)).toContain("invalid_custom_section_id");
+  });
+
   it("provides a CLI validator with success and failure exit codes", () => {
     const build = spawnSync("npm", ["run", "build"], { cwd: packageRoot, encoding: "utf8" });
     expect(build.status, build.stderr).toBe(0);

@@ -57,6 +57,7 @@ ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 - `SPEC.md`: the canonical v0.1 standard.
 - `ROADMAP.md`: the planned path from v0.1 to a stable semantic model.
 - `docs/vision.md`: the public vision for ProductSpec as the intent layer.
+- `docs/validate-your-first-product-spec.md`: the fastest local validation path.
 - `docs/field-guide.md`: field-level guidance for writing each section.
 - `docs/versioning.md`: compatibility rules before v1.0.
 - `docs/decision-trace.md`: the future optional reasoning-trail extension.
@@ -102,6 +103,20 @@ Or use the shortcut:
 npm run validate -- examples/minimal.product-spec.md
 ```
 
-These commands build and run the local reference parser. The package-level `productspec`
-binary exists under `parsers/ts`, but it is not a global shell command until the package
-is installed or linked.
+To run the local `productspec` CLI without a global install:
+
+```bash
+npm run cli -- validate examples/minimal.product-spec.md
+```
+
+To link the CLI during development:
+
+```bash
+npm run link:cli
+```
+
+After linking, `productspec validate examples/minimal.product-spec.md` works if your npm
+global binary directory is on `PATH`. Until the package is published, `npm run cli -- ...`
+is the most reliable local command.
+
+See `docs/validate-your-first-product-spec.md` for the first-run path and current validator checks.

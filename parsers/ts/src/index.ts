@@ -57,9 +57,15 @@ export interface ProductSpecValidationError {
   path?: string;
 }
 
+export interface ProductSpecValidationWarning {
+  code: string;
+  message: string;
+  path?: string;
+}
+
 export type ProductSpecValidationResult =
-  | { valid: true; document: ProductSpecDocument; errors: [] }
-  | { valid: false; errors: ProductSpecValidationError[] };
+  | { valid: true; document: ProductSpecDocument; errors: []; warnings: ProductSpecValidationWarning[] }
+  | { valid: false; errors: ProductSpecValidationError[]; warnings: ProductSpecValidationWarning[] };
 
 const LABELS: Record<string, string> = {
   problem: "Problem",
@@ -99,11 +105,15 @@ export function parseProductSpecMarkdown(markdown: string): ProductSpecDocument 
 
 export function validateProductSpecMarkdown(markdown: string): ProductSpecValidationResult {
   try {
-    return { valid: true, document: parseProductSpecMarkdown(markdown), errors: [] };
+    const document = parseProductSpecMarkdown(markdown);
+    const { errors, warnings } = validateDocument(document);
+    if (errors.length) return { valid: false, errors, warnings };
+    return { valid: true, document, errors: [], warnings };
   } catch (error) {
     return {
       valid: false,
-      errors: [validationErrorFor(error)]
+      errors: [validationErrorFor(error)],
+      warnings: []
     };
   }
 }
@@ -139,6 +149,75 @@ function validationErrorFor(error: unknown): ProductSpecValidationError {
     return { code: "unsupported_artifact_type", message, path: "frontmatter.artifact_type" };
   }
   return { code: "invalid_product_spec", message };
+}
+
+function validateDocument(document: ProductSpecDocument): {
+  errors: ProductSpecValidationError[];
+  warnings: ProductSpecValidationWarning[];
+} {
+  const errors: ProductSpecValidationError[] = [];
+  const warnings: ProductSpecValidationWarning[] = [];
+  const seenSectionIds = new Set<string>();
+
+  for (const section of document.sections) {
+    if (seenSectionIds.has(section.id)) {
+      errors.push({
+        code: "duplicate_section",
+        message: `Duplicate section: ${section.id}`,
+        path: `sections.${section.id}`
+      });
+    }
+    seenSectionIds.add(section.id);
+  }
+
+  let lastRequiredIndex = -1;
+  for (const section of document.sections) {
+    const requiredIndex = MANDATORY_SECTION_IDS.indexOf(section.id as (typeof MANDATORY_SECTION_IDS)[number]);
+    if (requiredIndex === -1) continue;
+    if (requiredIndex < lastRequiredIndex) {
+      errors.push({
+        code: "invalid_section_order",
+        message: `Required section out of order: ${section.id}`,
+        path: `sections.${section.id}`
+      });
+    }
+    lastRequiredIndex = Math.max(lastRequiredIndex, requiredIndex);
+  }
+
+  for (const customSection of document.frontmatter.custom_sections ?? []) {
+    if (!/^custom-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(customSection.id)) {
+      errors.push({
+        code: "invalid_custom_section_id",
+        message: `Custom section id must use custom-<kebab-name>: ${customSection.id}`,
+        path: `frontmatter.custom_sections.${customSection.id}`
+      });
+    }
+  }
+
+  for (const sectionId of MANDATORY_SECTION_IDS) {
+    const section = document.sections.find((candidate) => candidate.id === sectionId);
+    if (!section) continue;
+
+    const meaningfulContent = section.content.replace(/[`*_#>\-\s\d.()[\]]/g, " ").trim();
+    const wordCount = meaningfulContent.split(/\s+/).filter(Boolean).length;
+    if (!meaningfulContent || /^tbd$/i.test(meaningfulContent)) {
+      warnings.push({
+        code: "empty_required_section",
+        message: `Required section has no meaningful content: ${sectionId}`,
+        path: `sections.${sectionId}`
+      });
+      continue;
+    }
+    if (wordCount < 6) {
+      warnings.push({
+        code: "thin_required_section",
+        message: `Required section is very short: ${sectionId}`,
+        path: `sections.${sectionId}`
+      });
+    }
+  }
+
+  return { errors, warnings };
 }
 
 function parseFrontmatter(raw: string): ProductSpecFrontmatter {

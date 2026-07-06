@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "cli": "npm run build && npm exec --package ./parsers/ts -- productspec",
+    "link:cli": "npm run build && npm --prefix parsers/ts link",
+    "test": "npm --prefix parsers/ts test",
     "validate": "npm run build && node dist/cli.js validate"
   }
 }
