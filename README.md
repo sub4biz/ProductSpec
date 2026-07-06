@@ -1,5 +1,9 @@
 # ProductSpec
 
+[![CI](https://github.com/gokulrajaram/ProductSpec/actions/workflows/ci.yml/badge.svg)](https://github.com/gokulrajaram/ProductSpec/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/@productspec/parser.svg)](https://www.npmjs.com/package/@productspec/parser)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 ProductSpec is an open standard for software intent before implementation.
 
 ProductSpec is designed for Product Specs that need to be read by humans, reviewed by product tools, and executed by AI agents downstream.
@@ -58,13 +62,13 @@ It sits upstream of them.
 ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 ```
 
-- Git stores implementation history.
-- Jira and Linear store work history.
-- Figma stores design artifacts.
+- Git stores implementation history. A Product Spec can live beside code in Git, but code commits should not be the first durable record of why the work exists.
+- Jira and Linear store work history. A Product Spec can become epics, tickets, or tasks, but it should remain the durable statement of intent behind those tasks.
+- Figma stores design artifacts. A Product Spec can link to prototypes, mockups, or screenshots through `user_experience`, but it does not replace the design source of truth.
 - Analytics tools store outcome data.
 - OpenSpec and Spec Kit turn intent into engineering plans.
 - AI coding agents execute implementation tasks.
-- ProductSpec stores the software intent behind the work.
+- ProductSpec stores the software intent behind the work: the problem, hypothesis, scope, acceptance criteria, and success metrics that downstream tools should preserve.
 
 ## What Is Included
 
@@ -72,7 +76,9 @@ ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 - `CHANGELOG.md`: release history for the standard and tooling.
 - `ROADMAP.md`: the planned path from v0.1 to a stable semantic model.
 - `docs/why-productspec.md`: why the intent layer needs its own artifact.
+- `docs/handoff-example.md`: how ProductSpec interacts with Jira, Figma, Git, OpenSpec, Spec Kit, and coding agents.
 - `docs/vision.md`: the public vision for ProductSpec as the intent layer.
+- `docs/validator.md`: validator error and warning codes.
 - `docs/validate-your-first-product-spec.md`: the fastest local validation path.
 - `docs/field-guide.md`: field-level guidance for writing each section.
 - `docs/versioning.md`: compatibility rules before v1.0.

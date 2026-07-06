@@ -19,11 +19,13 @@ Teams already have tools for work tracking, design, source control, engineering 
 ProductSpec sits before all of them.
 
 ```text
-Product Spec (ProductSpec) -> Engineering Spec (OpenSpec / Spec Kit) -> Code (agents)
-what / why                       how / plan / tasks                         implementation
+Product Spec (ProductSpec) -> Jira / Linear -> Engineering Spec -> Git / Code
+what / why                       work tracking   how / plan / tasks   implementation
 ```
 
 The Product Spec is where a team commits to the problem, hypothesis, scope, acceptance criteria, and success metrics before implementation begins.
+
+It can live in Git, link to Figma, generate Jira or Linear work, feed OpenSpec or Spec Kit, and guide AI coding agents. It should remain the durable statement of intent when tickets, branches, and implementation details change.
 
 ## Human Readable, Agent Executable
 
