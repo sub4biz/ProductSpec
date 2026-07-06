@@ -157,7 +157,6 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - `SPEC.md`: the canonical v0.1 standard.
 - `CHANGELOG.md`: release history for the standard and tooling.
 - `CONTRIBUTING.md`: how to propose examples, validator changes, and section vocabulary changes.
-- `ROADMAP.md`: the planned path from v0.1 to a stable semantic model.
 - `docs/philosophy.md`: the core beliefs behind ProductSpec.
 - `docs/launch-post.md`: a draft launch post for sharing the project.
 - `docs/why-productspec.md`: why the intent layer needs its own artifact.
