@@ -8,7 +8,7 @@ ProductSpec is an open standard for software intent before implementation.
 
 ProductSpec is designed for Product Specs that need to be read by humans, reviewed by product tools, and executed by AI agents downstream.
 
-ProductSpec.io is one implementation of ProductSpec. ProductSpec itself is neutral: it defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
+ProductSpec is neutral: it defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
 
 ## Quick Start
 
@@ -28,7 +28,6 @@ npm exec --package @productspec/parser -- productspec validate examples/minimal.
 
 - `ProductSpec` is the open standard, project, repository, and ecosystem for software intent.
 - `Product Spec` is the artifact a person writes.
-- `ProductSpec.io` is a managed implementation of ProductSpec.
 
 ## When To Use ProductSpec
 

@@ -4,7 +4,7 @@ ProductSpec is an open standard. Anyone can implement it.
 
 Governance is community-driven through GitHub Issues and Pull Requests on the public `gokulrajaram/ProductSpec` repository.
 
-ProductSpec.io is one implementation of ProductSpec: the managed authoring, review, calibration, and collaboration product. It may be the reference implementation, but it does not control ProductSpec's evolution by itself.
+ProductSpec is implementation-neutral. No product, service, or vendor controls ProductSpec's evolution by itself.
 
 ## Versioning
 
