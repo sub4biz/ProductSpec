@@ -49,6 +49,7 @@ ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 - `SPEC.md`: the canonical v0.1 standard.
 - `ROADMAP.md`: the planned path from v0.1 to a stable semantic model.
 - `docs/vision.md`: the public vision for ProductSpec as the intent layer.
+- `docs/field-guide.md`: field-level guidance for writing each section.
 - `docs/decision-trace.md`: the future optional reasoning-trail extension.
 - `schema/product-spec.schema.json`: JSON Schema for parsed Product Spec documents.
 - `schema/review-annotation.schema.json`: JSON Schema for portable review annotations.
