@@ -1,0 +1,103 @@
+{
+  "decision_trace_format_version": "0.1",
+  "trace_id": "transcript-search-trace",
+  "title": "Transcript Search Decision Trace",
+  "created_at": "2026-07-06T00:00:00Z",
+  "updated_at": "2026-07-07T00:00:00Z",
+  "subject": {
+    "type": "product_spec",
+    "id": "ai-transcript-search",
+    "title": "AI Transcript Search",
+    "product_spec_path": "../full-prd.product-spec.md",
+    "product_spec_revision": 1
+  },
+  "events": [
+    {
+      "event_id": "start-with-single-video",
+      "event_type": "intent_decision",
+      "occurred_at": "2026-07-06T00:00:00Z",
+      "summary": "Start with single-video transcript search before multi-video projects.",
+      "source": {
+        "product_spec_revision": 1,
+        "links": [
+          {
+            "type": "product_spec",
+            "url": "../full-prd.product-spec.md",
+            "title": "AI Transcript Search Product Spec"
+          }
+        ]
+      },
+      "decision": {
+        "outcome": "no_action",
+        "rationale": "Researcher workflows showed quote retrieval inside one source as the acute pain.",
+        "approved_by": ["Product lead"]
+      }
+    },
+    {
+      "event_id": "speaker-labels-request",
+      "event_type": "scope_drift",
+      "occurred_at": "2026-07-07T00:00:00Z",
+      "summary": "Implementation branch added speaker label extraction even though speaker labels were cut from v1 scope.",
+      "source": {
+        "product_spec_revision": 1,
+        "links": [
+          {
+            "type": "github_pr",
+            "url": "https://github.com/example/transcript-search/pull/42",
+            "title": "Add speaker label extraction"
+          }
+        ]
+      },
+      "drift": {
+        "spec_claim": "Speaker labels are listed as cut from this version.",
+        "observed_reality": "The pull request adds speaker label extraction to transcript processing."
+      },
+      "decision": {
+        "outcome": "update_implementation",
+        "rationale": "Speaker labels remain useful, but they add evaluation and UX complexity outside the intended first release.",
+        "approved_by": ["Product lead", "Engineering lead"]
+      },
+      "result": {
+        "linked_artifacts": [
+          {
+            "type": "github_pr",
+            "url": "https://github.com/example/transcript-search/pull/43",
+            "title": "Remove speaker labels from first release branch"
+          }
+        ],
+        "learning": "Cut scope needs to be checked in pull requests, not only during planning."
+      }
+    },
+    {
+      "event_id": "copy-rate-target-revision",
+      "event_type": "spec_revision",
+      "occurred_at": "2026-07-07T00:00:00Z",
+      "summary": "Clarified the timestamped quote copy metric after analytics instrumentation review.",
+      "source": {
+        "product_spec_revision": 1,
+        "links": [
+          {
+            "type": "analytics_snapshot",
+            "url": "https://example.com/analytics/transcript-search-instrumentation",
+            "title": "Transcript Search Instrumentation Review"
+          }
+        ]
+      },
+      "decision": {
+        "outcome": "update_spec",
+        "rationale": "The metric should count first-time transcript creators within 7 days, not all active users.",
+        "approved_by": ["Product lead"]
+      },
+      "result": {
+        "new_product_spec_revision": 2,
+        "linked_artifacts": [
+          {
+            "type": "product_spec",
+            "url": "../full-prd.product-spec.md",
+            "title": "AI Transcript Search Product Spec"
+          }
+        ]
+      }
+    }
+  ]
+}

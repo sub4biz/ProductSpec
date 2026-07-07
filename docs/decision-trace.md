@@ -1,76 +1,108 @@
 # Decision Trace
 
-Decision Trace is a planned optional extension to ProductSpec.
+Decision Trace is an optional companion standard to ProductSpec.
 
-A Product Spec captures the current product intent. A Decision Trace captures the reasoning that produced it.
+ProductSpec captures committed intent. Decision Trace records how consequential decisions, drift, revisions, and outcomes are handled over time.
 
-## Why It Matters
+Decision Trace is not a ProductSpec section. It can live beside a Product Spec, but it is intentionally general enough to trace other consequential software decisions.
 
-Teams do not only need to know what was written in a spec. They often need to know:
-
-- Why this was built.
-- What evidence supported it.
-- Which alternatives were considered.
-- Who approved the decision.
-- What was expected to happen.
-- What happened after launch.
-- What the team learned.
-
-ProductSpec should eventually support this reasoning trail in a portable way.
-
-## Proposed Shape
-
-A Decision Trace should be able to capture:
-
-- Evidence.
-- Observations.
-- Hypotheses.
-- Alternatives considered.
-- Decision.
-- Approvals.
-- Expected outcomes.
-- Implementation links.
-- Observed outcomes.
-- Learnings.
-
-Example:
-
-```yaml
-decision_traces:
-  - id: "decision_001"
-    related_sections: ["hypothesis", "scope"]
-    decision: "Start with YouTube transcript search before multi-source ingestion."
-    evidence:
-      - "Researcher interviews repeatedly showed quote retrieval as the acute pain."
-    alternatives_considered:
-      - "Support podcasts first."
-      - "Support PDFs first."
-    approved_by:
-      - "Product lead"
-    expected_outcome: "Researchers can find and cite passages faster."
-    linked_artifacts:
-      - type: "engineering_spec"
-        url: "https://example.com/spec"
-      - type: "github_pr"
-        url: "https://github.com/example/repo/pull/1"
-    observed_outcome: null
-    learning: null
+```text
+ProductSpec = current committed intent
+Decision Trace = how that intent changed, drifted, or was reconciled
 ```
 
-## Storage
+## Why It Exists
 
-Decision Traces can live in Git beside Product Specs for open source and agent-native workflows.
+Intent does not stay fixed once implementation starts.
 
-They can also live in other systems. The open standard should define the portable schema and link conventions, not require one storage backend.
+Code changes. Tests codify behavior. Prototypes evolve. AI eval thresholds move. Metrics get instrumented differently. Workarounds become user-visible behavior.
 
-## Versioning
+Some of those changes are legitimate product decisions. Some are accidental drift.
 
-Decision Trace should not block adoption of the core ProductSpec document format.
+Decision Trace records the explicit decision:
 
-The likely path is:
+- update the Product Spec
+- update the implementation
+- accept the tradeoff
+- reopen the work
+- record the learning
 
-- v0.1: Product Spec document format.
-- v0.2: Validation and conformance.
-- v0.3: Optional Decision Trace schema.
-- v0.4: Outcome and tool-link conventions.
-- v1.0: Stable semantic model.
+The goal is not to record every comment or meeting note. The goal is to make consequential decisions portable and durable.
+
+## Relationship To ProductSpec
+
+ProductSpec standardizes software intent before implementation.
+
+Decision Trace standardizes how intent changes after evidence, implementation, or outcomes challenge it.
+
+A typical Git layout:
+
+```text
+specs/
+  transcript-search.product-spec.md
+  transcript-search.decision-trace.json
+```
+
+The Product Spec remains the current committed intent. The Decision Trace explains how the team got there.
+
+## Event Types
+
+Decision Trace supports these initial event types:
+
+- `intent_decision`
+- `scope_drift`
+- `acceptance_criteria_drift`
+- `ux_drift`
+- `ai_eval_drift`
+- `success_metric_review`
+- `implementation_tradeoff`
+- `spec_revision`
+- `outcome_review`
+
+## Core Shape
+
+```json
+{
+  "decision_trace_format_version": "0.1",
+  "trace_id": "transcript-search-trace",
+  "title": "Transcript Search Decision Trace",
+  "created_at": "2026-07-06T00:00:00Z",
+  "updated_at": "2026-07-07T00:00:00Z",
+  "subject": {
+    "type": "product_spec",
+    "id": "ai-transcript-search",
+    "product_spec_path": "../full-prd.product-spec.md",
+    "product_spec_revision": 1
+  },
+  "events": [
+    {
+      "event_id": "speaker-labels-request",
+      "event_type": "scope_drift",
+      "occurred_at": "2026-07-07T00:00:00Z",
+      "summary": "Implementation branch added speaker label extraction even though speaker labels were cut from v1 scope.",
+      "drift": {
+        "spec_claim": "Speaker labels are listed as cut from this version.",
+        "observed_reality": "The pull request adds speaker label extraction to transcript processing."
+      },
+      "decision": {
+        "outcome": "update_implementation",
+        "rationale": "Speaker labels add evaluation and UX complexity outside the intended first release.",
+        "approved_by": ["Product lead", "Engineering lead"]
+      }
+    }
+  ]
+}
+```
+
+## Files
+
+- Schema: [`schema/decision-trace.schema.json`](../schema/decision-trace.schema.json)
+- Example: [`examples/decision-traces/transcript-search.decision-trace.json`](../examples/decision-traces/transcript-search.decision-trace.json)
+
+## Open Standard Boundary
+
+The open standard defines the portable trace format and link conventions.
+
+Implementations can generate traces, detect drift, connect to tools, propose revisions, ask for approval, and build organizational memory on top of the format.
+
+The trace format should be open. The trace generation and reconciliation system can be implemented many ways.

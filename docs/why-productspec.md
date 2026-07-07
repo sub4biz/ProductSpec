@@ -76,7 +76,7 @@ It defines the portable structure:
 - validation rules
 - conformance fixtures
 - review annotation shapes
-- future decision trace extensions
+- Decision Trace companion documents
 
 Different products and teams can build opinionated review layers on top.
 

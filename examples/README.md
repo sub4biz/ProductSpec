@@ -16,6 +16,7 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 | [`full-prd.product-spec.md`](full-prd.product-spec.md) | Optional sections and a richer PRD-style artifact. |
 | [`hypothesis.product-spec.md`](hypothesis.product-spec.md) | A smaller bet framed as a hypothesis artifact. |
 | [`revisions/`](revisions/) | A Product Spec evolving from `spec_revision: 1` to `spec_revision: 2`. |
+| [`decision-traces/`](decision-traces/) | Companion Decision Trace examples for decisions, drift, and revisions. |
 
 ## What To Notice
 

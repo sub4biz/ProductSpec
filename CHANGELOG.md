@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.7.0 - Decision Trace
+
+ProductSpec v0.7.0 adds Decision Trace as an optional companion standard.
+
+Added:
+
+- `schema/decision-trace.schema.json` for portable decision, drift, revision, and outcome traces.
+- Example Decision Trace under `examples/decision-traces/`.
+- Documentation for Decision Trace as a companion format rather than a ProductSpec section.
+
 ## v0.6.0 - Structured Scope And Success Metrics
 
 ProductSpec v0.6.0 keeps the Product Spec document shape at `spec_format_version:

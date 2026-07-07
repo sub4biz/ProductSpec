@@ -441,6 +441,44 @@ In: transcript search.
     ]);
   });
 
+  it("ships Decision Trace as an optional companion standard", () => {
+    const schemaPath = `${root}/schema/decision-trace.schema.json`;
+    const examplePath = `${root}/examples/decision-traces/transcript-search.decision-trace.json`;
+
+    expect(existsSync(schemaPath)).toBe(true);
+    expect(existsSync(examplePath)).toBe(true);
+
+    const schema = JSON.parse(readFileSync(schemaPath, "utf8"));
+    const example = JSON.parse(readFileSync(examplePath, "utf8"));
+
+    expect(schema.properties.decision_trace_format_version.const).toBe("0.1");
+    expect(schema.required).toEqual([
+      "decision_trace_format_version",
+      "trace_id",
+      "title",
+      "created_at",
+      "updated_at",
+      "subject",
+      "events"
+    ]);
+    expect(schema.properties.events.items.properties.event_type.enum).toEqual([
+      "intent_decision",
+      "scope_drift",
+      "acceptance_criteria_drift",
+      "ux_drift",
+      "ai_eval_drift",
+      "success_metric_review",
+      "implementation_tradeoff",
+      "spec_revision",
+      "outcome_review"
+    ]);
+
+    expect(example.decision_trace_format_version).toBe("0.1");
+    expect(example.subject.type).toBe("product_spec");
+    expect(example.events.map((event: { event_type: string }) => event.event_type)).toContain("scope_drift");
+    expect(example.events.map((event: { event_type: string }) => event.event_type)).toContain("spec_revision");
+  });
+
   it("rejects invalid spec revision values", () => {
     const result = validateProductSpecMarkdown(`---
 spec_format_version: "0.1"

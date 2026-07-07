@@ -28,7 +28,7 @@ Success Metrics tell the team whether the shipped product mattered.
 
 ProductSpec is Markdown-first because intent should live where software teams already work: Git, pull requests, issues, docs, editors, and agent workflows.
 
-It also includes `spec_revision`, because product specs are living documents. Scope changes. Designs change. Acceptance criteria change. A ticket, engineering spec, pull request, or future decision trace should be able to say exactly which revision of the product intent it implements.
+It also includes `spec_revision`, because product specs are living documents. Scope changes. Designs change. Acceptance criteria change. A ticket, engineering spec, pull request, or Decision Trace should be able to say exactly which revision of the product intent it implements.
 
 The repo includes:
 

@@ -15,9 +15,11 @@ Product Spec -> Engineering Spec -> Code -> Evaluation -> Learning
 what / why      how / plan / tasks   implementation   outcome
 ```
 
-ProductSpec is neutral. It defines structure, section IDs, portable review annotations, calibration-example serialization, and eventually portable decision traces. It does not define what makes a Product Spec good.
+ProductSpec is neutral. It defines structure, section IDs, portable review annotations, calibration-example serialization, and portable decision traces. It does not define what makes a Product Spec good.
 
 Design principle: structure the parts machines must execute or compare. Leave the parts humans must reason about readable.
+
+Decision Trace is the optional companion standard for recording how consequential decisions, drift, revisions, and outcomes are handled over time.
 
 ## Living Specs
 
@@ -32,7 +34,7 @@ spec_revision: 2           # scope changed after design review
 spec_revision: 3           # acceptance criteria updated before implementation
 ```
 
-Git keeps the detailed history. `spec_revision` lets people and tools cite the intent revision they are using: a Jira ticket, an engineering spec, an AI agent loop, a pull request, or a future decision trace.
+Git keeps the detailed history. `spec_revision` lets people and tools cite the intent revision they are using: a Jira ticket, an engineering spec, an AI agent loop, a pull request, or a Decision Trace.
 
 See `examples/revisions/` for a Product Spec that evolves from revision 1 to revision 2.
 
@@ -200,12 +202,14 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [docs/validate-your-first-product-spec.md](docs/validate-your-first-product-spec.md): the fastest local validation path.
 - [docs/field-guide.md](docs/field-guide.md): field-level guidance for writing each section.
 - [docs/versioning.md](docs/versioning.md): compatibility rules before v1.0.
-- [docs/decision-trace.md](docs/decision-trace.md): the future optional reasoning-trail extension.
+- [docs/decision-trace.md](docs/decision-trace.md): the optional companion standard for decisions, drift, and revisions.
 - [schema/product-spec.schema.json](schema/product-spec.schema.json): JSON Schema for parsed Product Spec documents.
+- [schema/decision-trace.schema.json](schema/decision-trace.schema.json): JSON Schema for Decision Trace documents.
 - [schema/review-annotation.schema.json](schema/review-annotation.schema.json): JSON Schema for portable review annotations.
 - [conformance/](conformance/): valid and invalid fixtures for implementers.
 - [examples/README.md](examples/README.md): guide to choosing the right example.
 - [examples/](examples/): minimal and expanded examples.
+- [examples/decision-traces/](examples/decision-traces/): companion Decision Trace examples.
 - [parsers/ts](parsers/ts): TypeScript reference parser, validator, and CLI.
 
 Examples include AI features, consumer UX, enterprise workflows, internal APIs, and agent handoffs:
