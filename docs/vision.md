@@ -61,6 +61,56 @@ ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 
 The goal is interoperability. ProductSpec should preserve the intent that downstream systems consume, execute, and report back against.
 
+## Intent, Reality, And Drift
+
+ProductSpec should not assume intent is written once.
+
+ProductSpec captures committed intent. Implementation creates reality. Drift is the delta between the two.
+
+That drift can come from explicit product decisions, but it can also come from quieter changes:
+
+- A workaround ships and becomes user-visible behavior.
+- A test codifies behavior that was never written in the Product Spec.
+- A prototype changes after the Product Spec was approved.
+- An AI eval threshold changes during implementation.
+- Analytics show the success metric target was missed or measured differently.
+
+ProductSpec should not be overwritten by implementation. Accidental behavior should not silently become intent.
+
+ProductSpec should be reconciled against implementation. When code, tests, UX, evals, analytics, or support evidence diverge from the Product Spec, tools should be able to flag the drift and force an explicit decision:
+
+- Update the Product Spec.
+- Update the implementation.
+- Record an accepted tradeoff.
+- Reopen the work.
+
+The open standard should define portable artifacts for this loop. Implementations can connect to GitHub, issue trackers, design tools, CI, eval systems, analytics, and deployed products to detect drift.
+
+## Decision Trace
+
+Decision Trace is the audit trail for drift reconciliation.
+
+ProductSpec says what the team intended.
+
+Drift detection says where reality appears to differ.
+
+Decision Trace records what the team noticed, what it decided, who approved it, and what changed.
+
+Decision Trace should be able to capture:
+
+- Intent decisions: why a direction, scope, acceptance criterion, or success metric changed.
+- Drift events: where implementation, tests, UX, evals, or metrics diverged from the Product Spec.
+- Reconciliation decisions: whether the team updated the spec, changed the implementation, accepted a tradeoff, or reopened work.
+- Outcome reviews: whether the hypothesis held, what the success metrics showed, and what the team learned.
+
+The loop is:
+
+```text
+Intent -> Implementation -> Drift -> Decision -> Revised Intent
+```
+
+The Product Spec remains the current committed intent. Decision Trace explains how that intent changed over time.
+
 ## What ProductSpec Defines
 
 ProductSpec defines interoperability, not taste.
