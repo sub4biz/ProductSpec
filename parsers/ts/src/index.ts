@@ -558,6 +558,9 @@ function assignSuccessMetricValue(target: Partial<ProductSpecSuccessMetric>, lin
   const match = /^([A-Za-z0-9_]+):\s*(.*)$/.exec(line);
   if (!match) throw new Error(`Invalid success metric block line: ${line}`);
   const key = match[1] as keyof ProductSpecSuccessMetric;
+  if (!["id", "metric", "target", "window"].includes(key)) {
+    throw new Error(`Invalid success metric field: ${key}`);
+  }
   target[key] = unquote(match[2]) as never;
 }
 

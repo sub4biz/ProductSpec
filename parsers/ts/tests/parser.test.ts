@@ -344,6 +344,47 @@ In: transcript search.
     if (!malformedMetric.valid) {
       expect(malformedMetric.errors.map((error) => error.code)).toContain("invalid_success_metric");
     }
+
+    const oldMetricShape = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Old Metrics"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+In: transcript search.
+
+## Acceptance Criteria
+
+- User can search one transcript by phrase.
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: quote_copy_rate
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+  segment: first-time transcript creators
+  source: product_analytics
+\`\`\`
+`);
+    expect(oldMetricShape.valid).toBe(false);
+    if (!oldMetricShape.valid) {
+      expect(oldMetricShape.errors.map((error) => error.code)).toContain("invalid_success_metric");
+    }
   });
 
   it("ships conformance fixtures for valid and invalid Product Specs", () => {
