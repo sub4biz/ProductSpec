@@ -150,7 +150,7 @@ For AI products, use a structured eval block when the eval should be parsed by t
 ````markdown
 ```productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   cases:
     - input: "Representative input for this eval."
       expected: "Expected behavior for this eval."
@@ -162,7 +162,7 @@ For AI products, use a structured eval block when the eval should be parsed by t
 ```
 ````
 
-Use plain bullets when the eval is still a rough human note. Use the structured block when the eval is part of the launch gate.
+Use plain bullets when the eval is still a rough human note. Use the structured block when the eval is part of the launch gate. `checks` are optional; add them only when `input` and `expected` need extra grading rules.
 
 **Example:**
 
@@ -177,7 +177,7 @@ Use plain bullets when the eval is still a rough human note. Use the structured 
 ```
 ````
 
-Acceptance Criteria use generated durable IDs (`AC-1`, `AC-2`) because agents, tickets, pull requests, and Decision Traces may need to cite the exact build condition. Eval cases and checks stay un-IDed; cite them positionally if needed, such as `EVAL-1.case[2]`.
+Acceptance Criteria use generated durable IDs (`AC-1`, `AC-2`) because agents, tickets, pull requests, and Decision Traces may need to cite the exact build condition. Eval cases and optional checks stay un-IDed; cite them positionally if needed, such as `EVAL-1.case[2]`.
 
 **Relationship to Success Metrics:**
 

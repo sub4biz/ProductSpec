@@ -26,7 +26,7 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 - `scope` separates what ships now from what is deliberately excluded. Use `productspec-scope` when tools should parse it.
 - `acceptance_criteria` defines the build contract and uses generated `AC-<number>` IDs.
 - `success_metrics` defines the market contract after launch and uses generated `SM-<number>` IDs.
-- AI evals use generated `EVAL-<number>` IDs; eval cases and checks stay un-IDed.
+- AI evals use generated `EVAL-<number>` IDs; eval cases and optional checks stay un-IDed.
 - `user_experience` is optional and points to the externally observable experience when one exists.
 - `spec_revision` in frontmatter tracks the revision of this Product Spec's intent, separate from `spec_format_version`.
 

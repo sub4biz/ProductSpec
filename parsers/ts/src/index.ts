@@ -366,10 +366,10 @@ function validateDocument(document: ProductSpecDocument): {
           path
         });
       }
-      if (!aiEval.checks.length || aiEval.checks.some((check) => !check.trim())) {
+      if (aiEval.checks.some((check) => !check.trim())) {
         errors.push({
           code: "invalid_ai_eval",
-          message: "Invalid AI eval: checks must include at least one non-empty item.",
+          message: "Invalid AI eval: checks must be non-empty when provided.",
           path
         });
       }

@@ -141,7 +141,7 @@ Structured AI evals may also be included in `acceptance_criteria` with a fenced 
 ````markdown
 ```productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   cases:
     - input: "Representative input for this eval."
       expected: "Expected behavior for this eval."
@@ -157,13 +157,13 @@ Structured AI evals may also be included in `acceptance_criteria` with a fenced 
 Each AI eval item requires:
 
 - `id`: generated durable identifier using `EVAL-<number>`.
-- `type`: eval type, for example `rubric`, `deterministic`, `regression`, or `human_review`.
+- `type`: eval type, for example `exact_match`, `contains`, `regex`, `llm_judge`, or `human_review`.
 - `cases`: one or more inline test cases, each with `input` and `expected`.
 - `evaluator`: evaluator name or mechanism.
 - `pass_threshold`: number greater than `0` and less than or equal to `1`.
-- `checks`: one or more pass/fail checks.
+- `checks`: optional extra pass/fail grading rules when `input` and `expected` are not specific enough on their own.
 
-Eval cases and checks do not get standalone IDs. If a tool needs to cite them, it should use positional references such as `EVAL-1.case[2]` or `EVAL-1.check[1]`.
+Eval cases and optional checks do not get standalone IDs. If a tool needs to cite them, it should use positional references such as `EVAL-1.case[2]` or `EVAL-1.check[1]`.
 
 Tools should preserve fenced blocks in Markdown and may expose parsed criteria, metrics, and evals as structured data.
 

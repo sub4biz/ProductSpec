@@ -142,7 +142,7 @@
             "minItems": 1,
             "items": {
               "type": "object",
-              "required": ["id", "type", "evaluator", "pass_threshold", "cases", "checks"],
+              "required": ["id", "type", "evaluator", "pass_threshold", "cases"],
               "properties": {
                 "id": { "type": "string", "pattern": "^EVAL-[1-9][0-9]*$" },
                 "type": { "type": "string", "minLength": 1 },

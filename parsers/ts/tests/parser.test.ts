@@ -155,7 +155,7 @@ In: transcript search, timestamp citations, and quote copy.
 
 \`\`\`productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   evaluator: llm_judge
   pass_threshold: 0.85
   cases:
@@ -188,7 +188,7 @@ In: transcript search, timestamp citations, and quote copy.
     expect(acceptanceCriteria?.ai_evals).toEqual([
       {
         id: "EVAL-1",
-        type: "rubric",
+        type: "llm_judge",
         evaluator: "llm_judge",
         pass_threshold: 0.85,
         cases: [
@@ -201,6 +201,58 @@ In: transcript search, timestamp citations, and quote copy.
       }
     ]);
     expect(parseProductSpecMarkdown(serializeProductSpecMarkdown(parsed))).toEqual(parsed);
+  });
+
+  it("accepts structured AI evals without optional checks", () => {
+    const result = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "AI Quote Search"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If quote search returns cited transcript passages, researchers will trust the transcript as a source.
+
+## Scope
+
+In: transcript search.
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: User can search a transcript by phrase.
+\`\`\`
+
+\`\`\`productspec-ai-evals
+- id: EVAL-1
+  type: exact_match
+  evaluator: deterministic
+  pass_threshold: 1
+  cases:
+    - input: "Copy passage"
+      expected: "Copied"
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: weekly_active_researchers_copying_timestamped_quote
+  target: ">= 40%"
+  window: weekly
+\`\`\`
+`);
+
+    expect(result.valid).toBe(true);
   });
 
   it("rejects malformed AI eval blocks", () => {
@@ -234,7 +286,7 @@ In: transcript search, timestamp citations, and quote copy.
 
 \`\`\`productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   pass_threshold: 0.85
 \`\`\`
 
@@ -283,7 +335,7 @@ In: transcript search, timestamp citations, and quote copy.
 
 \`\`\`productspec-ai-evals
 - id: quote_relevance
-  type: rubric
+  type: llm_judge
   evaluator: llm_judge
   pass_threshold: 0.85
   cases:
@@ -595,8 +647,7 @@ In: transcript search.
       "type",
       "evaluator",
       "pass_threshold",
-      "cases",
-      "checks"
+      "cases"
     ]);
     expect(schema.properties.sections.items.properties.ai_evals.items.properties.id.pattern).toBe(
       "^EVAL-[1-9][0-9]*$"

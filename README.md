@@ -123,7 +123,7 @@ cut:
 
 ```productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   cases:
     - input: "Representative input for this eval."
       expected: "Expected behavior for this eval."
@@ -202,7 +202,7 @@ Current repo artifacts:
 - GitHub issue and pull request templates.
 - Examples for AI features, consumer UX, enterprise workflows, internal APIs, and revision history.
 
-Durable IDs are generated for the top-level items that tools execute or compare: `AC-1` for Acceptance Criteria, `SM-1` for Success Metrics, and `EVAL-1` for AI evals. Scope bullets, eval cases, eval checks, and prose/custom sections remain un-IDed. Tools that need to cite eval children should use positional references like `EVAL-1.case[2]`.
+Durable IDs are generated for the top-level items that tools execute or compare: `AC-1` for Acceptance Criteria, `SM-1` for Success Metrics, and `EVAL-1` for AI evals. Scope bullets, eval cases, optional eval checks, and prose/custom sections remain un-IDed. Tools that need to cite eval children should use positional references like `EVAL-1.case[2]`.
 
 Natural integration points:
 

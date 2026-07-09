@@ -49,7 +49,7 @@ cut:
 
 ```productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   cases:
     - input: "Representative input for this eval."
       expected: "Expected behavior for this eval."

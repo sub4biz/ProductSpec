@@ -31,15 +31,12 @@ In: transcript search, timestamp citations, and quote copy.
 
 ```productspec-ai-evals
 - id: EVAL-1
-  type: rubric
+  type: llm_judge
   cases:
     - input: "Representative input for this eval."
       expected: "Expected behavior for this eval."
   evaluator: llm_judge
   pass_threshold: 0.85
-  checks:
-    - returned passage answers the query
-    - citation links to the correct timestamp
 ```
 
 ## Success Metrics

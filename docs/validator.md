@@ -90,11 +90,14 @@ Required fields:
 - `evaluator`
 - `pass_threshold`
 - `cases`
+
+Optional fields:
+
 - `checks`
 
-Fix: place the block inside Acceptance Criteria, include every required field, use an ID in the form `EVAL-<number>`, set `pass_threshold` to a number greater than `0` and less than or equal to `1`, include at least one inline case with `input` and `expected`, and include at least one check.
+Fix: place the block inside Acceptance Criteria, include every required field, use an ID in the form `EVAL-<number>`, set `pass_threshold` to a number greater than `0` and less than or equal to `1`, and include at least one inline case with `input` and `expected`. Add `checks` only when the input/expected cases need extra grading rules.
 
-Eval cases and checks do not have their own IDs. If a tool needs to cite them, use positional references such as `EVAL-1.case[2]` or `EVAL-1.check[1]`.
+Eval cases and optional checks do not have their own IDs. If a tool needs to cite them, use positional references such as `EVAL-1.case[2]` or `EVAL-1.check[1]`.
 
 ### `invalid_acceptance_criterion`
 
