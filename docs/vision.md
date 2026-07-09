@@ -90,6 +90,14 @@ The open standard should define portable artifacts for this loop. Implementation
 
 The open standard should stay portable. A managed implementation can make the standard useful inside day-to-day product and engineering work.
 
+ProductSpec should learn from repo-native knowledge systems without becoming one too quickly.
+
+The open standard should add only the small portable nouns that many tools can share: related artifacts, code or component scope, validation outputs, and Decision Trace references to Product Spec sections and item IDs.
+
+The managed implementation can move faster on workflows: GitHub publishing, pull request review, issue creation, traceability panels, inline validation, implementation evidence, drift detection, and Decision Trace drafting.
+
+This split keeps the standard understandable while giving ProductSpec.io room to prove which workflows matter. When a managed convention becomes broadly useful, it can graduate into the open standard as a small interoperable field or schema.
+
 The managed implementation should be Git-native, not Git-centric.
 
 PMs should be able to work in a polished ProductSpec editor. Engineers should be able to review clean Markdown, pull requests, commits, and linked implementation history in GitHub.
