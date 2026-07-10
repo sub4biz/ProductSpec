@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+No unreleased changes.
+
+## v0.8.0 - Traceability And Agent Skill
+
+ProductSpec v0.8.0 keeps the Product Spec document shape at `spec_format_version:
+"0.1"` and adds portable traceability plus a loadable agent adoption surface.
+
 Added:
 
 - GitHub Action wrapper for validating ProductSpec files in downstream repos.
@@ -12,6 +19,13 @@ Added:
 - Additional examples for AI-agent handoff and platform migration work.
 - Structured `productspec-acceptance-criteria` blocks with generated durable `AC-<number>` IDs.
 - Generated durable IDs for structured Success Metrics (`SM-<number>`) and AI evals (`EVAL-<number>`).
+- Optional `applies_to` frontmatter for broad path or component scope.
+- Optional `related_artifacts` section with structured `productspec-related-artifacts` blocks.
+- Parser and JSON Schema support for related artifacts.
+- Validation for malformed `applies_to` and related artifact blocks.
+- Conformance fixture for traceable Product Specs.
+- `skills/productspec/SKILL.md` for agents implementing from Product Specs.
+- `docs/agent-usage.md` for teams using ProductSpec as the control file for agent-led work.
 
 Changed:
 

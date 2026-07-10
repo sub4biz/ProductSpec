@@ -84,6 +84,42 @@ Acceptance criteria covered:
 
 The Product Spec can also be updated through pull request review when product intent changes.
 
+## Add Traceability As Work Progresses
+
+Use `linked_github_repo` and `applies_to` for stable document-level scope:
+
+```yaml
+linked_github_repo: "acme/app"
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+```
+
+Use `Related Artifacts` when a specific Acceptance Criterion, Success Metric, or AI eval gets linked to implementation or evidence:
+
+````md
+## Related Artifacts
+
+```productspec-related-artifacts
+- type: github_pr
+  url: "https://github.com/acme/app/pull/456"
+  section_id: acceptance_criteria
+  item_id: AC-1
+- type: dashboard
+  url: "https://analytics.example.com/transcript-search"
+  section_id: success_metrics
+  item_id: SM-1
+```
+````
+
+This gives agents and reviewers a portable way to see which work, tests, evals, and measurements connect to the Product Spec.
+
+## Use ProductSpec With Agents
+
+Load `skills/productspec/SKILL.md` before asking an agent to implement work governed by a Product Spec.
+
+The skill tells agents to treat the Product Spec as the control file for the work, cite Acceptance Criteria IDs, respect `scope.out` and `scope.cut`, and propose a Product Spec revision or Decision Trace when implementation diverges from intent.
+
 ## Validate In CI
 
 Use the published CLI in CI:

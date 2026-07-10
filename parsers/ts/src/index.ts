@@ -17,7 +17,8 @@ export const OPTIONAL_SECTION_IDS = [
   "risks",
   "ai",
   "open_questions",
-  "rollout"
+  "rollout",
+  "related_artifacts"
 ] as const;
 
 export const CANONICAL_SECTION_IDS = [
@@ -29,8 +30,24 @@ export type CanonicalSectionId = (typeof CANONICAL_SECTION_IDS)[number];
 export type ArtifactType = "hypothesis" | "prd" | "openspec_proposal";
 export const AI_EVAL_TYPES = ["exact_match", "contains", "regex", "llm_judge", "human_review"] as const;
 export const AI_EVAL_EVALUATORS = ["deterministic", "llm", "human"] as const;
+export const RELATED_ARTIFACT_TYPES = [
+  "github_issue",
+  "github_pr",
+  "jira_issue",
+  "linear_issue",
+  "figma",
+  "engineering_spec",
+  "eval_run",
+  "dashboard",
+  "analytics_snapshot",
+  "experiment",
+  "release",
+  "code",
+  "other"
+] as const;
 export type AiEvalType = (typeof AI_EVAL_TYPES)[number];
 export type AiEvalEvaluator = (typeof AI_EVAL_EVALUATORS)[number];
+export type RelatedArtifactType = (typeof RELATED_ARTIFACT_TYPES)[number];
 
 export interface ProductSpecFrontmatter {
   spec_format_version: "0.1";
@@ -41,9 +58,12 @@ export interface ProductSpecFrontmatter {
   created_at: string;
   updated_at: string;
   linked_github_repo?: string;
+  applies_to?: ProductSpecAppliesTo[];
   custom_sections?: Array<{ id: string; label: string; after: string }>;
   tool_metadata?: Record<string, string>;
 }
+
+export type ProductSpecAppliesTo = { path: string } | { component: string };
 
 export interface ProductSpecSection {
   id: string;
@@ -53,6 +73,7 @@ export interface ProductSpecSection {
   acceptance_criteria?: ProductSpecAcceptanceCriterion[];
   ai_evals?: ProductSpecAiEval[];
   success_metrics?: ProductSpecSuccessMetric[];
+  related_artifacts?: ProductSpecRelatedArtifact[];
 }
 
 export interface ProductSpecScope {
@@ -83,6 +104,14 @@ export interface ProductSpecSuccessMetric {
   metric: string;
   target: string;
   window: string;
+}
+
+export interface ProductSpecRelatedArtifact {
+  type: RelatedArtifactType;
+  url: string;
+  title?: string;
+  section_id?: string;
+  item_id?: string;
 }
 
 export interface ProductSpecDocument {
@@ -122,7 +151,8 @@ const LABELS: Record<string, string> = {
   risks: "Risks",
   ai: "AI Details",
   open_questions: "Open Questions",
-  rollout: "Rollout"
+  rollout: "Rollout",
+  related_artifacts: "Related Artifacts"
 };
 
 export function parseProductSpecMarkdown(markdown: string): ProductSpecDocument {
@@ -202,6 +232,12 @@ function validationErrorFor(error: unknown): ProductSpecValidationError {
   if (message.includes("Invalid success metric")) {
     return { code: "invalid_success_metric", message, path: "sections.success_metrics.success_metrics" };
   }
+  if (message.includes("Invalid applies_to")) {
+    return { code: "invalid_applies_to", message, path: "frontmatter.applies_to" };
+  }
+  if (message.includes("Invalid related artifact")) {
+    return { code: "invalid_related_artifact", message, path: "sections.related_artifacts.related_artifacts" };
+  }
   return { code: "invalid_product_spec", message };
 }
 
@@ -244,6 +280,18 @@ function validateDocument(document: ProductSpecDocument): {
         code: "invalid_custom_section_id",
         message: `Custom section id must use custom-<kebab-name>: ${customSection.id}`,
         path: `frontmatter.custom_sections.${customSection.id}`
+      });
+    }
+  }
+
+  for (const [index, appliesTo] of (document.frontmatter.applies_to ?? []).entries()) {
+    const hasPath = "path" in appliesTo && Boolean(appliesTo.path?.trim());
+    const hasComponent = "component" in appliesTo && Boolean(appliesTo.component?.trim());
+    if (hasPath === hasComponent) {
+      errors.push({
+        code: "invalid_applies_to",
+        message: "Invalid applies_to: each item must include exactly one non-empty path or component.",
+        path: `frontmatter.applies_to.${index}`
       });
     }
   }
@@ -435,6 +483,53 @@ function validateDocument(document: ProductSpecDocument): {
         path: "sections.success_metrics.success_metrics"
       });
     }
+
+    for (const [index, artifact] of (section.related_artifacts ?? []).entries()) {
+      const path = `sections.${section.id}.related_artifacts.${index}`;
+      if (section.id !== "related_artifacts") {
+        errors.push({
+          code: "invalid_related_artifact",
+          message: "Related artifact blocks belong in Related Artifacts.",
+          path
+        });
+      }
+      const missingFields = ["type", "url"].filter(
+        (field) => !String(artifact[field as keyof ProductSpecRelatedArtifact] ?? "").trim()
+      );
+      if (missingFields.length) {
+        errors.push({
+          code: "invalid_related_artifact",
+          message: `Invalid related artifact: missing ${missingFields.join(", ")}.`,
+          path
+        });
+      }
+      if (artifact.type && !RELATED_ARTIFACT_TYPES.includes(artifact.type as RelatedArtifactType)) {
+        errors.push({
+          code: "invalid_related_artifact",
+          message: `Invalid related artifact: type must be one of ${RELATED_ARTIFACT_TYPES.join(", ")}.`,
+          path
+        });
+      }
+      if (artifact.section_id) {
+        const validSection =
+          CANONICAL_SECTION_IDS.includes(artifact.section_id as CanonicalSectionId) ||
+          /^custom-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(artifact.section_id);
+        if (!validSection) {
+          errors.push({
+            code: "invalid_related_artifact",
+            message: "Invalid related artifact: section_id must be canonical or custom-<kebab-name>.",
+            path
+          });
+        }
+      }
+      if (artifact.item_id && !/^(AC|SM|EVAL)-[1-9]\d*$/.test(artifact.item_id)) {
+        errors.push({
+          code: "invalid_related_artifact",
+          message: "Invalid related artifact: item_id must use AC-<number>, SM-<number>, or EVAL-<number>.",
+          path
+        });
+      }
+    }
   }
 
   return { errors, warnings };
@@ -444,10 +539,29 @@ function parseFrontmatter(raw: string): ProductSpecFrontmatter {
   const lines = raw.split("\n");
   const result: Record<string, unknown> = {};
   let customSections: Array<{ id: string; label: string; after: string }> | undefined;
+  let appliesTo: ProductSpecAppliesTo[] | undefined;
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
     if (!line.trim()) continue;
+    if (line.startsWith("applies_to:")) {
+      appliesTo = [];
+      while (lines[index + 1]?.startsWith("  - ")) {
+        index += 1;
+        const item: Record<string, string> = {};
+        const first = lines[index].replace(/^  - /, "");
+        assignKeyValue(item, first);
+        while (lines[index + 1]?.startsWith("    ")) {
+          index += 1;
+          assignKeyValue(item, lines[index].trim());
+        }
+        if (item.path !== undefined) appliesTo.push({ path: item.path });
+        else if (item.component !== undefined) appliesTo.push({ component: item.component });
+        else appliesTo.push({ path: "" });
+      }
+      result.applies_to = appliesTo;
+      continue;
+    }
     if (line.startsWith("custom_sections:")) {
       customSections = [];
       while (lines[index + 1]?.startsWith("  - ")) {
@@ -522,6 +636,7 @@ function parseSections(
     const acceptance_criteria = parseAcceptanceCriterionBlocks(content);
     const ai_evals = parseAiEvalBlocks(content);
     const success_metrics = parseSuccessMetricBlocks(content);
+    const related_artifacts = parseRelatedArtifactBlocks(content);
     return {
       id,
       label,
@@ -529,7 +644,8 @@ function parseSections(
       ...(scope ? { scope } : {}),
       ...(acceptance_criteria.length ? { acceptance_criteria } : {}),
       ...(ai_evals.length ? { ai_evals } : {}),
-      ...(success_metrics.length ? { success_metrics } : {})
+      ...(success_metrics.length ? { success_metrics } : {}),
+      ...(related_artifacts.length ? { related_artifacts } : {})
     };
   });
 }
@@ -734,6 +850,50 @@ function assignSuccessMetricValue(target: Partial<ProductSpecSuccessMetric>, lin
   target[key] = unquote(match[2]) as never;
 }
 
+function parseRelatedArtifactBlocks(content: string): ProductSpecRelatedArtifact[] {
+  const blockPattern = /```productspec-related-artifacts\n([\s\S]*?)\n```/g;
+  return [...content.matchAll(blockPattern)].flatMap((match) => parseRelatedArtifactList(match[1]));
+}
+
+function parseRelatedArtifactList(raw: string): ProductSpecRelatedArtifact[] {
+  const artifacts: Array<Partial<ProductSpecRelatedArtifact>> = [];
+  let current: Partial<ProductSpecRelatedArtifact> | undefined;
+
+  for (const line of raw.split("\n")) {
+    if (!line.trim()) continue;
+    if (line.startsWith("- ")) {
+      current = {};
+      artifacts.push(current);
+      assignRelatedArtifactValue(current, line.slice(2));
+      continue;
+    }
+    if (!current) throw new Error("Invalid related artifact block: expected list item.");
+    if (line.startsWith("  ")) {
+      assignRelatedArtifactValue(current, line.trim());
+      continue;
+    }
+    throw new Error(`Invalid related artifact block line: ${line}`);
+  }
+
+  return artifacts.map((artifact) => ({
+    type: String(artifact.type ?? "") as RelatedArtifactType,
+    url: String(artifact.url ?? ""),
+    ...(artifact.title ? { title: String(artifact.title) } : {}),
+    ...(artifact.section_id ? { section_id: String(artifact.section_id) } : {}),
+    ...(artifact.item_id ? { item_id: String(artifact.item_id) } : {})
+  }));
+}
+
+function assignRelatedArtifactValue(target: Partial<ProductSpecRelatedArtifact>, line: string) {
+  const match = /^([A-Za-z0-9_]+):\s*(.*)$/.exec(line);
+  if (!match) throw new Error(`Invalid related artifact block line: ${line}`);
+  const key = match[1] as keyof ProductSpecRelatedArtifact;
+  if (!["type", "url", "title", "section_id", "item_id"].includes(key)) {
+    throw new Error(`Invalid related artifact field: ${key}`);
+  }
+  target[key] = unquote(match[2]) as never;
+}
+
 function sectionIdForLabel(label: string, customSections: Array<{ id: string; label: string }>): string {
   const custom = customSections.find((section) => section.label === label);
   if (custom) return custom.id;
@@ -750,6 +910,13 @@ function serializeFrontmatter(frontmatter: ProductSpecFrontmatter): string {
     const value = frontmatter[key];
     if (value === undefined || value === "") continue;
     output += typeof value === "number" ? `${key}: ${value}\n` : `${key}: "${value}"\n`;
+  }
+  if (frontmatter.applies_to?.length) {
+    output += "applies_to:\n";
+    for (const item of frontmatter.applies_to) {
+      if ("path" in item) output += `  - path: "${item.path}"\n`;
+      if ("component" in item) output += `  - component: "${item.component}"\n`;
+    }
   }
   if (frontmatter.custom_sections?.length) {
     output += "custom_sections:\n";

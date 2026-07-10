@@ -81,6 +81,15 @@ v0.4 keeps the document shape at `spec_format_version: "0.1"` and adds optional 
 - It starts at `1` and increments when product intent materially changes.
 - Downstream artifacts can reference the Product Spec revision they implement.
 
+## v0.8 Traceability And Agent Skill Milestone
+
+v0.8 keeps the document shape at `spec_format_version: "0.1"` and adds portable traceability plus an agent adoption surface:
+
+- `applies_to` is optional frontmatter for broad path or component scope.
+- `related_artifacts` is an optional section for links from Product Spec sections or item IDs to issues, pull requests, eval runs, dashboards, design artifacts, releases, engineering specs, or other durable records.
+- `skills/productspec/SKILL.md` gives agents a loadable instruction file for using a Product Spec as the control file for the work.
+- `docs/agent-usage.md` explains how teams can load the skill and ask agents to cite Acceptance Criteria.
+
 ## v1.0 Bar
 
 v1.0 is the first compatibility promise.

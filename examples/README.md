@@ -11,6 +11,7 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 | [`minimal.product-spec.md`](minimal.product-spec.md) | The smallest complete Product Spec. |
 | [`ai-support-triage.product-spec.md`](ai-support-triage.product-spec.md) | Structured AI evals inside Acceptance Criteria. |
 | [`agent-coded-feature.product-spec.md`](agent-coded-feature.product-spec.md) | A feature intended to be handed to an AI coding agent. |
+| [`conformance/valid/with-traceability.product-spec.md`](../conformance/valid/with-traceability.product-spec.md) | `applies_to` plus `Related Artifacts` traceability. |
 | [`consumer-family-calendar.product-spec.md`](consumer-family-calendar.product-spec.md) | A consumer UX feature with a prototype link. |
 | [`enterprise-approval-workflow.product-spec.md`](enterprise-approval-workflow.product-spec.md) | A cross-functional enterprise workflow. |
 | [`internal-webhook-replay-api.product-spec.md`](internal-webhook-replay-api.product-spec.md) | A non-UI internal API. |
@@ -29,6 +30,7 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 - AI evals use generated `EVAL-<number>` IDs; eval cases and optional checks stay un-IDed.
 - `user_experience` is optional and points to the externally observable experience when one exists.
 - `spec_revision` in frontmatter tracks the revision of this Product Spec's intent, separate from `spec_format_version`.
+- `applies_to` and `Related Artifacts` connect Product Spec intent to code, issues, pull requests, eval runs, dashboards, designs, and other durable records.
 
 ## Validate An Example
 

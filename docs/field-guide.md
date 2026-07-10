@@ -256,3 +256,37 @@ Optional sections add depth when the work needs it. They are not required for ev
 - `ai`: deeper AI behavior contract, examples, risks, red-team cases, and fallback behavior.
 - `open_questions`: unresolved decisions, owners, and next learning steps.
 - `rollout`: exposure, segment, duration, and what learning closes the loop.
+- `related_artifacts`: links from Product Spec sections or item IDs to issues, pull requests, eval runs, dashboards, design artifacts, releases, engineering specs, or other durable records.
+
+## Traceability
+
+Traceability helps humans and agents see how intent connects to implementation and evidence.
+
+Use frontmatter for stable document-level relationships:
+
+```yaml
+linked_github_repo: "acme/app"
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+```
+
+Use `Related Artifacts` for item-level links:
+
+````markdown
+## Related Artifacts
+
+```productspec-related-artifacts
+- type: github_issue
+  url: "https://github.com/acme/app/issues/123"
+  title: "Build transcript search"
+  section_id: acceptance_criteria
+  item_id: AC-1
+- type: eval_run
+  url: "https://evals.example.com/runs/456"
+  section_id: acceptance_criteria
+  item_id: EVAL-1
+```
+````
+
+Use `section_id` when the link applies to a whole section. Use `item_id` when the link applies to a specific Acceptance Criterion, Success Metric, or AI eval.

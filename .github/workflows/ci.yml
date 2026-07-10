@@ -31,6 +31,7 @@ jobs:
           npm run validate -- conformance/valid/minimal.product-spec.md
           npm run validate -- conformance/valid/with-user-experience.product-spec.md
           npm run validate -- conformance/valid/with-custom-section.product-spec.md
+          npm run validate -- conformance/valid/with-traceability.product-spec.md
           npm run validate -- examples/minimal.product-spec.md
           npm run validate -- examples/full-prd.product-spec.md
           npm run validate -- examples/hypothesis.product-spec.md

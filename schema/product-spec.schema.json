@@ -17,6 +17,25 @@
         "created_at": { "type": "string", "format": "date-time" },
         "updated_at": { "type": "string", "format": "date-time" },
         "linked_github_repo": { "type": "string" },
+        "applies_to": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": ["path"],
+                "properties": { "path": { "type": "string", "minLength": 1 } },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": ["component"],
+                "properties": { "component": { "type": "string", "minLength": 1 } },
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
         "custom_sections": {
           "type": "array",
           "items": {
@@ -97,7 +116,8 @@
                   "risks",
                   "ai",
                   "open_questions",
-                  "rollout"
+                  "rollout",
+                  "related_artifacts"
                 ]
               },
               { "type": "string", "pattern": "^custom-[a-z0-9]+(-[a-z0-9]+)*$" }
@@ -187,6 +207,63 @@
                 "metric": { "type": "string", "minLength": 1 },
                 "target": { "type": "string", "minLength": 1 },
                 "window": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            }
+          },
+          "related_artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["type", "url"],
+              "properties": {
+                "type": {
+                  "enum": [
+                    "github_issue",
+                    "github_pr",
+                    "jira_issue",
+                    "linear_issue",
+                    "figma",
+                    "engineering_spec",
+                    "eval_run",
+                    "dashboard",
+                    "analytics_snapshot",
+                    "experiment",
+                    "release",
+                    "code",
+                    "other"
+                  ]
+                },
+                "url": { "type": "string", "minLength": 1 },
+                "title": { "type": "string" },
+                "section_id": {
+                  "anyOf": [
+                    {
+                      "enum": [
+                        "problem",
+                        "hypothesis",
+                        "scope",
+                        "acceptance_criteria",
+                        "success_metrics",
+                        "user_experience",
+                        "customer_truth",
+                        "solution_alternatives",
+                        "solution",
+                        "strategic_positioning",
+                        "adoption",
+                        "pricing",
+                        "risks",
+                        "ai",
+                        "open_questions",
+                        "rollout",
+                        "related_artifacts"
+                      ]
+                    },
+                    { "type": "string", "pattern": "^custom-[a-z0-9]+(-[a-z0-9]+)*$" }
+                  ]
+                },
+                "item_id": { "type": "string", "pattern": "^(AC|SM|EVAL)-[1-9][0-9]*$" }
               },
               "additionalProperties": false
             }

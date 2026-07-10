@@ -1,6 +1,6 @@
 # Validator Reference
 
-ProductSpec v0.6.0 ships a TypeScript reference validator and CLI.
+ProductSpec v0.8.0 ships a TypeScript reference validator and CLI.
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate path/to/file.product-spec.md
@@ -15,12 +15,14 @@ The validator returns errors for structurally invalid Product Specs and warnings
 - required frontmatter fields
 - optional `spec_revision` positive integer
 - supported `artifact_type` values
+- optional `applies_to` frontmatter
 - canonical section IDs
 - `custom-<kebab-name>` section IDs
 - presence of mandatory sections
 - structured scope inside Scope
 - structured AI evals inside Acceptance Criteria
 - structured success metrics inside Success Metrics
+- structured related artifacts inside Related Artifacts
 
 Some parser behavior is intentionally outside the JSON Schema:
 
@@ -134,6 +136,56 @@ Required fields:
 - `window`
 
 Fix: place the block inside Success Metrics, include at least one item, include every required field, and use an ID in the form `SM-<number>`.
+
+### `invalid_applies_to`
+
+An `applies_to` frontmatter entry is malformed.
+
+Each item must include exactly one of:
+
+- `path`
+- `component`
+
+Fix:
+
+```yaml
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+```
+
+### `invalid_related_artifact`
+
+A `productspec-related-artifacts` block is malformed or placed outside `Related Artifacts`.
+
+Required fields:
+
+- `type`
+- `url`
+
+Optional fields:
+
+- `title`
+- `section_id`
+- `item_id`
+
+Supported `type` values:
+
+- `github_issue`
+- `github_pr`
+- `jira_issue`
+- `linear_issue`
+- `figma`
+- `engineering_spec`
+- `eval_run`
+- `dashboard`
+- `analytics_snapshot`
+- `experiment`
+- `release`
+- `code`
+- `other`
+
+Fix: place the block inside `Related Artifacts`, include every required field, and use `item_id` only for `AC-<number>`, `SM-<number>`, or `EVAL-<number>`.
 
 ### `missing_required_section`
 

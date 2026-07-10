@@ -490,6 +490,145 @@ cut:
     expect(parseProductSpecMarkdown(serializeProductSpecMarkdown(parsed))).toEqual(parsed);
   });
 
+  it("extracts traceability frontmatter and related artifacts", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Traceable Feature"
+artifact_type: "prd"
+spec_revision: 1
+author: "ProductSpec"
+created_at: "2026-07-09T00:00:00Z"
+updated_at: "2026-07-09T00:00:00Z"
+linked_github_repo: "acme/app"
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+In: transcript search, timestamp citations, and quote copy.
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: User can search one transcript by phrase.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+\`\`\`
+
+## Related Artifacts
+
+\`\`\`productspec-related-artifacts
+- type: github_issue
+  url: "https://github.com/acme/app/issues/123"
+  title: "Build transcript search"
+  section_id: acceptance_criteria
+  item_id: AC-1
+- type: dashboard
+  url: "https://analytics.example.com/dashboards/transcript-search"
+  section_id: success_metrics
+  item_id: SM-1
+\`\`\`
+`;
+
+    const parsed = parseProductSpecMarkdown(markdown);
+    const relatedArtifacts = parsed.sections.find((section) => section.id === "related_artifacts");
+
+    expect(parsed.frontmatter.applies_to).toEqual([
+      { path: "apps/web/src/transcripts/" },
+      { component: "transcript-search" }
+    ]);
+    expect(relatedArtifacts?.related_artifacts).toEqual([
+      {
+        type: "github_issue",
+        url: "https://github.com/acme/app/issues/123",
+        title: "Build transcript search",
+        section_id: "acceptance_criteria",
+        item_id: "AC-1"
+      },
+      {
+        type: "dashboard",
+        url: "https://analytics.example.com/dashboards/transcript-search",
+        section_id: "success_metrics",
+        item_id: "SM-1"
+      }
+    ]);
+    expect(parseProductSpecMarkdown(serializeProductSpecMarkdown(parsed))).toEqual(parsed);
+  });
+
+  it("rejects malformed traceability blocks", () => {
+    const result = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Malformed Traceability"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-09T00:00:00Z"
+updated_at: "2026-07-09T00:00:00Z"
+applies_to:
+  - note: "not a path or component"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Scope
+
+In: transcript search.
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: User can search one transcript by phrase.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: copied_timestamped_quote_rate
+  target: ">= 35%"
+  window: within 7 days of transcript creation
+\`\`\`
+
+## Related Artifacts
+
+\`\`\`productspec-related-artifacts
+- type: github_issue
+  section_id: acceptance_criteria
+  item_id: bad-id
+\`\`\`
+`);
+
+    expect(result.valid).toBe(false);
+    if (!result.valid) {
+      expect(result.errors.map((error) => error.code)).toContain("invalid_applies_to");
+      expect(result.errors.map((error) => error.code)).toContain("invalid_related_artifact");
+    }
+  });
+
   it("rejects malformed structured scope and success metric blocks", () => {
     const malformedScope = validateProductSpecMarkdown(`---
 spec_format_version: "0.1"
@@ -628,6 +767,7 @@ In: transcript search.
       "conformance/valid/with-user-experience.product-spec.md",
       "conformance/valid/with-structured-scope-and-metrics.product-spec.md",
       "conformance/valid/with-ai-evals.product-spec.md",
+      "conformance/valid/with-traceability.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md",
       "conformance/invalid/missing-frontmatter.product-spec.md",
       "conformance/invalid/missing-required-section.product-spec.md",
@@ -645,6 +785,7 @@ In: transcript search.
       "conformance/valid/with-user-experience.product-spec.md",
       "conformance/valid/with-structured-scope-and-metrics.product-spec.md",
       "conformance/valid/with-ai-evals.product-spec.md",
+      "conformance/valid/with-traceability.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md"
     ];
 
@@ -694,6 +835,20 @@ In: transcript search.
       type: "integer",
       minimum: 1
     });
+    expect(schema.properties.frontmatter.properties.applies_to.items.anyOf).toEqual([
+      {
+        type: "object",
+        required: ["path"],
+        properties: { path: { type: "string", "minLength": 1 } },
+        additionalProperties: false
+      },
+      {
+        type: "object",
+        required: ["component"],
+        properties: { component: { type: "string", "minLength": 1 } },
+        additionalProperties: false
+      }
+    ]);
     expect(schema.properties.sections.items.properties.scope.required).toEqual(["in", "out", "cut"]);
     expect(schema.properties.sections.items.properties.acceptance_criteria.items.required).toEqual([
       "id",
@@ -733,6 +888,7 @@ In: transcript search.
     expect(schema.properties.sections.items.properties.success_metrics.items.properties.id.pattern).toBe(
       "^SM-[1-9][0-9]*$"
     );
+    expect(schema.properties.sections.items.properties.related_artifacts.items.required).toEqual(["type", "url"]);
   });
 
   it("ships Decision Trace as an optional companion standard", () => {
@@ -771,6 +927,18 @@ In: transcript search.
     expect(example.subject.type).toBe("product_spec");
     expect(example.events.map((event: { event_type: string }) => event.event_type)).toContain("scope_drift");
     expect(example.events.map((event: { event_type: string }) => event.event_type)).toContain("spec_revision");
+  });
+
+  it("ships loadable agent guidance and agent usage docs", () => {
+    expect(existsSync(`${root}/skills/productspec/SKILL.md`)).toBe(true);
+    expect(existsSync(`${root}/docs/agent-usage.md`)).toBe(true);
+
+    const skill = readFileSync(`${root}/skills/productspec/SKILL.md`, "utf8");
+    const docs = readFileSync(`${root}/docs/agent-usage.md`, "utf8");
+
+    expect(skill).toContain("control file for the work");
+    expect(skill).toContain("Acceptance Criteria are the build contract");
+    expect(docs).toContain("Load `skills/productspec/SKILL.md`");
   });
 
   it("rejects invalid spec revision values", () => {

@@ -19,6 +19,8 @@ ProductSpec is neutral. It defines structure, section IDs, portable review annot
 
 Design principle: structure the parts machines must execute or compare. Leave the parts humans must reason about readable.
 
+ProductSpec can also act as the control file for agent-led work. The repo includes `skills/productspec/SKILL.md`, a loadable agent skill that tells coding agents how to read Product Specs, cite Acceptance Criteria, respect scope, and propose a Decision Trace when implementation diverges from intent.
+
 Decision Trace is the optional companion standard for recording how consequential decisions, drift, revisions, and outcomes are handled over time.
 
 ```text
@@ -213,6 +215,11 @@ Natural integration points:
 - AI coding agents that build until Acceptance Criteria pass.
 - Analytics and experiment tools that measure Success Metrics after launch.
 
+Traceability uses two shapes:
+
+- Frontmatter for stable document-level relationships such as `linked_github_repo` and `applies_to`.
+- `## Related Artifacts` with a structured `productspec-related-artifacts` block for item-level links from `AC-<number>`, `SM-<number>`, or `EVAL-<number>` to issues, pull requests, eval runs, dashboards, designs, releases, or engineering specs.
+
 Early ecosystem contributions are welcome: examples, importer/exporter experiments, editor integrations, CI validation actions, review tools, and mappings into engineering-spec systems.
 
 ## What Is Included
@@ -225,6 +232,7 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [docs/why-productspec.md](docs/why-productspec.md): why the intent layer needs its own artifact.
 - [docs/faq.md](docs/faq.md): answers to common ProductSpec adoption questions.
 - [docs/use-in-your-repo.md](docs/use-in-your-repo.md): copy-paste setup for using ProductSpec in an existing repository.
+- [docs/agent-usage.md](docs/agent-usage.md): how to use ProductSpec as a control file for coding agents.
 - [docs/adoption.md](docs/adoption.md): how teams can adopt ProductSpec across Git, Jira, Linear, Figma, CI, engineering specs, and agents.
 - [docs/adoption-levels.md](docs/adoption-levels.md): a step-by-step maturity ladder for adopting ProductSpec.
 - [docs/before-after.md](docs/before-after.md): a loose PRD transformed into ProductSpec.
@@ -241,6 +249,7 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [schema/product-spec.schema.json](schema/product-spec.schema.json): JSON Schema for parsed Product Spec documents.
 - [schema/decision-trace.schema.json](schema/decision-trace.schema.json): JSON Schema for Decision Trace documents.
 - [schema/review-annotation.schema.json](schema/review-annotation.schema.json): JSON Schema for portable review annotations.
+- [skills/productspec/SKILL.md](skills/productspec/SKILL.md): loadable agent guidance for implementing from Product Specs.
 - [conformance/](conformance/): valid and invalid fixtures for implementers.
 - [examples/README.md](examples/README.md): guide to choosing the right example.
 - [examples/](examples/): minimal and expanded examples.
@@ -269,7 +278,7 @@ Mandatory sections, in order:
 
 Optional sections:
 
-`user_experience`, `customer_truth`, `solution_alternatives`, `solution`, `strategic_positioning`, `adoption`, `pricing`, `risks`, `ai`, `open_questions`, `rollout`
+`user_experience`, `customer_truth`, `solution_alternatives`, `solution`, `strategic_positioning`, `adoption`, `pricing`, `risks`, `ai`, `open_questions`, `rollout`, `related_artifacts`
 
 `user_experience` describes the externally observable experience of the work when there is one: for example, a prototype URL, mockup, design link, public deploy, Loom walkthrough, API documentation page, CLI demo, dashboard, or internal tool screen.
 
@@ -284,7 +293,7 @@ ProductSpec distinguishes the standard version from the document revision:
 - `spec_format_version` tells tools which ProductSpec format the file uses.
 - `spec_revision` is an optional positive integer for this particular product decision. It starts at `1` and increments when intent materially changes.
 
-The v0.4 milestone includes conformance fixtures, a structured validator, examples, a CLI, and optional `spec_revision` frontmatter:
+The v0.8 milestone includes conformance fixtures, a structured validator, examples, a CLI, optional `spec_revision` frontmatter, traceability fields, and a loadable agent skill:
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate examples/minimal.product-spec.md

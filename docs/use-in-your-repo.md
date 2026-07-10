@@ -49,7 +49,47 @@ Implements `specs/my-feature.product-spec.md` at `spec_revision: 1`.
 
 When the product intent changes, update the Product Spec and increment `spec_revision`.
 
-## 7. Optional CI Check
+## 7. Optional Agent Setup
+
+ProductSpec includes a loadable agent skill:
+
+```text
+skills/productspec/SKILL.md
+```
+
+Add this to `AGENTS.md`, `CLAUDE.md`, or your agent prompt:
+
+```md
+Use `skills/productspec/SKILL.md` before planning or implementing work governed by a `.product-spec.md` file.
+```
+
+Agents should cite Acceptance Criteria IDs in implementation plans and pull request summaries.
+
+## 8. Optional Traceability
+
+Use frontmatter for broad scope:
+
+```yaml
+linked_github_repo: "acme/app"
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+```
+
+Use `Related Artifacts` for item-level links:
+
+````md
+## Related Artifacts
+
+```productspec-related-artifacts
+- type: github_issue
+  url: "https://github.com/acme/app/issues/123"
+  section_id: acceptance_criteria
+  item_id: AC-1
+```
+````
+
+## 9. Optional CI Check
 
 Add a CI step that validates committed Product Specs:
 

@@ -6,6 +6,10 @@ spec_revision: 1
 author: "ProductSpec"
 created_at: "2026-07-08T00:00:00Z"
 updated_at: "2026-07-08T00:00:00Z"
+linked_github_repo: "acme/transcripts"
+applies_to:
+  - path: "apps/web/src/search/"
+  - component: "saved-search-alerts"
 ---
 
 ## Problem
@@ -77,4 +81,24 @@ https://example.com/saved-search-alerts-prototype
   metric: repeated_manual_search_rate
   target: "<= 60% of baseline"
   window: 30 days after launch
+```
+
+## Related Artifacts
+
+```productspec-related-artifacts
+- type: github_issue
+  url: "https://github.com/acme/transcripts/issues/42"
+  title: "Create saved search alerts"
+  section_id: acceptance_criteria
+  item_id: AC-1
+- type: github_pr
+  url: "https://github.com/acme/transcripts/pull/77"
+  title: "Implement saved search alerts"
+  section_id: acceptance_criteria
+  item_id: AC-5
+- type: eval_run
+  url: "https://evals.example.com/saved-search-alerts/run-12"
+  title: "Saved search relevance eval"
+  section_id: acceptance_criteria
+  item_id: EVAL-1
 ```

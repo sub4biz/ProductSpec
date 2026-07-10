@@ -34,6 +34,7 @@ Optional fields:
 
 - `spec_revision`: positive integer for this Product Spec's own intent revision
 - `linked_github_repo`: string, such as `"owner/repo"`
+- `applies_to`: array of `{ path }` or `{ component }` entries for broad code or component scope
 - `custom_sections`: array of `{ id, label, after }`
 - `tool_metadata`: map of tool-specific fields
 
@@ -66,6 +67,7 @@ Optional sections:
 - `ai`
 - `open_questions`
 - `rollout`
+- `related_artifacts`
 
 Display labels are implementation-specific, except that tools should render `ai` as "AI Details".
 
@@ -166,6 +168,48 @@ Each AI eval item requires:
 Eval cases and optional checks do not get standalone IDs. If a tool needs to cite them, it should use positional references such as `EVAL-1.case[2]` or `EVAL-1.check[1]`.
 
 Tools should preserve fenced blocks in Markdown and may expose parsed criteria, metrics, and evals as structured data.
+
+## Traceability
+
+ProductSpec uses two traceability shapes.
+
+Stable document-level relationships belong in frontmatter. Use `linked_github_repo` for the main repository and `applies_to` for broad code or component scope:
+
+```yaml
+linked_github_repo: "acme/app"
+applies_to:
+  - path: "apps/web/src/transcripts/"
+  - component: "transcript-search"
+```
+
+Item-level traceability belongs in the optional `related_artifacts` section with a structured `productspec-related-artifacts` block:
+
+````markdown
+## Related Artifacts
+
+```productspec-related-artifacts
+- type: github_issue
+  url: "https://github.com/acme/app/issues/123"
+  title: "Build transcript search"
+  section_id: acceptance_criteria
+  item_id: AC-1
+- type: dashboard
+  url: "https://analytics.example.com/transcript-search"
+  section_id: success_metrics
+  item_id: SM-1
+```
+````
+
+Each related artifact requires:
+
+- `type`: one of `github_issue`, `github_pr`, `jira_issue`, `linear_issue`, `figma`, `engineering_spec`, `eval_run`, `dashboard`, `analytics_snapshot`, `experiment`, `release`, `code`, or `other`.
+- `url`: the linked artifact URL or durable external reference.
+
+Optional fields:
+
+- `title`: human-readable label.
+- `section_id`: canonical section ID or `custom-<kebab-name>`.
+- `item_id`: `AC-<number>`, `SM-<number>`, or `EVAL-<number>`.
 
 ## Custom Sections
 
