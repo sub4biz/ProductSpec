@@ -212,10 +212,13 @@ If you can mark it pass/fail before launch by inspecting the built artifact, it 
 - id: SM-1
   metric: first_session_transcript_search_rate
   target: ">= 60%"
+  target_status: committed
   window: first session after transcript creation
 - id: SM-2
   metric: timestamped_quote_copy_rate
-  target: ">= 35%"
+  target: tbd
+  target_status: provisional
+  target_owner: Data lead
   window: within 7 days of transcript creation
 ```
 ````
@@ -227,6 +230,8 @@ Hypothesis names the expected behavior change. Success Metrics quantify it.
 **Relationship to Acceptance Criteria:**
 
 Acceptance Criteria say whether the artifact is ready to ship. Success Metrics say whether shipping it changed real behavior.
+
+Use `target_status: committed` when the threshold is a real commitment. Use `target_status: provisional` when the metric is right but the target depends on a baseline that will be calibrated after launch; in that case, include `target_owner` so the uncertainty is owned.
 
 ## AI Evals
 

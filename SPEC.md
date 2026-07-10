@@ -125,6 +125,7 @@ Success metrics are written in `success_metrics` with a fenced `productspec-succ
 - id: SM-1
   metric: copied_timestamped_quote_rate
   target: ">= 35%"
+  target_status: committed
   window: within 7 days of transcript creation
 ```
 ````
@@ -135,6 +136,13 @@ Each success metric item requires:
 - `metric`: metric name.
 - `target`: threshold or target value.
 - `window`: time window for reading the metric.
+
+Optional fields:
+
+- `target_status`: `committed` or `provisional`; omitted values are interpreted as `committed`.
+- `target_owner`: required when `target_status` is `provisional`.
+
+Use `provisional` when the metric is known but the target depends on a post-launch baseline or calibration step. This keeps the spec honest without recording a guessed number as committed intent.
 
 For products with AI features, AI eval thresholds belong in `acceptance_criteria`, not `success_metrics`. Success metrics are post-launch product and business outcomes. Acceptance criteria are pre-launch build gates.
 

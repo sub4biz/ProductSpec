@@ -160,6 +160,7 @@ cut:
 - id: SM-1
   metric: median_time_to_first_human_response
   target: "< 15 minutes"
+  target_status: committed
   window: business hours
 ```
 ````
@@ -225,6 +226,8 @@ Current repo artifacts:
 - Examples for AI features, consumer UX, enterprise workflows, internal APIs, and revision history.
 
 Durable IDs are generated for the top-level items that tools execute or compare: `AC-1` for Acceptance Criteria, `SM-1` for Success Metrics, and `EVAL-1` for AI evals. Scope bullets, eval cases, optional eval checks, and prose/custom sections remain un-IDed. Tools that need to cite eval children should use positional references like `EVAL-1.case[2]`.
+
+Success Metrics may be `committed` when the target is known, or `provisional` when the team knows the metric but needs post-launch baseline work before committing the threshold. Provisional targets must name a `target_owner`.
 
 Natural integration points:
 

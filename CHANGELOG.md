@@ -4,6 +4,14 @@
 
 No unreleased changes.
 
+## v0.10.0 - Parser Correctness And Provisional Targets
+
+Added:
+
+- Fenced-code-aware section parsing, so `##` headings inside Markdown code samples no longer create duplicate or out-of-order ProductSpec sections.
+- `target_status: committed | provisional` for structured Success Metrics.
+- `target_owner` for provisional Success Metric targets, allowing teams to record honest post-launch target calibration without turning guesses into committed intent.
+
 ## v0.9.0 - Decision Trace Validation
 
 ProductSpec v0.9.0 keeps the Product Spec document shape at `spec_format_version:

@@ -485,10 +485,126 @@ cut:
         id: "SM-1",
         metric: "copied_timestamped_quote_rate",
         target: ">= 35%",
+        target_status: "committed",
         window: "within 7 days of transcript creation"
       }
     ]);
     expect(parseProductSpecMarkdown(serializeProductSpecMarkdown(parsed))).toEqual(parsed);
+  });
+
+  it("allows provisional success metric targets with an owner", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Transcript Search"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-09T00:00:00Z"
+updated_at: "2026-07-09T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes inside long videos.
+
+## Hypothesis
+
+If transcripts become searchable, researchers will cite video sources more often.
+
+## Scope
+
+\`\`\`productspec-scope
+in:
+  - transcript search
+out:
+  - team libraries
+cut:
+  - speaker labels
+\`\`\`
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: User can search one transcript by phrase.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: copied_timestamped_quote_rate
+  target: tbd
+  target_status: provisional
+  target_owner: Data lead
+  window: within 7 days of transcript creation
+\`\`\`
+`;
+
+    const result = validateProductSpecMarkdown(markdown);
+    const parsed = parseProductSpecMarkdown(markdown);
+    const successMetrics = parsed.sections.find((section) => section.id === "success_metrics");
+
+    expect(result.errors).toEqual([]);
+    expect(successMetrics?.success_metrics?.[0]).toMatchObject({
+      id: "SM-1",
+      target: "tbd",
+      target_status: "provisional",
+      target_owner: "Data lead"
+    });
+  });
+
+  it("requires an owner for provisional success metric targets", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Transcript Search"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-09T00:00:00Z"
+updated_at: "2026-07-09T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes inside long videos.
+
+## Hypothesis
+
+If transcripts become searchable, researchers will cite video sources more often.
+
+## Scope
+
+\`\`\`productspec-scope
+in:
+  - transcript search
+out:
+  - team libraries
+cut:
+  - speaker labels
+\`\`\`
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: User can search one transcript by phrase.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: copied_timestamped_quote_rate
+  target: tbd
+  target_status: provisional
+  window: within 7 days of transcript creation
+\`\`\`
+`;
+
+    expect(validateProductSpecMarkdown(markdown).errors).toContainEqual({
+      code: "invalid_success_metric",
+      message: "Invalid success metric: provisional targets require target_owner.",
+      path: "sections.success_metrics.success_metrics.0"
+    });
   });
 
   it("extracts traceability frontmatter and related artifacts", () => {
@@ -770,6 +886,8 @@ In: transcript search.
       "conformance/valid/with-ai-evals.product-spec.md",
       "conformance/valid/with-traceability.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md",
+      "conformance/valid/with-fenced-heading.product-spec.md",
+      "conformance/valid/with-provisional-success-metric.product-spec.md",
       "starter-kit/docs/product-specs/example.product-spec.md",
       "conformance/invalid/missing-frontmatter.product-spec.md",
       "conformance/invalid/missing-required-section.product-spec.md",
@@ -792,6 +910,8 @@ In: transcript search.
       "conformance/valid/with-ai-evals.product-spec.md",
       "conformance/valid/with-traceability.product-spec.md",
       "conformance/valid/with-custom-section.product-spec.md",
+      "conformance/valid/with-fenced-heading.product-spec.md",
+      "conformance/valid/with-provisional-success-metric.product-spec.md",
       "starter-kit/docs/product-specs/example.product-spec.md"
     ];
 
@@ -892,6 +1012,13 @@ In: transcript search.
       "metric",
       "target",
       "window"
+    ]);
+    expect(schema.properties.sections.items.properties.success_metrics.items.properties.target_status.enum).toEqual([
+      "committed",
+      "provisional"
+    ]);
+    expect(schema.properties.sections.items.properties.success_metrics.items.allOf[0].then.required).toEqual([
+      "target_owner"
     ]);
     expect(schema.properties.sections.items.properties.success_metrics.items.properties.id.pattern).toBe(
       "^SM-[1-9][0-9]*$"
@@ -1301,6 +1428,29 @@ Keep this around.
     expect(action).toContain("decision_traces:");
     expect(action).toContain("validate-trace");
   });
+  it("ignores ## headings inside fenced code blocks", () => {
+    const markdown = readFileSync(
+      fileURLToPath(
+        new URL("../../../conformance/valid/with-fenced-heading.product-spec.md", import.meta.url)
+      ),
+      "utf8"
+    );
+    const parsed = parseProductSpecMarkdown(markdown);
+
+    expect(parsed.sections.map((section) => section.id)).toEqual([
+      "problem",
+      "hypothesis",
+      "scope",
+      "acceptance_criteria",
+      "success_metrics"
+    ]);
+
+    const scope = parsed.sections.find((section) => section.id === "scope");
+    expect(scope?.content).toContain("Who is hurting.");
+    expect(scope?.content).toContain("Out: a generator CLI.");
+    expect(validateProductSpecMarkdown(markdown).errors).toEqual([]);
+  });
+
 });
 
 function productSpecFiles(directory: string): string[] {

@@ -33,6 +33,8 @@ AI eval thresholds belong in `acceptance_criteria`.
 
 Acceptance Criteria are the build contract: what must be true before launch. Success Metrics are the market contract: what user or business behavior proves the shipped product mattered after launch.
 
+If the metric is known but the threshold depends on a launch baseline, keep the metric and mark the target as provisional with an owner. That records the open calibration work without pretending a guessed target is committed intent.
+
 When an AI eval should be parsed by tools, write it as a fenced `productspec-ai-evals` block inside Acceptance Criteria. Keep post-launch usage, retention, revenue, or quality outcomes in Success Metrics.
 
 Acceptance Criteria, Success Metrics, and AI evals get durable generated IDs (`AC-1`, `SM-1`, `EVAL-1`) because downstream tools may cite them. Eval cases and optional checks stay un-IDed; cite them positionally if needed.

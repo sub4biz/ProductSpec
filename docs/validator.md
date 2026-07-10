@@ -1,6 +1,6 @@
 # Validator Reference
 
-ProductSpec v0.9.0 ships a TypeScript reference validator and CLI.
+ProductSpec v0.10.0 ships a TypeScript reference validator and CLI.
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate path/to/file.product-spec.md
@@ -254,7 +254,12 @@ Required fields:
 - `target`
 - `window`
 
-Fix: place the block inside Success Metrics, include at least one item, include every required field, and use an ID in the form `SM-<number>`.
+Optional fields:
+
+- `target_status`: `committed` or `provisional`; omitted values default to `committed` in the parser.
+- `target_owner`: required when `target_status` is `provisional`.
+
+Fix: place the block inside Success Metrics, include at least one item, include every required field, use an ID in the form `SM-<number>`, and include `target_owner` for provisional targets.
 
 ### `invalid_applies_to`
 

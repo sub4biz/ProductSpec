@@ -100,6 +100,14 @@ v0.9 keeps the document shape at `spec_format_version: "0.1"` and makes Decision
 - Invalid conformance fixtures cover malformed traceability and Decision Trace files.
 - Agent setup docs explain Codex, Claude Code, Cursor, and repo-agent installation paths.
 
+## v0.10 Parser Correctness And Provisional Targets Milestone
+
+v0.10 keeps the document shape at `spec_format_version: "0.1"` and tightens parser correctness while allowing honest post-launch metric calibration:
+
+- Section parsing ignores `##` headings inside fenced code blocks.
+- Structured Success Metrics may include `target_status: committed | provisional`.
+- Provisional Success Metric targets require `target_owner`.
+
 ## v1.0 Bar
 
 v1.0 is the first compatibility promise.

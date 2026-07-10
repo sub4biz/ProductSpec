@@ -206,8 +206,19 @@
                 "id": { "type": "string", "pattern": "^SM-[1-9][0-9]*$" },
                 "metric": { "type": "string", "minLength": 1 },
                 "target": { "type": "string", "minLength": 1 },
+                "target_status": { "enum": ["committed", "provisional"] },
+                "target_owner": { "type": "string", "minLength": 1 },
                 "window": { "type": "string", "minLength": 1 }
               },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": { "target_status": { "const": "provisional" } },
+                    "required": ["target_status"]
+                  },
+                  "then": { "required": ["target_owner"] }
+                }
+              ],
               "additionalProperties": false
             }
           },
