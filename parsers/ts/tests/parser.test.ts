@@ -1232,7 +1232,7 @@ In: transcript search.
         else: {
           required: ["url"],
           not: {
-            anyOf: [{ required: ["product_spec_path"] }, { required: ["product_spec_revision"] }]
+            anyOf: [{ required: ["product_spec_path"] }, { required: ["product_spec_revision"] }, { required: ["relation"] }]
           }
         }
       }
@@ -1678,6 +1678,20 @@ Keep this around.
     if (!wrongType.valid) {
       expect(wrongType.errors.map((error) => error.code)).toContain("invalid_related_artifact");
     }
+
+    const wrongRelationType = validateProductSpecMarkdown(
+      markdown.replace('url: "https://github.com/acme/app/issues/123"', 'url: "https://github.com/acme/app/issues/123"\n  relation: depends_on')
+    );
+    expect(wrongRelationType.valid).toBe(false);
+    if (!wrongRelationType.valid) {
+      expect(wrongRelationType.errors.map((error) => error.message)).toContain(
+        "Invalid related artifact: relation only applies to type product_spec."
+      );
+    }
+
+    const defaultRelation = parseProductSpecMarkdown(markdown.replace("  relation: depends_on\n", ""));
+    const defaultSection = defaultRelation.sections.find((entry) => entry.id === "related_artifacts");
+    expect(defaultSection?.related_artifacts?.[0].relation).toBe("relates_to");
   });
 
   it("ignores ## headings inside fenced code blocks", () => {

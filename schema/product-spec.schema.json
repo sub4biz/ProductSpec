@@ -235,7 +235,11 @@
                   "else": {
                     "required": ["url"],
                     "not": {
-                      "anyOf": [{ "required": ["product_spec_path"] }, { "required": ["product_spec_revision"] }]
+                      "anyOf": [
+                        { "required": ["product_spec_path"] },
+                        { "required": ["product_spec_revision"] },
+                        { "required": ["relation"] }
+                      ]
                     }
                   }
                 }

@@ -663,6 +663,13 @@ function validateDocument(document: ProductSpecDocument): {
           path
         });
       }
+      if (artifact.relation && artifact.type !== "product_spec") {
+        errors.push({
+          code: "invalid_related_artifact",
+          message: "Invalid related artifact: relation only applies to type product_spec.",
+          path
+        });
+      }
       if (artifact.product_spec_revision !== undefined && !positiveInteger(artifact.product_spec_revision)) {
         errors.push({
           code: "invalid_related_artifact",
@@ -1364,7 +1371,11 @@ function parseRelatedArtifactList(raw: string): ProductSpecRelatedArtifact[] {
     ...(artifact.product_spec_revision !== undefined
       ? { product_spec_revision: Number(artifact.product_spec_revision) }
       : {}),
-    ...(artifact.relation ? { relation: String(artifact.relation) as RelatedArtifactRelation } : {})
+    ...(artifact.relation
+      ? { relation: String(artifact.relation) as RelatedArtifactRelation }
+      : artifact.type === "product_spec"
+        ? { relation: "relates_to" as const }
+        : {})
   }));
 }
 

@@ -296,7 +296,7 @@ Optional fields:
 - `item_id`
 - `product_spec_path` (only on `type: product_spec`, which does not take `url`)
 - `product_spec_revision` (positive integer)
-- `relation` (`depends_on`, `blocks`, `supersedes`, `relates_to`)
+- `relation` (`depends_on`, `blocks`, `supersedes`, `relates_to`; only on `type: product_spec`)
 
 Supported `type` values:
 

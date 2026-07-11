@@ -174,7 +174,7 @@ A `product_spec` item points at another spec in the same repo and makes dependen
 ```
 ````
 
-`product_spec_revision` is an optional positive integer pinning the referenced spec's `spec_revision`. `relation` is one of `depends_on`, `blocks`, `supersedes`, `relates_to`, defaulting to `relates_to`. `product_spec_path` and `product_spec_revision` are rejected on any other type.
+`product_spec_revision` is an optional positive integer pinning the referenced spec's `spec_revision`. `relation` is one of `depends_on`, `blocks`, `supersedes`, `relates_to`, defaulting to `relates_to`. `product_spec_path`, `product_spec_revision`, and `relation` are rejected on any other type.
 
 Frontmatter `applies_to` carries document-level scope. `related_artifacts` carries item-level links. They are not alternatives.
 
