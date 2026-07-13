@@ -16,18 +16,27 @@ The server uses stdio and implements the MCP `tools/list` and `tools/call` flow.
 
 ## MCP Client Config
 
-For MCP clients that support stdio servers:
+Generate a copy-pasteable Claude or Cursor config:
+
+```bash
+npx --yes -p @productspec/parser@latest productspec mcp-config claude
+npx --yes -p @productspec/parser@latest productspec mcp-config cursor
+```
+
+For MCP clients that support stdio servers, the config shape is:
 
 ```json
 {
   "mcpServers": {
     "productspec": {
       "command": "npx",
-      "args": ["--yes", "--package", "@productspec/parser", "productspec", "mcp"]
+      "args": ["--yes", "--package", "@productspec/parser@latest", "productspec", "mcp"]
     }
   }
 }
 ```
+
+See [`docs/mcp-install.md`](mcp-install.md) for Claude Desktop and Cursor install notes.
 
 ## Tools
 

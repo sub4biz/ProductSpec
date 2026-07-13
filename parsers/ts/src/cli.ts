@@ -16,6 +16,17 @@ const positional = args.filter((arg) => !arg.startsWith("--"));
 const [command, filePath, outputPath] = positional;
 const jsonOutput = args.includes("--json");
 
+function mcpClientConfig() {
+  return {
+    mcpServers: {
+      productspec: {
+        command: "npx",
+        args: ["--yes", "--package", "@productspec/parser@latest", "productspec", "mcp"]
+      }
+    }
+  };
+}
+
 function collectSpecFiles(dir: string): string[] {
   const found: string[] = [];
   const entries = readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
@@ -114,6 +125,14 @@ if (command === "init-run" && filePath) {
 if (command === "mcp") {
   runProductSpecMcpServer();
   process.stdin.resume();
+} else if (command === "mcp-config") {
+  if (filePath !== "claude" && filePath !== "cursor") {
+    console.error("error: supported targets are claude and cursor");
+    process.exit(1);
+  }
+
+  console.log(JSON.stringify(mcpClientConfig(), null, 2));
+  process.exit(0);
 } else if (command === "validate-trace" && filePath) {
   const result = validateDecisionTraceJson(readFileOrExit(filePath));
   if (result.valid) {
@@ -195,7 +214,7 @@ if (command === "mcp") {
   }
   process.exit(0);
 } else if (command !== "validate" || !filePath) {
-  console.error("Usage: productspec validate path/to/file.product-spec.md\n       productspec validate-trace path/to/file.decision-trace.json\n       productspec validate-run path/to/file.agent-run.json\n       productspec graph path/to/spec-directory [--json]\n       productspec init path/to/file.product-spec.md\n       productspec init-run path/to/file.product-spec.md [path/to/file.agent-run.json]\n       productspec mcp");
+  console.error("Usage: productspec validate path/to/file.product-spec.md\n       productspec validate-trace path/to/file.decision-trace.json\n       productspec validate-run path/to/file.agent-run.json\n       productspec graph path/to/spec-directory [--json]\n       productspec init path/to/file.product-spec.md\n       productspec init-run path/to/file.product-spec.md [path/to/file.agent-run.json]\n       productspec mcp\n       productspec mcp-config claude|cursor");
   process.exit(1);
 } else {
   const result = validateProductSpecMarkdown(readFileOrExit(filePath));

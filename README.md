@@ -98,6 +98,7 @@ If you want to use ProductSpec as an intent harness for coding agents, start her
 
 - [Get started with agents](docs/get-started-with-agents.md): install the skills, convert a PRD, validate in CI, implement from a Product Spec, and record drift.
 - [Use the MCP server](docs/agent-mcp.md): expose Product Specs to coding agents as structured tools.
+- [Install MCP in Claude or Cursor](docs/mcp-install.md): generate a copy-pasteable MCP client config.
 - [5-minute agent harness demo](docs/agent-harness-demo.md): see Product Spec, MCP, Agent Run, and Decision Trace working together.
 - [60-second demo script](docs/demo-script.md): record the ProductSpec loop closing in a short GIF or Loom.
 - [Status badge spec](docs/status-badge.md): factual badge shapes for valid specs, run receipts, evidence, and revisions.
@@ -114,6 +115,12 @@ npm exec --package @productspec/parser -- productspec validate examples/harness-
 
 ```bash
 npx --yes -p @productspec/parser@latest productspec mcp
+```
+
+Generate a Claude or Cursor MCP config:
+
+```bash
+npx --yes -p @productspec/parser@latest productspec mcp-config claude
 ```
 
 3. Ask Claude, Codex, Cursor, or another MCP-aware agent to implement against the Product Spec:
@@ -152,6 +159,20 @@ Resolve a folder of specs into a build graph:
 ```bash
 npm exec --package @productspec/parser -- productspec graph conformance/graph
 ```
+
+## Status Badges
+
+ProductSpec badges should report facts, not subjective quality scores.
+
+```text
+ProductSpec: valid
+ProductSpec: rev 3
+Agent Run: recorded
+Evidence: 4 linked artifacts
+ProductSpec graph: buildable
+```
+
+See [`docs/status-badge.md`](docs/status-badge.md) for the recommended badge vocabulary.
 
 Use the GitHub Action in a repository:
 

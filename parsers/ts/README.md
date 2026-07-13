@@ -33,6 +33,9 @@ npx --yes -p @productspec/parser productspec init path/to/new.product-spec.md
 
 # Run the MCP server over stdio
 npx --yes -p @productspec/parser productspec mcp
+
+# Print a Claude or Cursor MCP client config
+npx --yes -p @productspec/parser productspec mcp-config claude
 ```
 
 ## Library

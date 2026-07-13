@@ -1950,6 +1950,33 @@ Keep this around.
     expect(invalid.stderr).toContain("missing_required_agent_run_field");
   }, 30000);
 
+  it("prints MCP client configs from the CLI", () => {
+    const build = spawnSync("npm", ["run", "build"], { cwd: packageRoot, encoding: "utf8" });
+    expect(build.status, build.stderr).toBe(0);
+
+    const cli = fileURLToPath(new URL("../dist/cli.js", import.meta.url));
+    const claude = spawnSync("node", [cli, "mcp-config", "claude"], { encoding: "utf8" });
+    const cursor = spawnSync("node", [cli, "mcp-config", "cursor"], { encoding: "utf8" });
+    const unsupported = spawnSync("node", [cli, "mcp-config", "not-a-client"], { encoding: "utf8" });
+
+    expect(claude.status).toBe(0);
+    expect(cursor.status).toBe(0);
+    expect(unsupported.status).toBe(1);
+    expect(unsupported.stderr).toContain("supported targets");
+
+    for (const output of [claude.stdout, cursor.stdout]) {
+      const config = JSON.parse(output);
+      expect(config.mcpServers.productspec.command).toBe("npx");
+      expect(config.mcpServers.productspec.args).toEqual([
+        "--yes",
+        "--package",
+        "@productspec/parser@latest",
+        "productspec",
+        "mcp"
+      ]);
+    }
+  }, 30000);
+
   it("initializes a draft Agent Run from the CLI", () => {
     const build = spawnSync("npm", ["run", "build"], { cwd: packageRoot, encoding: "utf8" });
     expect(build.status, build.stderr).toBe(0);

@@ -11,10 +11,13 @@ Start here if you want to see ProductSpec as a working artifact rather than a sc
 | [`minimal.product-spec.md`](minimal.product-spec.md) | The smallest complete Product Spec. |
 | [`ai-support-triage.product-spec.md`](ai-support-triage.product-spec.md) | Structured AI evals inside Acceptance Criteria. |
 | [`agent-coded-feature.product-spec.md`](agent-coded-feature.product-spec.md) | A feature intended to be handed to an AI coding agent. |
+| [`checkout-3ds-recovery.product-spec.md`](checkout-3ds-recovery.product-spec.md) | Checkout recovery with payment-state safety, support evidence, and post-launch metrics. |
 | [`conformance/valid/with-traceability.product-spec.md`](../conformance/valid/with-traceability.product-spec.md) | `applies_to` plus `Related Artifacts` traceability. |
 | [`consumer-family-calendar.product-spec.md`](consumer-family-calendar.product-spec.md) | A consumer UX feature with a prototype link. |
 | [`enterprise-approval-workflow.product-spec.md`](enterprise-approval-workflow.product-spec.md) | A cross-functional enterprise workflow. |
 | [`internal-webhook-replay-api.product-spec.md`](internal-webhook-replay-api.product-spec.md) | A non-UI internal API. |
+| [`rag-answer-quality-pipeline.product-spec.md`](rag-answer-quality-pipeline.product-spec.md) | RAG answer quality with AI evals, citations, and eval-run evidence. |
+| [`realtime-collaborative-cursors.product-spec.md`](realtime-collaborative-cursors.product-spec.md) | Realtime UX infrastructure with latency, reconnect, and opt-out criteria. |
 | [`support-sla-analytics-pipeline.product-spec.md`](support-sla-analytics-pipeline.product-spec.md) | A data pipeline/analytics feature with freshness, backfill, and dashboard trust criteria. |
 | [`platform-cache-migration.product-spec.md`](platform-cache-migration.product-spec.md) | Platform work with no conventional user-facing UI. |
 | [`provisional-success-metric.product-spec.md`](provisional-success-metric.product-spec.md) | A realistic provisional Success Metric with `target: tbd` and `target_owner`. |

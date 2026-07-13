@@ -1,9 +1,13 @@
 # Changelog
 
-## Unreleased
+## v0.24.0 - MCP Install And Showcase Examples
 
 Added:
 
+- `productspec mcp-config claude|cursor` prints a copy-pasteable MCP client config.
+- Claude Desktop and Cursor MCP install guide.
+- Showcase examples for checkout 3DS recovery, RAG answer quality, and realtime collaborative cursors.
+- Agentic drift post draft for announcing spec revision, MCP sessions, Agent Run, and Decision Trace.
 - Support SLA analytics pipeline example.
 - README section showing what agents can do today with ProductSpec.
 - FAQ entry explaining how ProductSpec differs from a Markdown template.
