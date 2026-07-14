@@ -21,7 +21,12 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: a starter file at docs/product-specs/example.product-spec.md, containing:
+```productspec-scope
+in:
+  - Include a starter file at docs/product-specs/example.product-spec.md containing fenced heading examples.
+out:
+  - Do not build a generator CLI in this version.
+```
 
 ~~~markdown
 ## Problem
@@ -32,8 +37,6 @@ Who is hurting.
 
 The causal bet.
 ~~~
-
-Out: a generator CLI.
 
 ## Acceptance Criteria
 

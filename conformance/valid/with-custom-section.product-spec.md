@@ -30,13 +30,20 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: row-level error report, downloadable CSV, and retry guidance.
+```productspec-scope
+in:
+  - Show a row-level error report for failed imports.
+  - Let operations teams download the error report as a CSV.
+  - Show retry guidance for failed imports.
+out:
+  - Do not build automatic source-file correction in this version.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Failed imports show row number, field, and actionable error reason.
+  criterion: When an import fails, the report shows row number, field, and actionable error reason for each failed row.
 ```
 
 ## Success Metrics

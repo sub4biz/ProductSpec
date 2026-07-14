@@ -28,10 +28,10 @@ A checkout notification system emails failed-payment shoppers with a retry link 
 
 ```productspec-scope
 in:
-  - payment failure detection from checkout worker events
-  - operator notification in the admin order timeline
+  - Detect payment failures from checkout worker events.
+  - Show operator notifications in the admin order timeline.
   - Include retry payment action link in this version.
-  - email notification for high-value failed orders
+  - Send email notifications for high-value failed orders.
 out:
   - Do not build SMS notifications in this version.
   - Do not build automatic discount offers in this version.
@@ -48,9 +48,9 @@ cut:
 - id: AC-2
   criterion: The notification includes failure reason, buyer email, order value, and retry payment link.
 - id: AC-3
-  criterion: Orders above $500 also send one operator email within 5 minutes.
+  criterion: When an order above $500 fails payment, the system sends one operator email within 5 minutes.
 - id: AC-4
-  criterion: Duplicate payment failure events for the same order do not create duplicate notifications within 30 minutes.
+  criterion: When duplicate payment failure events arrive for the same order, they do not create duplicate notifications within 30 minutes.
 ```
 
 ```productspec-ai-evals

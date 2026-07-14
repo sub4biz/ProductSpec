@@ -22,15 +22,21 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: transcript search, timestamp citations, and quote copy.
+```productspec-scope
+in:
+  - Let a researcher search a transcript by phrase.
+  - Let a researcher copy timestamped quote citations.
+out:
+  - Do not build multi-transcript projects in this version.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: User can search a transcript by phrase.
+  criterion: When a user searches a transcript by phrase, the page returns matching timestamped passages.
 - id: AC-2
-  criterion: User can copy a timestamped quote.
+  criterion: When a user copies a timestamped quote, the copied text includes the quote, source URL, and timestamp.
 ```
 
 ```productspec-ai-evals

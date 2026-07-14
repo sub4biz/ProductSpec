@@ -12,13 +12,18 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: missing-frontmatter conformance.
+```productspec-scope
+in:
+  - Exercise missing-frontmatter conformance in this fixture.
+out:
+  - Do not validate successfully when frontmatter is absent.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Validator returns missing_frontmatter.
+  criterion: When frontmatter is absent, the validator returns `missing_frontmatter`.
 ```
 
 ## Success Metrics

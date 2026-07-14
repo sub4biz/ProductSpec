@@ -25,7 +25,7 @@ A first support triage version labels ticket urgency, recommends owners, and exp
 
 ```productspec-scope
 in:
-  - ticket ingestion from the helpdesk API
+  - Ingest tickets from the helpdesk API.
   - Include urgency labels in this version.
   - Include owner recommendation in this version.
   - Include confidence score in this version.
@@ -44,11 +44,11 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: New tickets receive urgency, suggested owner, confidence score, and model version within 60 seconds.
+  criterion: When a new ticket arrives, it receives urgency, suggested owner, confidence score, and model version within 60 seconds.
 - id: AC-2
   criterion: Reviewers can override any urgency label before it changes downstream workflow state.
 - id: AC-3
-  criterion: Labels below 0.70 confidence are marked `needs_review` and do not trigger escalation.
+  criterion: When a label has confidence below 0.70, it is marked `needs_review` and does not trigger escalation.
 ```
 
 ```productspec-ai-evals

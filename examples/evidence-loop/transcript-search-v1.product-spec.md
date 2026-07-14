@@ -46,9 +46,9 @@ https://example.com/transcript-search-prototype
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: User can search the current transcript by phrase and see matching passages with timestamps.
+  criterion: When a user searches the current transcript by phrase, the page shows matching passages with timestamps.
 - id: AC-2
-  criterion: User can copy a matching passage with the video title and timestamp included.
+  criterion: When a user copies a matching passage, the copied text includes the video title and timestamp.
 ```
 
 ```productspec-ai-evals

@@ -38,7 +38,7 @@ out:
   - Do not build billing-system updates in this version.
   - Do not build legal clause approval in this version.
 cut:
-  - custom approval policies by region
+  - Cut custom approval policies by region from the first version.
 ```
 
 ## User Experience
@@ -53,13 +53,13 @@ https://example.com/contract-approval-flow
 - id: AC-2
   criterion: The system routes requests to the configured approver chain based on discount band.
 - id: AC-3
-  criterion: Approvers can approve, reject, or request changes with a required comment.
+  criterion: When an approver reviews a request, they can approve, reject, or request changes only after entering a required comment.
 - id: AC-4
-  criterion: SLA timers pause while the request is waiting on the sales rep for changes.
+  criterion: When a request is waiting on the sales rep for changes, SLA timers pause until the rep responds.
 - id: AC-5
-  criterion: Escalation email sends to the approver's manager when an approval is more than 24 business hours overdue.
+  criterion: When an approval is more than 24 business hours overdue, the system sends an escalation email to the approver's manager.
 - id: AC-6
-  criterion: Approval history export includes every actor, action, timestamp, and comment.
+  criterion: When a user exports approval history, the file includes every actor, action, timestamp, and comment.
 ```
 
 ## Success Metrics

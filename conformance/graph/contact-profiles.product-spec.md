@@ -23,7 +23,12 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-
+```productspec-scope
+in:
+  - Attach conversations from the same customer to one contact record.
+out:
+  - Do not build account-level householding in this version.
+```
 
 ## Acceptance Criteria
 

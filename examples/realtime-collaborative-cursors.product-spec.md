@@ -30,8 +30,8 @@ A collaborative cursor feature shows each editor where teammates are working ins
 in:
   - Include realtime cursor position in this version.
   - Include selected object outline in this version.
-  - participant display name and color
-  - reconnect after transient network loss
+  - Show each participant's display name and color.
+  - Restore presence after transient network loss.
   - Include per-document presence opt out in this version.
 out:
   - Do not build voice chat in this version.
@@ -50,15 +50,15 @@ https://example.com/prototypes/collaborative-cursors
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: A collaborator's cursor position appears to other active document viewers within 250 milliseconds at p95 while both clients are connected.
+  criterion: When two collaborators are connected to the same document, each cursor position appears to other active viewers within 250 milliseconds at p95.
 - id: AC-2
-  criterion: Selecting a canvas object shows a lightweight outline and collaborator label to other active viewers.
+  criterion: When a collaborator selects a canvas object, other active viewers see a lightweight outline and collaborator label.
 - id: AC-3
-  criterion: Presence disappears within 10 seconds after a collaborator closes the document or loses connection.
+  criterion: When a collaborator closes the document or loses connection, presence disappears within 10 seconds.
 - id: AC-4
-  criterion: Reconnecting after a transient network drop restores presence without requiring a page reload.
+  criterion: When a collaborator reconnects after a transient network drop, presence restores without requiring a page reload.
 - id: AC-5
-  criterion: Turning off presence for a document stops sending cursor and selection updates for that viewer.
+  criterion: When a viewer turns off presence for a document, the system stops sending cursor and selection updates for that viewer.
 ```
 
 ## Success Metrics

@@ -22,9 +22,12 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: one queue across channels, with handoff landings and contact records attached.
-
-Out: analytics on queue performance.
+```productspec-scope
+in:
+  - Show one queue across channels with handoff landings and contact records attached.
+out:
+  - Do not build analytics on queue performance in this version.
+```
 
 ## Acceptance Criteria
 

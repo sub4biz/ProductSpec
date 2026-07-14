@@ -21,11 +21,16 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: missing-section conformance.
+```productspec-scope
+in:
+  - Exercise missing-section conformance in this fixture.
+out:
+  - Do not include every required ProductSpec section.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Validator returns missing_required_section.
+  criterion: When a required section is absent, the validator returns `missing_required_section`.
 ```

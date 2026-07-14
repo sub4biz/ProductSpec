@@ -46,15 +46,15 @@ https://example.com/family-calendar-conflict-prototype
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Creating or editing an event checks for overlapping events on selected family calendars.
+  criterion: When a parent creates or edits an event, the calendar checks for overlapping events on selected family calendars.
 - id: AC-2
   criterion: A detected conflict shows the conflicting event title, owner, time, and calendar.
 - id: AC-3
   criterion: Parents can send a prefilled message to the other event owner from the conflict detail view.
 - id: AC-4
-  criterion: Dismissing a conflict suppresses duplicate alerts for the same event pair unless either event time changes.
+  criterion: When a parent dismisses a conflict, the calendar suppresses duplicate alerts for the same event pair unless either event time changes.
 - id: AC-5
-  criterion: Private event titles remain hidden unless the viewer already has access to that calendar.
+  criterion: When a viewer lacks access to a private calendar, private event titles remain hidden in conflict alerts.
 ```
 
 ## Success Metrics

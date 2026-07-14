@@ -90,13 +90,13 @@ Acceptance Criteria are the build contract:
 - id: AC-1
   criterion: Given a valid public YouTube URL, the user can create a transcript page.
 - id: AC-2
-  criterion: Search returns matching transcript passages with timestamps.
+  criterion: When the user searches the transcript, the page returns matching passages with timestamps.
 - id: AC-3
-  criterion: Clicking a result jumps the video to the matching timestamp.
+  criterion: When the user clicks a result, the video jumps to the matching timestamp.
 - id: AC-4
-  criterion: Copy passage copies transcript text plus URL and timestamp.
+  criterion: When the user copies a passage, the copied text includes transcript text, URL, and timestamp.
 - id: AC-5
-  criterion: Empty, private, or unsupported videos return a clear error.
+  criterion: When the user submits an empty, private, or unsupported video, the page returns a clear error.
 ```
 
 Success Metrics are not the agent's completion condition. They are measured after launch.

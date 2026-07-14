@@ -28,11 +28,11 @@ A support SLA analytics pipeline handles late ticket events, reopen logic, and h
 
 ```productspec-scope
 in:
-  - daily SLA fact table for first response and resolution time
+  - Produce a daily SLA fact table for first response and resolution time.
   - Include late-arriving ticket event handling in this version.
   - Include reopen event logic in this version.
   - Include 90-day historical backfill in this version.
-  - pipeline freshness and failure status surfaced to the dashboard
+  - Surface pipeline freshness and failure status on the dashboard.
 out:
   - Do not build agent performance compensation rules in this version.
   - Do not build customer-facing SLA reporting in this version.
@@ -51,7 +51,7 @@ cut:
 - id: AC-3
   criterion: Reopened tickets are counted against resolution SLA only when the reopen event occurs within 7 days of the original resolution.
 - id: AC-4
-  criterion: The backfill job rebuilds the prior 90 days and reports row counts, failed workspace count, and completion timestamp.
+  criterion: When the backfill job runs, it rebuilds the prior 90 days and reports row counts, failed workspace count, and completion timestamp.
 - id: AC-5
   criterion: Dashboard users can see whether the SLA dataset is fresh, delayed, or failed before reading the metric cards.
 ```

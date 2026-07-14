@@ -25,17 +25,17 @@ An internal webhook replay API lets authorized operators safely replay failed we
 
 ```productspec-scope
 in:
-  - internal API endpoint for replaying one failed webhook event by ID
+  - Include an internal API endpoint for replaying one failed webhook event by ID in this version.
   - Include permission check in this version.
   - Include replay audit log in this version.
   - Include idempotency guard in this version.
-  - structured success or failure response
+  - Return a structured success or failure response from every replay request.
 out:
   - Do not build customer-facing UI in this version.
   - Do not build bulk replay in this version.
   - Do not build replay scheduling in this version.
   - Do not build editing payloads before replay in this version.
-  - replaying events older than 30 days
+  - Do not replay webhook events older than 30 days in this version.
 cut:
   - Cut automatic retry policy changes from the first version if implementation time is tight.
   - Cut customer self-serve replay from the first version if implementation time is tight.
@@ -53,9 +53,9 @@ cut:
 - id: AC-4
   criterion: Given an event older than 30 days, the endpoint returns a clear `event_not_replayable` error.
 - id: AC-5
-  criterion: Every replay attempt records actor ID, event ID, customer ID, replay job ID, timestamp, and result in the audit log.
+  criterion: When any replay attempt runs, the audit log records actor ID, event ID, customer ID, replay job ID, timestamp, and result.
 - id: AC-6
-  criterion: API evals: on a fixture set covering success, permission failure, duplicate replay, expired event, and missing event, the endpoint returns the expected status code and machine-readable error code in 100% of cases.
+  criterion: Given fixtures for success, permission failure, duplicate replay, expired event, and missing event, the endpoint returns the expected status code and machine-readable error code for every fixture.
 ```
 
 ## Success Metrics

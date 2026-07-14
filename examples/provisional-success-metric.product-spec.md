@@ -27,17 +27,17 @@ A scheduled export workflow writes customer analytics into Google Sheets while l
 
 ```productspec-scope
 in:
-  - CSV export from saved dashboard views
-  - column order that matches the current dashboard table
-  - applied filter and date range metadata in the export
-  - audit event when an export is created
+  - Let a user export saved dashboard views as CSV files.
+  - Preserve the current dashboard table column order in the export.
+  - Include applied filter and date range metadata in the export.
+  - Record an audit event when an export is created.
 out:
   - Do not build scheduled exports in this version.
   - Do not build Google Sheets writeback in this version.
   - Do not build custom spreadsheet templates in this version.
 cut:
   - Cut PDF export from the first version if implementation time is tight.
-  - export from unsaved ad hoc chart edits
+  - Cut exports from unsaved ad hoc chart edits from the first version.
 ```
 
 ## Acceptance Criteria
@@ -48,7 +48,7 @@ cut:
 - id: AC-2
   criterion: The exported file preserves visible column order, applied filters, and selected date range.
 - id: AC-3
-  criterion: Export creation records user ID, dashboard ID, filter hash, timestamp, and row count in the audit log.
+  criterion: When a user creates an export, the audit log records user ID, dashboard ID, filter hash, timestamp, and row count.
 - id: AC-4
   criterion: Users without report access cannot export the dashboard and see the existing permission error state.
 ```

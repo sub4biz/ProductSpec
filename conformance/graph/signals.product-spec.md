@@ -22,9 +22,12 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: intent extraction on live conversations, with a confidence score per signal.
-
-Out: acting on the extracted intent, which later specs own.
+```productspec-scope
+in:
+  - Extract intent from live conversations with a confidence score per signal.
+out:
+  - Do not act on extracted intent because later specs own that behavior.
+```
 
 ## Acceptance Criteria
 

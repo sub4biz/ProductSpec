@@ -31,11 +31,11 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-What is in, what is out, what was considered and deliberately cut.
+What is in, what is out, what was considered and deliberately cut. Use full-sentence bullets in `in`, `out`, and `cut`.
 
 ## Acceptance Criteria
 
-Pass/fail build checks before launch, in a productspec-acceptance-criteria block.
+Observable pass/fail build checks before launch, in a productspec-acceptance-criteria block.
 
 ## Success Metrics
 
@@ -53,20 +53,20 @@ Each `applies_to` entry carries exactly one of `path` or `component`. Two keys i
 - `problem` names a person and a pain, not a solution. If the first draft describes the feature, rewrite it.
 - `hypothesis` must be falsifiable. "Users will like it" is not a hypothesis. "Support leads respond to account-risk tickets faster because the queue is pre-sorted" is.
 - The hypothesis carries the same persona the problem names and predicts an observable behavior change. A mental state ("writers will trust it") cannot be read from a usage log. A behavior can ("writers route edits through integrations they previously avoided").
-- The acceptance/success split: acceptance criteria are checkable before launch, success metrics are observable only after real users arrive. AI eval thresholds are acceptance criteria, never success metrics.
+- The acceptance/success split: acceptance criteria are behavioral checks that are provable before launch, success metrics are observable only after real users arrive. AI eval thresholds are acceptance criteria, never success metrics.
 
 ## Required blocks
 
 `acceptance_criteria` and `success_metrics` each need a fenced block. Prose alone fails validation.
 
-Acceptance criteria, each item needs `id` in the form `AC-<number>` and `criterion`:
+Acceptance criteria, each item needs `id` in the form `AC-<number>` and `criterion`. Write each criterion as observable behavior that can be tested against the built artifact:
 
 ````markdown
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: User can search a transcript by phrase and get timestamped results.
+  criterion: When a user searches a transcript by phrase, the page returns matching timestamped results.
 - id: AC-2
-  criterion: Copy passage includes transcript text, video URL, and timestamp.
+  criterion: When a user copies a passage, the copied text includes transcript text, video URL, and timestamp.
 ```
 ````
 
@@ -108,11 +108,11 @@ Structured scope inside `## Scope`. Prose scope is also valid:
 ````markdown
 ```productspec-scope
 in:
-  - what ships in this version
+  - State the user-visible or system-visible behavior that ships in this version.
 out:
-  - explicitly outside this version
+  - State the user-visible or system-visible behavior that is explicitly outside this version.
 cut:
-  - considered and deliberately removed
+  - State the behavior that was considered and deliberately removed.
 ```
 ````
 

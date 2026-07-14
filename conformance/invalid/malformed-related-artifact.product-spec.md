@@ -35,7 +35,7 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: User can search one transcript by phrase.
+  criterion: When a user searches one transcript by phrase, the page returns matching timestamped passages.
 ```
 
 ## Success Metrics

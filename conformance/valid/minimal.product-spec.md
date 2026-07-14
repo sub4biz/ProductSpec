@@ -22,17 +22,26 @@ A YouTube transcription search product lets researchers create searchable, times
 
 ## Scope
 
-In: paste a YouTube URL, generate a transcript, search it, jump to timestamps, and copy citations.
+```productspec-scope
+in:
+  - Let a researcher paste a YouTube URL and create a transcript page.
+  - Let a researcher search the transcript and jump to matching timestamps.
+  - Let a researcher copy timestamped citations from transcript results.
+out:
+  - Do not build multi-video projects in this version.
+cut:
+  - Cut speaker diarization from the first version.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Valid public YouTube URLs create transcript pages.
+  criterion: Given a valid public YouTube URL, the user can create a transcript page.
 - id: AC-2
-  criterion: Search returns timestamped transcript passages.
+  criterion: When the user searches the transcript, the page returns matching passages with timestamps.
 - id: AC-3
-  criterion: Private or unsupported videos return clear errors.
+  criterion: When the user submits a private or unsupported video, the page returns a clear error.
 ```
 
 ## Success Metrics

@@ -22,11 +22,21 @@ A YouTube transcription search product lets researchers create searchable, times
 
 ## Scope
 
-In: paste a YouTube URL, generate a transcript, search within it, jump to timestamps, and copy passages with citations.
-
-Out: multi-video projects, team workspaces, non-YouTube video imports, and automated citation-format switching.
-
-Cut from this version: speaker diarization and transcript editing.
+```productspec-scope
+in:
+  - Let a researcher paste a YouTube URL and create a transcript page.
+  - Let a researcher search within the generated transcript.
+  - Let a researcher jump to matching timestamps.
+  - Let a researcher copy passages with citations.
+out:
+  - Do not build multi-video projects in this version.
+  - Do not build team workspaces in this version.
+  - Do not build non-YouTube video imports in this version.
+  - Do not build automated citation-format switching in this version.
+cut:
+  - Cut speaker diarization from the first version.
+  - Cut transcript editing from the first version.
+```
 
 ## User Experience
 
@@ -38,13 +48,13 @@ https://example.com/transcript-search-prototype
 - id: AC-1
   criterion: Given a valid public YouTube URL, the user can create a transcript page.
 - id: AC-2
-  criterion: Search returns matching transcript passages with timestamps.
+  criterion: When the user searches the transcript, the page returns matching passages with timestamps.
 - id: AC-3
-  criterion: Clicking a result jumps the video to the matching timestamp.
+  criterion: When the user clicks a search result, the video jumps to the matching timestamp.
 - id: AC-4
-  criterion: Copy passage copies transcript text plus the video URL and timestamp.
+  criterion: When the user copies a passage, the copied text includes transcript text, video URL, and timestamp.
 - id: AC-5
-  criterion: Empty, private, or unsupported videos return a clear error.
+  criterion: When the user submits an empty, private, or unsupported video, the page returns a clear error.
 ```
 
 ## Success Metrics

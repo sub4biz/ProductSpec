@@ -45,11 +45,11 @@ https://example.com/calendar-reminder-prototype
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Users can connect Google Calendar.
+  criterion: When a user connects Google Calendar, the app stores the connection and shows it as active.
 - id: AC-2
-  criterion: Users can mark meetings as high priority.
+  criterion: When a user marks a meeting as high priority, the meeting is eligible for SMS reminders.
 - id: AC-3
-  criterion: High-priority reminders send SMS 5 minutes before the meeting.
+  criterion: When a high-priority meeting starts in 5 minutes, the app sends an SMS reminder to opted-in users.
 - id: AC-4
   criterion: Users can disable SMS reminders at any time.
 ```

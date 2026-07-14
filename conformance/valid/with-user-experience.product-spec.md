@@ -22,7 +22,15 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: calendar connection, high-priority meeting rules, SMS opt-in, and delivery logs.
+```productspec-scope
+in:
+  - Let users connect Google Calendar.
+  - Let users define high-priority meeting rules.
+  - Let users opt into SMS reminders.
+  - Record delivery logs for reminder attempts.
+out:
+  - Do not build automatic meeting rescheduling in this version.
+```
 
 ## User Experience
 
@@ -32,9 +40,9 @@ https://example.com/calendar-reminder-prototype
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Users can connect Google Calendar.
+  criterion: When a user connects Google Calendar, the app stores the calendar connection and shows it as active.
 - id: AC-2
-  criterion: High-priority reminders send SMS 5 minutes before the meeting.
+  criterion: When a high-priority meeting starts in 5 minutes, the app sends an SMS reminder to opted-in users.
 ```
 
 ## Success Metrics

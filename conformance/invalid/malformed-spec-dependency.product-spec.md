@@ -21,13 +21,18 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: transcript search with timestamped citations.
+```productspec-scope
+in:
+  - Include transcript search with timestamped citations in this version.
+out:
+  - Do not build passage sharing in this version.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Search results cite the citation library entry for each passage.
+  criterion: When search results include passages, each result cites the citation library entry for that passage.
 ```
 
 ## Success Metrics

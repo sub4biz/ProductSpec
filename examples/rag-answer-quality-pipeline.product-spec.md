@@ -29,10 +29,10 @@ A RAG answer quality pipeline generates source-grounded internal answers and eva
 ```productspec-scope
 in:
   - Include source-grounded answer generation in this version.
-  - citation requirement for every factual claim
-  - refusal when retrieved context is insufficient
-  - nightly eval run on the golden support-question set
-  - eval result link in release notes
+  - Require a citation for every factual claim in generated answers.
+  - Refuse to answer when retrieved context is insufficient.
+  - Run nightly evals on the golden support-question set.
+  - Link the eval result from release notes.
 out:
   - Do not build retraining the embedding model in this version.
   - Do not build external customer-facing answers in this version.
@@ -46,11 +46,11 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Answers include at least one source citation for every factual claim about account policy, pricing, or feature behavior.
+  criterion: When the bot answers a question about account policy, pricing, or feature behavior, every factual claim includes at least one source citation.
 - id: AC-2
   criterion: The bot refuses to answer when retrieved passages do not contain enough evidence.
 - id: AC-3
-  criterion: Nightly eval results are written to a durable eval-run artifact and linked from the release checklist.
+  criterion: When the nightly eval run completes, the system writes a durable eval-run artifact and links it from the release checklist.
 - id: AC-4
   criterion: A release is blocked when launch-blocking eval cases fall below the pass threshold.
 ```

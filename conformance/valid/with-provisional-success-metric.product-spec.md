@@ -23,7 +23,7 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ```productspec-scope
 in:
-  - provisional success metric target status
+  - Preserve provisional success metric target status in this version.
 out:
   - Do not build analytics instrumentation in this version.
 cut:
@@ -34,7 +34,7 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: A provisional target names the owner responsible for committing the target.
+  criterion: When a success metric target is provisional, the metric names the owner responsible for committing the target.
 ```
 
 ## Success Metrics

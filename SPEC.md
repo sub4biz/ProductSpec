@@ -107,7 +107,7 @@ Structured scope supports:
 - `out`: what is explicitly outside this version.
 - `cut`: what was considered and deliberately removed.
 
-Scope items should be complete sentences or imperative statements, not terse tags. `search, store, spec v2` is not useful to an agent. `Store the fetched transcript so repeated searches do not re-fetch captions.` is useful.
+Scope items should be complete sentences or imperative statements, not terse tags. `search, store, spec v2` is not useful to an agent. `Store the fetched transcript so repeated searches do not re-fetch captions.` is useful. Treat each `in`, `out`, and `cut` item as a sentence-level guardrail that can stand alone in an agent plan or pull request.
 
 Put a rejected user-visible capability, channel, or workflow in `cut`. Put a rejected way of building the same user-visible behavior in `solution_alternatives`. A practical test: would a user notice the difference? If yes, it is scope. If no, it is usually a solution alternative.
 
@@ -118,11 +118,13 @@ Acceptance criteria are written in `acceptance_criteria` with a fenced `products
 ````markdown
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: User can search a transcript by phrase and get timestamped results.
+  criterion: When a user searches a transcript by phrase, the page returns timestamped results.
 - id: AC-2
-  criterion: Copy passage includes transcript text, video URL, and timestamp.
+  criterion: When a user copies a passage, the copied text includes transcript text, video URL, and timestamp.
 ```
 ````
+
+Acceptance criteria should describe observable, testable behavior. A reader or agent should be able to prove each item true or false against the built artifact before launch. Prefer criteria shaped like "Given/When/Then" or "When X happens, the system does Y." Avoid vague claims such as "support search" or "make onboarding better."
 
 Each acceptance criterion item requires:
 

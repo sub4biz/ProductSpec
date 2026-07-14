@@ -120,7 +120,7 @@ cut:
 
 **Common mistake:** treating scope as a feature wish list. Scope should help the team say no.
 
-Scope items should be complete sentences or imperative statements, not terse tags. A scope item should be understandable when quoted by itself in a pull request, ticket, or agent plan.
+Scope items should be complete sentences or imperative statements, not terse tags. A scope item should be understandable when quoted by itself in a pull request, ticket, or agent plan. This applies to all three lists: `in`, `out`, and `cut`.
 
 Use this test when deciding between `cut` and `solution_alternatives`: would a user have noticed the difference?
 
@@ -202,11 +202,13 @@ Use plain bullets when the eval is still a rough human note. Use the structured 
 - id: AC-1
   criterion: Given a valid public YouTube URL, the user can create a transcript page.
 - id: AC-2
-  criterion: Search returns matching transcript passages with timestamps.
+  criterion: When the user searches the transcript, the page returns matching transcript passages with timestamps.
 - id: AC-3
-  criterion: Empty, private, or unsupported videos return a clear error.
+  criterion: When the user submits an empty, private, or unsupported video, the page returns a clear error.
 ```
 ````
+
+Good acceptance criteria are behavioral and testable. They name the observable condition that must be true before launch. If an engineer, agent, or reviewer cannot tell how to prove the criterion, rewrite it.
 
 Acceptance Criteria use generated durable IDs (`AC-1`, `AC-2`) because agents, tickets, pull requests, and Decision Traces may need to cite the exact build condition. Eval cases and optional checks stay un-IDed; cite them positionally if needed, such as `EVAL-1.case[2]`.
 

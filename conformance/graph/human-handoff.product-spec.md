@@ -22,9 +22,12 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: signal-triggered handoff with full context transfer.
-
-Out: routing rules per team, which the inbox owns.
+```productspec-scope
+in:
+  - Include signal-triggered handoff with full context transfer in this version.
+out:
+  - Do not build per-team routing rules because the inbox owns them.
+```
 
 ## Acceptance Criteria
 

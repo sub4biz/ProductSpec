@@ -29,12 +29,12 @@ A transcript search feature lets a researcher search one transcript by phrase an
 in:
   - Include transcript phrase search in this version.
   - Include timestamped result snippets in this version.
-  - copy passage with video URL and timestamp
-  - empty state for no matches
+  - Let a researcher copy a passage with the video URL and timestamp.
+  - Show an empty state when a search has no matches.
 out:
   - Do not build team transcript libraries in this version.
   - Do not build speaker labeling in this version.
-  - semantic search across multiple videos
+  - Do not build semantic search across multiple videos in this version.
 cut:
   - Cut AI-generated transcript summaries from the first version if implementation time is tight.
 ```
@@ -45,9 +45,9 @@ cut:
 - id: AC-1
   criterion: A researcher can search within one transcript and see matching snippets with timestamps.
 - id: AC-2
-  criterion: Copy passage includes the transcript text, source video URL, and timestamp.
+  criterion: When a researcher copies a passage, the copied text includes the transcript text, source video URL, and timestamp.
 - id: AC-3
-  criterion: No-match searches show an empty state without clearing the user's query.
+  criterion: When a search has no matches, the page shows an empty state without clearing the user's query.
 ```
 
 ```productspec-ai-evals

@@ -29,10 +29,10 @@ A checkout recovery flow lets shoppers recover from a failed 3DS challenge witho
 ```productspec-scope
 in:
   - Include recoverable 3DS failure state in this version.
-  - retry payment with the same cart
-  - alternate card entry after failed challenge
+  - Let the buyer retry payment with the same cart after a failed challenge.
+  - Let the buyer enter an alternate card after a failed challenge.
   - Include payment-attempt audit record in this version.
-  - support-visible failure reason
+  - Show the failure reason to support users.
 out:
   - Do not build new payment processor in this version.
   - Do not build merchant-defined recovery copy in this version.
@@ -52,13 +52,13 @@ https://example.com/prototypes/checkout-3ds-recovery
 - id: AC-1
   criterion: When a 3DS challenge fails, the buyer returns to checkout with cart contents, shipping details, and selected payment method preserved.
 - id: AC-2
-  criterion: The failure state explains that bank authentication failed and offers retry card, use another card, and cancel checkout actions.
+  criterion: When a 3DS challenge fails, the failure state explains that bank authentication failed and offers retry card, use another card, and cancel checkout actions.
 - id: AC-3
   criterion: Each failed 3DS attempt records payment intent ID, merchant ID, failure code, browser family, processor response, and timestamp.
 - id: AC-4
-  criterion: Support users can find the failed attempt from order lookup without exposing full card data.
+  criterion: When a support user opens order lookup, they can find the failed attempt without seeing full card data.
 - id: AC-5
-  criterion: Retrying a failed 3DS payment does not duplicate the order or charge the buyer twice.
+  criterion: When a buyer retries a failed 3DS payment, the system does not duplicate the order or charge the buyer twice.
 ```
 
 ## Success Metrics

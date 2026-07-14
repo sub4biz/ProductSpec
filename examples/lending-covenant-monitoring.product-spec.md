@@ -25,23 +25,23 @@ A covenant monitoring workflow shows lenders current covenant status and cannot-
 
 ```productspec-scope
 in:
-  - covenant register per borrowing with type, threshold, and review cadence
-  - automatic computation of covenant values from existing repayment and outstanding-balance data
-  - breach and near-breach alerts ahead of lender review deadlines
-  - reviewer confirmation step with a full audit trail
+  - Show a covenant register per borrowing with type, threshold, and review cadence.
+  - Compute covenant values automatically from existing repayment and outstanding-balance data.
+  - Alert treasury leads about breaches and near-breaches ahead of lender review deadlines.
+  - Require reviewer confirmation with a full audit trail before logging covenant status.
 out:
   - Do not build lender-facing reporting portal in this version.
-  - covenant negotiation or amendment workflows
+  - Do not build covenant negotiation or amendment workflows in this version.
   - Do not build automatic communication to lenders in this version.
 cut:
-  - manual entry of computed covenant values. Considered and rejected. The system already holds the source data, and typed values reintroduce the spreadsheet failure mode this work exists to remove.
+  - Cut manual entry of computed covenant values because the system already holds the source data and typed values reintroduce spreadsheet failure modes.
 ```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Each borrowing displays its covenants with the current computed value, the threshold, the headroom remaining, and the timestamp of the source data used in the computation.
+  criterion: When a treasury user opens a borrowing, the page displays each covenant with the current computed value, threshold, headroom remaining, and source-data timestamp.
 - id: AC-2
   criterion: When a computed covenant value crosses its configured near-breach threshold, the treasury lead receives an alert at least 10 business days before the lender review date.
 - id: AC-3

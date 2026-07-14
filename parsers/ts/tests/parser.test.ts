@@ -2290,8 +2290,13 @@ Keep this around.
     expect(examples.length).toBeGreaterThanOrEqual(5);
 
     for (const example of examples) {
-      const result = validateProductSpecMarkdown(readFileSync(example, "utf8"));
+      const markdown = readFileSync(example, "utf8");
+      const result = validateProductSpecMarkdown(markdown);
+      expect(markdown, example).toMatch(/^## Product Summary\s*$/m);
       expect(result.valid, example).toBe(true);
+      if (result.valid) {
+        expect(result.warnings.filter((warning) => warning.code === "scope_item_fragment"), example).toEqual([]);
+      }
     }
   });
 
@@ -2566,7 +2571,7 @@ In: timestamped copy.
 
     const scope = parsed.sections.find((section) => section.id === "scope");
     expect(scope?.content).toContain("Who is hurting.");
-    expect(scope?.content).toContain("Out: a generator CLI.");
+    expect(scope?.content).toContain("Do not build a generator CLI in this version.");
     expect(validateProductSpecMarkdown(markdown).errors).toEqual([]);
   });
 

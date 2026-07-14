@@ -25,7 +25,7 @@ A second support triage version adds customer-tier context, reviewer override, a
 
 ```productspec-scope
 in:
-  - ticket ingestion from the helpdesk API
+  - Ingest tickets from the helpdesk API.
   - Include urgency labels in this version.
   - Include customer-tier lookup in this version.
   - Include owner recommendation in this version.
@@ -50,13 +50,13 @@ https://example.com/support-triage-dashboard
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: New tickets receive urgency, customer tier, suggested owner, confidence score, and model version within 60 seconds.
+  criterion: When a new ticket arrives, it receives urgency, customer tier, suggested owner, confidence score, and model version within 60 seconds.
 - id: AC-2
   criterion: Reviewers can override any label before it changes downstream workflow state.
 - id: AC-3
-  criterion: Labels below 0.75 confidence are marked `needs_review` and do not trigger escalation.
+  criterion: When a label has confidence below 0.75, it is marked `needs_review` and does not trigger escalation.
 - id: AC-4
-  criterion: Every AI-generated label stores ticket ID, model version, input redaction status, confidence, reviewer action, and timestamp.
+  criterion: When an AI-generated label is created, it stores ticket ID, model version, input redaction status, confidence, reviewer action, and timestamp.
 ```
 
 ```productspec-ai-evals

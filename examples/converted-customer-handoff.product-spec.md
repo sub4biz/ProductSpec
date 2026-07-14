@@ -31,25 +31,25 @@ A customer handoff workflow keeps CRM ownership and handoff context synchronized
 
 ```productspec-scope
 in:
-  - explicit handoff via a request_human_handoff tool
-  - handoff records with SLA columns
-  - assignment to a team or person, appearing in the inbox
+  - Let the AI request a human handoff through a `request_human_handoff` tool.
+  - Create handoff records with SLA columns.
+  - Let each handoff be assigned to a team or person and appear in the inbox.
 out:
-  - signal-triggered handoff, which waits on the risk-signals work
+  - Do not build signal-triggered handoff until the risk-signals work exists.
   - Do not build CRM owner sync in this version.
 cut:
-  - a separate copilot product with its own billing, rejected in favor of one agent with a mode setting
+  - Cut a separate copilot product with its own billing in favor of one agent with a mode setting.
 ```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Calling request_human_handoff creates a handoff record with status pending and the conversation appears in the inbox.
+  criterion: When the AI calls `request_human_handoff`, the system creates a pending handoff record and shows the conversation in the inbox.
 - id: AC-2
-  criterion: Assigning a handoff sets the assignee and starts the SLA clock.
+  criterion: When an operator assigns a handoff, the system sets the assignee and starts the SLA clock.
 - id: AC-3
-  criterion: Routing operates on the conversation assignee and never on the CRM contact owner.
+  criterion: When a conversation is routed, the router uses the conversation assignee and never the CRM contact owner.
 ```
 
 ```productspec-ai-evals

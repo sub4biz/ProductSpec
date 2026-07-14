@@ -25,7 +25,7 @@ A platform cache migration gives service teams versioned cache keys, rollback gu
 ```productspec-scope
 in:
   - Include versioned cache keys in this version.
-  - migration adapter for existing read paths
+  - Include a migration adapter for existing read paths in this version.
   - Include rollback runbook in this version.
   - Include deploy-time metrics dashboard in this version.
   - Include service owner migration guide in this version.
@@ -41,11 +41,11 @@ cut:
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Existing read paths continue to return the same payload shape during migration.
+  criterion: During migration, existing read paths continue to return the same payload shape.
 - id: AC-2
-  criterion: Service owners can opt into versioned cache keys behind a feature flag.
+  criterion: When a service owner enables the feature flag, their service uses versioned cache keys.
 - id: AC-3
-  criterion: Rollback restores the prior cache read path without data migration.
+  criterion: When rollback runs, the service restores the prior cache read path without data migration.
 - id: AC-4
   criterion: The deploy dashboard shows cache hit rate, miss rate, error rate, and rollback status.
 - id: AC-5

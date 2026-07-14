@@ -52,13 +52,13 @@ https://example.com/transcript-search-prototype
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Public YouTube URLs create transcript pages or return actionable errors.
+  criterion: Given a public YouTube URL, the product creates a transcript page or returns an actionable error.
 - id: AC-2
-  criterion: Transcript pages show video metadata, search, timestamped passages, and copy controls.
+  criterion: When a transcript page opens, it shows video metadata, search, timestamped passages, and copy controls.
 - id: AC-3
-  criterion: Search highlights matching transcript text.
+  criterion: When a researcher searches the transcript, matching transcript text is highlighted in the results.
 - id: AC-4
-  criterion: Copied passages include source URL and timestamp.
+  criterion: When a researcher copies a passage, the copied text includes the source URL and timestamp.
 ```
 
 ```productspec-ai-evals

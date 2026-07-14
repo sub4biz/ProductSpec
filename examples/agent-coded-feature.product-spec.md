@@ -28,7 +28,7 @@ A saved-search alert feature emails account teams when new matching records appe
 
 ```productspec-scope
 in:
-  - saved search creation from the search results page
+  - Let a user create a saved search from the search results page.
   - Include weekly email alert in this version.
   - Include alert unsubscribe link in this version.
   - Include account-level saved search list in this version.
@@ -51,11 +51,11 @@ https://example.com/saved-search-alerts-prototype
 - id: AC-1
   criterion: Users can save the current query from the transcript search results page.
 - id: AC-2
-  criterion: Saved searches appear in account settings with created date, last run date, and unsubscribe control.
+  criterion: When a user saves a search, account settings show its created date, last run date, and unsubscribe control.
 - id: AC-3
   criterion: The weekly alert includes matching video title, passage excerpt, timestamp link, and query text.
 - id: AC-4
-  criterion: Unsubscribed searches stop sending alerts within one hour.
+  criterion: When a user unsubscribes from a saved search, that search stops sending alerts within one hour.
 - id: AC-5
   criterion: The implementation pull request links back to this Product Spec revision.
 ```

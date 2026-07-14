@@ -21,13 +21,18 @@ This Product Spec describes the product behavior, user-facing shape, and impleme
 
 ## Scope
 
-In: unsupported-version conformance.
+```productspec-scope
+in:
+  - Exercise unsupported-version conformance in this fixture.
+out:
+  - Do not validate successfully when the version is unsupported.
+```
 
 ## Acceptance Criteria
 
 ```productspec-acceptance-criteria
 - id: AC-1
-  criterion: Validator returns unsupported_version.
+  criterion: When the format version is unsupported, the validator returns `unsupported_version`.
 ```
 
 ## Success Metrics
