@@ -20,22 +20,26 @@ Design reviewers working in the same canvas talk past each other because they ca
 
 If collaborators can see lightweight realtime cursors and selections during a shared canvas session, review comments will resolve faster because people can point at the same object without narrating location.
 
+## Product Summary
+
+A collaborative cursor feature shows each editor where teammates are working inside a shared document.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - realtime cursor position
-  - selected object outline
+  - Include realtime cursor position in this version.
+  - Include selected object outline in this version.
   - participant display name and color
   - reconnect after transient network loss
-  - per-document presence opt out
+  - Include per-document presence opt out in this version.
 out:
-  - voice chat
-  - full screen-sharing
-  - edit conflict resolution
+  - Do not build voice chat in this version.
+  - Do not build full screen-sharing in this version.
+  - Do not build edit conflict resolution in this version.
 cut:
-  - animated cursor trails
-  - custom participant avatars
+  - Cut animated cursor trails from the first version if implementation time is tight.
+  - Cut custom participant avatars from the first version if implementation time is tight.
 ```
 
 ## User Experience

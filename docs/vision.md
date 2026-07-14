@@ -21,7 +21,7 @@ The software stack has mature standards for implementation:
 - Terraform for infrastructure.
 - SQL for data.
 
-There is no equivalent standard for software intent: the problem, hypothesis, scope, user experience, acceptance criteria, success metrics, tradeoffs, decisions, and evidence behind the work.
+There is no equivalent standard for software intent: the problem, hypothesis, product summary, scope, user experience, acceptance criteria, success metrics, tradeoffs, decisions, and evidence behind the work.
 
 Today that intent is scattered across docs, chat threads, meetings, issue trackers, design comments, analytics dashboards, and people's memories.
 

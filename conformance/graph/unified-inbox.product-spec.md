@@ -16,6 +16,10 @@ Handoffs need somewhere to land, and operators need one queue instead of one tab
 
 If every channel lands in one queue, operators stop tabbing between tools and first response time drops.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: one queue across channels, with handoff landings and contact records attached.

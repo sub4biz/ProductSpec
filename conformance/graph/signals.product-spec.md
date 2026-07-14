@@ -16,6 +16,10 @@ Conversations carry intent the system never captures, so nothing downstream can 
 
 If intent is extracted while the conversation is still open, downstream features can act before the customer is gone.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: intent extraction on live conversations, with a confidence score per signal.

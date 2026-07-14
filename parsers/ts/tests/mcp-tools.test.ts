@@ -10,6 +10,7 @@ import {
   getAiEvals,
   getEvidenceChecklist,
   getProductSpec,
+  getProductSummary,
   getScope,
   getSpecGraph,
   listProductSpecs,
@@ -34,16 +35,20 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped matches with context, researchers will cite video passages faster.
 
+## Product Summary
+
+A transcript search feature lets researchers search one transcript by phrase and open timestamped result snippets.
+
 ## Scope
 
 \`\`\`productspec-scope
 in:
-  - transcript text search
-  - timestamped result links
+  - Include transcript text search in this version.
+  - Include timestamped result links in this version.
 out:
-  - semantic search
+  - Do not build semantic search in this version.
 cut:
-  - saved searches
+  - Cut saved searches from the first version if implementation time is tight.
 \`\`\`
 
 ## Acceptance Criteria
@@ -104,10 +109,13 @@ describe("ProductSpec MCP tools", () => {
   it("returns structured execution fields", () => {
     const dir = writeFixture();
 
+    expect(getProductSummary({ root: dir, path: "search.product-spec.md" })).toContain(
+      "A transcript search feature lets researchers search one transcript"
+    );
     expect(getScope({ root: dir, path: "search.product-spec.md" })).toEqual({
-      in: ["transcript text search", "timestamped result links"],
-      out: ["semantic search"],
-      cut: ["saved searches"]
+      in: ["Include transcript text search in this version.", "Include timestamped result links in this version."],
+      out: ["Do not build semantic search in this version."],
+      cut: ["Cut saved searches from the first version if implementation time is tight."]
     });
     expect(getAcceptanceCriteria({ root: dir, path: "search.product-spec.md" })).toHaveLength(2);
     expect(getAiEvals({ root: dir, path: "search.product-spec.md" })).toEqual([

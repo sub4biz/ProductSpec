@@ -66,7 +66,7 @@ Product Spec errors:
 | `unsupported_artifact_type` | `artifact_type` is not `hypothesis`, `prd`, or `openspec_proposal` |
 | `invalid_spec_revision` | `spec_revision` is not a positive integer |
 | `invalid_applies_to` | An `applies_to` entry lacks exactly one of `path` or `component` |
-| `missing_required_section` | One of the five mandatory sections absent |
+| `missing_required_section` | One of the six mandatory sections absent |
 | `duplicate_section` | Two sections resolve to the same id |
 | `invalid_section_order` | Mandatory sections out of order |
 | `invalid_acceptance_criterion` | Block missing, or an item without `id` in `AC-<number>` form and a `criterion` |

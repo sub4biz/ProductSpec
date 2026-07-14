@@ -4,7 +4,7 @@
 
 No. A classic PRD is mostly a human handoff. A Product Spec is a human-readable, machine-parseable intent document that can be used by teams, review tools, engineering-spec systems, and AI agents.
 
-ProductSpec keeps the useful parts of a PRD: problem, hypothesis, scope, acceptance criteria, and success metrics. It adds enough structure for downstream tools to preserve intent.
+ProductSpec keeps the useful parts of a PRD: problem, hypothesis, product summary, scope, acceptance criteria, and success metrics. It adds enough structure for downstream tools to preserve intent.
 
 ## How is ProductSpec different from OpenSpec or Spec Kit?
 
@@ -28,7 +28,7 @@ No. Markdown is the container.
 ProductSpec adds the parts that make a spec portable across people, tools, and agents:
 
 - canonical sections
-- structured Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts
+- structured Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts
 - durable `AC-`, `EVAL-`, and `SM-` IDs
 - validation and conformance fixtures
 - `spec_revision` for meaningful intent changes
@@ -49,7 +49,7 @@ No. ProductSpec is an open standard. You can write `.product-spec.md` files by h
 
 Jira and Linear are excellent work trackers. They are not the durable source of product intent.
 
-A Product Spec can become epics, issues, or tasks, but the spec should remain the record of the problem, hypothesis, scope, acceptance criteria, and success metrics those tasks serve.
+A Product Spec can become epics, issues, or tasks, but the spec should remain the record of the problem, hypothesis, product summary, scope, acceptance criteria, and success metrics those tasks serve.
 
 ## Where do AI evals live?
 
@@ -73,7 +73,7 @@ spec_revision: 2
 
 It tracks the revision of this specific Product Spec's intent. It is separate from `spec_format_version`, which tracks the ProductSpec standard version.
 
-Use `spec_revision` when scope, user experience, acceptance criteria, or success metrics materially change. Git remains the detailed history.
+Use `spec_revision` when product summary, scope, user experience, acceptance criteria, or success metrics materially change. Git remains the detailed history.
 
 ## When should I not use ProductSpec?
 

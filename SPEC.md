@@ -54,9 +54,10 @@ Mandatory sections, in order:
 
 1. `problem`: who is hurting, what pain they feel, and why it matters.
 2. `hypothesis`: the causal bet behind the product.
-3. `scope`: what is in, what is out, and what is deliberately cut.
-4. `acceptance_criteria`: pass/fail build checks before launch.
-5. `success_metrics`: real-user behavior after launch.
+3. `product_summary`: what should exist when the work is done, in plain language.
+4. `scope`: what is in, what is out, and what is deliberately cut.
+5. `acceptance_criteria`: pass/fail build checks before launch.
+6. `success_metrics`: real-user behavior after launch.
 
 Optional sections:
 
@@ -91,12 +92,12 @@ Structured scope may be included in `scope` with a fenced `productspec-scope` bl
 ````markdown
 ```productspec-scope
 in:
-  - transcript search
-  - timestamped quote copy
+  - Let a researcher search within one generated transcript.
+  - Let a researcher copy a timestamped quote from a search result.
 out:
-  - team libraries
+  - Do not build team transcript libraries in this version.
 cut:
-  - speaker labels
+  - Cut speaker labels from the first version if implementation time is tight.
 ```
 ````
 
@@ -105,6 +106,8 @@ Structured scope supports:
 - `in`: what ships in this version.
 - `out`: what is explicitly outside this version.
 - `cut`: what was considered and deliberately removed.
+
+Scope items should be complete sentences or imperative statements, not terse tags. `search, store, spec v2` is not useful to an agent. `Store the fetched transcript so repeated searches do not re-fetch captions.` is useful.
 
 Put a rejected user-visible capability, channel, or workflow in `cut`. Put a rejected way of building the same user-visible behavior in `solution_alternatives`. A practical test: would a user notice the difference? If yes, it is scope. If no, it is usually a solution alternative.
 

@@ -25,6 +25,10 @@ Who is hurting, what pain they feel, and why it matters now.
 
 The causal bet: if we ship this, this specific user changes this observable behavior.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 What is in, what is out, what was considered and deliberately cut.

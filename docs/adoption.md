@@ -59,7 +59,7 @@ ProductSpec sits upstream of engineering spec systems such as OpenSpec and Spec 
 
 Recommended handoff:
 
-1. Product Spec defines problem, hypothesis, scope, acceptance criteria, and success metrics.
+1. Product Spec defines problem, hypothesis, product summary, scope, acceptance criteria, and success metrics.
 2. Engineering spec translates that intent into architecture, implementation plan, tasks, and tests.
 3. AI coding agents or humans implement against the engineering spec.
 4. Pull requests report which acceptance criteria are satisfied.

@@ -48,6 +48,10 @@ Teams cannot import customer records reliably.
 
 If imports expose a clear upload path, teams will trust automated onboarding.
 
+## Product Summary
+
+A CSV import tool lets an operator upload a customer file, review row-level errors, and create an import job.
+
 ## Scope
 
 In: CSV upload and row-level error responses.
@@ -74,10 +78,60 @@ In: CSV upload and row-level error responses.
     expect(parsed.sections.map((section) => section.id)).toEqual([
       "problem",
       "hypothesis",
+      "product_summary",
       "scope",
       "acceptance_criteria",
       "success_metrics"
     ]);
+  });
+
+  it("requires Product Summary between Hypothesis and Scope", () => {
+    const result = validateProductSpecMarkdown(`---
+spec_format_version: "0.1"
+title: "Missing Product Summary"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Teams cannot import customer records reliably.
+
+## Hypothesis
+
+If imports expose a clear upload path, teams will trust automated onboarding.
+
+## Scope
+
+In: CSV upload and row-level error responses.
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: Valid CSV files create import jobs.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: import_completion_without_support_contact
+  target: ">= 80%"
+  window: per import
+\`\`\`
+`);
+
+    expect(result.valid).toBe(false);
+    if (!result.valid) {
+      expect(result.errors).toContainEqual({
+        code: "missing_required_section",
+        message: "Missing mandatory section: product_summary",
+        path: "sections.product_summary"
+      });
+    }
   });
 
   it("round-trips optional spec revision frontmatter", () => {
@@ -98,6 +152,10 @@ Teams cannot tell which intent revision an engineering plan came from.
 ## Hypothesis
 
 If specs carry a simple revision number, downstream plans can reference the exact intent they implement.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -145,6 +203,10 @@ Teams cannot trust invalid timestamps.
 ## Hypothesis
 
 If timestamps are valid date-times, tools can compare specs reliably.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -196,6 +258,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -275,6 +341,10 @@ Teams cannot attach evidence when item IDs collide.
 ## Hypothesis
 
 If durable IDs are unique, evidence links resolve to one thing.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -364,6 +434,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 ~~~productspec-scope
@@ -448,6 +522,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search.
@@ -499,6 +577,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -560,6 +642,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search, timestamp citations, and quote copy.
@@ -608,6 +694,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -667,6 +757,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -736,6 +830,10 @@ Researchers lose time finding exact quotes inside long videos.
 
 If transcripts become searchable, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 \`\`\`productspec-scope
@@ -797,6 +895,10 @@ Researchers lose time finding exact quotes inside long videos.
 
 If transcripts become searchable, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 \`\`\`productspec-scope
@@ -855,6 +957,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -937,6 +1043,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search.
@@ -993,6 +1103,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -1056,6 +1170,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search.
@@ -1117,6 +1235,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search.
@@ -1148,6 +1270,7 @@ Extra notes.
     expect(parsed.sections.map((section) => section.id)).toEqual([
       "problem",
       "hypothesis",
+      "product_summary",
       "scope",
       "acceptance_criteria",
       "success_metrics",
@@ -1174,6 +1297,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -1229,6 +1356,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 \`\`\`productspec-scope
@@ -1274,6 +1405,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: transcript search.
@@ -1314,6 +1449,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 ## Hypothesis
 
 If transcript search returns timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -1589,6 +1728,10 @@ Teams cannot tell which intent revision an engineering plan came from.
 
 If specs carry a simple revision number, downstream plans can reference the exact intent they implement.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: optional positive integer revision in frontmatter.
@@ -1632,6 +1775,10 @@ TBD
 
 If onboarding improves, users activate.
 
+## Product Summary
+
+An onboarding checklist guides new users from signup to first completed setup task.
+
 ## Scope
 
 In: onboarding.
@@ -1662,6 +1809,68 @@ In: onboarding.
     }
   });
 
+  it("warns when structured scope items are fragments instead of clear statements", () => {
+    const markdown = `---
+spec_format_version: "0.1"
+title: "Fragment Scope"
+artifact_type: "prd"
+author: "ProductSpec"
+created_at: "2026-07-05T00:00:00Z"
+updated_at: "2026-07-05T00:00:00Z"
+---
+
+## Problem
+
+Researchers lose time finding exact quotes in long video transcripts.
+
+## Hypothesis
+
+If searchable transcripts expose timestamped passages, researchers will cite video sources more often.
+
+## Product Summary
+
+A transcript search app lets a researcher paste a YouTube URL, view existing captions, and search timestamped transcript lines.
+
+## Scope
+
+\`\`\`productspec-scope
+in:
+  - search
+out:
+  - accounts
+cut:
+  - storage
+\`\`\`
+
+## Acceptance Criteria
+
+\`\`\`productspec-acceptance-criteria
+- id: AC-1
+  criterion: Given a captioned YouTube URL, the app displays timestamped transcript lines.
+\`\`\`
+
+## Success Metrics
+
+\`\`\`productspec-success-metrics
+- id: SM-1
+  metric: first_transcript_search_rate
+  target: ">= 60%"
+  window: first transcript session
+\`\`\`
+`;
+
+    const result = validateProductSpecMarkdown(markdown);
+
+    expect(result.valid).toBe(true);
+    if (result.valid) {
+      expect(result.warnings).toContainEqual({
+        code: "scope_item_fragment",
+        message: "Scope item should be a complete sentence or imperative statement: search",
+        path: "sections.scope.scope.in.0"
+      });
+    }
+  });
+
   it("rejects duplicate sections, out-of-order required sections, and invalid custom IDs", () => {
     const duplicate = validateProductSpecMarkdown(`---
 spec_format_version: "0.1"
@@ -1683,6 +1892,10 @@ This is duplicated.
 ## Hypothesis
 
 If imports expose a clear upload path, teams will trust onboarding.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -1728,6 +1941,10 @@ In: CSV upload and row-level errors.
 
 If imports expose a clear upload path, teams will trust onboarding.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Acceptance Criteria
 
 \`\`\`productspec-acceptance-criteria
@@ -1767,6 +1984,10 @@ Teams cannot import records reliably.
 ## Hypothesis
 
 If imports expose a clear upload path, teams will trust onboarding.
+
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
 
 ## Scope
 
@@ -2249,6 +2470,10 @@ Researchers lose source context.
 
 If copied passages include timestamps, researchers cite sources faster.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: timestamped copy.
@@ -2333,6 +2558,7 @@ In: timestamped copy.
     expect(parsed.sections.map((section) => section.id)).toEqual([
       "problem",
       "hypothesis",
+      "product_summary",
       "scope",
       "acceptance_criteria",
       "success_metrics"
@@ -2362,6 +2588,10 @@ Windows-authored specs use carriage returns and must still parse.
 
 If CRLF is normalized, cross-platform specs validate identically.
 
+## Product Summary
+
+This Product Spec describes the product behavior being validated by this parser test.
+
 ## Scope
 
 In: CRLF normalization before frontmatter parsing.
@@ -2389,6 +2619,7 @@ In: CRLF normalization before frontmatter parsing.
     expect(parseProductSpecMarkdown(markdown.replace(/\n/g, "\r\n")).sections.map((section) => section.id)).toEqual([
       "problem",
       "hypothesis",
+      "product_summary",
       "scope",
       "acceptance_criteria",
       "success_metrics"

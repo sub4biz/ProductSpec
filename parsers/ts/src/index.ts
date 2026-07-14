@@ -1,6 +1,7 @@
 export const MANDATORY_SECTION_IDS = [
   "problem",
   "hypothesis",
+  "product_summary",
   "scope",
   "acceptance_criteria",
   "success_metrics"
@@ -286,6 +287,7 @@ export type AgentRunValidationResult =
 const LABELS: Record<string, string> = {
   problem: "Problem",
   hypothesis: "Hypothesis",
+  product_summary: "Product Summary",
   scope: "Scope",
   user_experience: "User Experience",
   acceptance_criteria: "Acceptance Criteria",
@@ -550,6 +552,17 @@ function validateDocument(document: ProductSpecDocument): {
           message: "Invalid structured scope: include at least one non-empty in, out, or cut item.",
           path
         });
+      }
+      for (const key of ["in", "out", "cut"] as const) {
+        for (const [index, item] of section.scope[key].entries()) {
+          if (isFragmentLikeScopeItem(item)) {
+            warnings.push({
+              code: "scope_item_fragment",
+              message: `Scope item should be a complete sentence or imperative statement: ${item}`,
+              path: `${path}.${key}.${index}`
+            });
+          }
+        }
       }
     }
 
@@ -822,6 +835,15 @@ function validateDocument(document: ProductSpecDocument): {
   }
 
   return { errors, warnings };
+}
+
+function isFragmentLikeScopeItem(item: string): boolean {
+  const trimmed = item.trim();
+  if (!trimmed) return false;
+  if (/[.!?]$/.test(trimmed)) return false;
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  if (words.length >= 5) return false;
+  return !/^(accept|add|allow|block|build|create|display|do|do not|enable|fetch|generate|hide|include|let|limit|prevent|reject|require|return|show|store|support|use|validate)\b/i.test(trimmed);
 }
 
 function expectedItemIdPrefixForArtifact(type?: string): "AC" | "EVAL" | "SM" | undefined {

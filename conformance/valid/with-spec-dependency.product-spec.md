@@ -16,6 +16,10 @@ Researchers cannot cite transcript passages until the citation library exists, a
 
 If transcript search ships after the citation library, citations resolve on day one and researchers trust the results.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 ```productspec-scope

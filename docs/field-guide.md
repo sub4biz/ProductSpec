@@ -57,6 +57,31 @@ ProductSpec is not for every act of building. It is for consequential software w
 
 Hypothesis names the expected behavior change. Success Metrics quantify it.
 
+## Product Summary
+
+**What it is:** the plain-English description of what should exist when the work is done.
+
+**Belongs here:**
+
+- The product, feature, workflow, API, internal tool, or agent capability being built.
+- The primary user story or system story.
+- The concrete shape a reader should picture before reading scope and acceptance criteria.
+
+**Does not belong here:**
+
+- The customer pain. That belongs in Problem.
+- The causal bet. That belongs in Hypothesis.
+- Every boundary or future exclusion. That belongs in Scope.
+- Pass/fail launch gates. Those belong in Acceptance Criteria.
+
+**Example:**
+
+> A transcript search app lets a researcher paste a YouTube URL, fetch the video's existing captions, view the transcript as timestamped lines, and search those lines by keyword.
+
+Primary user story: "I paste a YouTube URL, see the transcript, search for a word, and get every matching line with a clickable timestamp."
+
+**Common mistake:** writing a slogan or category label. "AI transcript tool" is too thin. Product Summary should tell a human or agent what product shape to build.
+
 ## Scope
 
 **What it is:** the boundary of the work.
@@ -80,21 +105,22 @@ Hypothesis names the expected behavior change. Success Metrics quantify it.
 ````markdown
 ```productspec-scope
 in:
-  - paste a YouTube URL
-  - generate a transcript
-  - search within one transcript
-  - copy passages with citations
+  - Let a researcher paste one YouTube URL and create a transcript page.
+  - Let a researcher search within one transcript.
+  - Let a researcher copy a timestamped passage with citation metadata.
 out:
-  - multi-video projects
-  - team workspaces
-  - non-YouTube video imports
+  - Do not build multi-video research projects in this version.
+  - Do not build team workspaces in this version.
+  - Do not support non-YouTube video imports.
 cut:
-  - speaker diarization
-  - transcript editing
+  - Cut speaker diarization from the first version if implementation time is tight.
+  - Cut transcript editing from the first version if implementation time is tight.
 ```
 ````
 
 **Common mistake:** treating scope as a feature wish list. Scope should help the team say no.
+
+Scope items should be complete sentences or imperative statements, not terse tags. A scope item should be understandable when quoted by itself in a pull request, ticket, or agent plan.
 
 Use this test when deciding between `cut` and `solution_alternatives`: would a user have noticed the difference?
 

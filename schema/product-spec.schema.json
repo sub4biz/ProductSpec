@@ -55,7 +55,7 @@
     },
     "sections": {
       "type": "array",
-      "minItems": 5,
+      "minItems": 6,
       "allOf": [
         {
           "contains": {
@@ -68,6 +68,13 @@
           "contains": {
             "type": "object",
             "properties": { "id": { "const": "hypothesis" } },
+            "required": ["id"]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": { "id": { "const": "product_summary" } },
             "required": ["id"]
           }
         },
@@ -103,6 +110,7 @@
                 "enum": [
                   "problem",
                   "hypothesis",
+                  "product_summary",
                   "scope",
                   "acceptance_criteria",
                   "success_metrics",

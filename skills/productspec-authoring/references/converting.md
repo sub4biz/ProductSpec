@@ -4,7 +4,7 @@ Converting a real document is harder than authoring fresh, because the source wa
 
 ## The mapping pass
 
-1. Read the whole source first. Identify the person in pain, the causal bet, the boundaries, the pre-launch checks, and the post-launch expectations. These map to the five mandatory sections.
+1. Read the whole source first. Identify the person in pain, the causal bet, the product shape, the boundaries, the pre-launch checks, and the post-launch expectations. These map to the six mandatory sections.
 2. `problem` and `hypothesis` usually do not exist verbatim in engineering docs. Derive them from the source and flag both for author review. They are the sections most worth a human's time.
 3. Sort every boundary statement into scope: shipping now (`in`), explicitly not this version (`out`), considered and rejected (`cut`). If an item is committed but deferred behind another piece of work, keep it in `out` and state the gate in prose next to the block.
 4. Pre-launch checks become `acceptance_criteria`. Post-launch behavior becomes `success_metrics`. When the source mixes them, split them.

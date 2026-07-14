@@ -35,7 +35,7 @@ This matters because more software work is becoming long-running agent work. The
 
 If the change is a typo, the agent should not restart the world.
 
-If the change alters scope, acceptance criteria, evals, or success metrics, the agent should re-read the Product Spec and re-plan.
+If the change alters product summary, scope, acceptance criteria, evals, or success metrics, the agent should re-read the Product Spec and re-plan.
 
 ProductSpec keeps that boundary explicit. Humans still make the judgment call on materiality. The standard gives them a place to record it.
 

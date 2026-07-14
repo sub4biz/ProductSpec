@@ -23,6 +23,10 @@ A business owner running an AI agent on their customer conversations has no reli
 
 If the AI can hand a conversation to a named human with SLA tracking and full context, owners will let the AI run autonomously, because exceptions reliably reach a person. The owner's daily check becomes "47 handled by AI, 3 need attention" instead of reading every thread.
 
+## Product Summary
+
+A customer handoff workflow keeps CRM ownership and handoff context synchronized when accounts move between teams.
+
 ## Scope
 
 ```productspec-scope
@@ -32,7 +36,7 @@ in:
   - assignment to a team or person, appearing in the inbox
 out:
   - signal-triggered handoff, which waits on the risk-signals work
-  - CRM owner sync
+  - Do not build CRM owner sync in this version.
 cut:
   - a separate copilot product with its own billing, rejected in favor of one agent with a mode setting
 ```

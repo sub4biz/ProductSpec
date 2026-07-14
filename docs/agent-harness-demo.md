@@ -33,12 +33,13 @@ Implement examples/harness-demo/checkout-notifications.product-spec.md.
 Use ProductSpec MCP before coding:
 1. validate_product_spec
 2. begin_spec_session
-3. get_scope
-4. get_acceptance_criteria
-5. get_ai_evals
-6. get_success_metrics
-7. get_related_artifacts
-8. get_evidence_checklist
+3. get_product_summary
+4. get_scope
+5. get_acceptance_criteria
+6. get_ai_evals
+7. get_success_metrics
+8. get_related_artifacts
+9. get_evidence_checklist
 
 Before claiming done, call check_spec_session, check_completion_claim, and draft_agent_run.
 ```

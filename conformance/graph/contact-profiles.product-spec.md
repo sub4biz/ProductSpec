@@ -17,6 +17,10 @@ Conversations arrive without a durable record of who the customer is, so every c
 
 If every conversation resolves to one contact record, follow-ups read the history instead of asking the customer again.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 

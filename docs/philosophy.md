@@ -20,7 +20,7 @@ Software teams already have many downstream artifacts:
 
 Those artifacts work better when they share the same product intent.
 
-A Product Spec states that intent directly: the problem, hypothesis, scope, acceptance criteria, and success metrics.
+A Product Spec states that intent directly: the problem, hypothesis, product summary, scope, acceptance criteria, and success metrics.
 
 ## Human-readable and agent-readable
 

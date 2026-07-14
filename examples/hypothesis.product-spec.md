@@ -16,21 +16,25 @@ Sales managers miss customer calls when browser notifications are hidden during 
 
 If calendar reminders can escalate to SMS for high-priority meetings, sales managers will miss fewer customer calls because the reminder reaches them on the device they are actually checking.
 
+## Product Summary
+
+A calendar reminder product sends high-priority SMS reminders for meetings a user is likely to miss.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - Google Calendar connection
-  - high-priority meeting rules
-  - SMS reminder opt-in
-  - delivery logs
+  - Include Google Calendar connection in this version.
+  - Include high-priority meeting rules in this version.
+  - Include SMS reminder opt-in in this version.
+  - Include delivery logs in this version.
 out:
-  - calendar creation
-  - full scheduling assistant
-  - team admin controls
+  - Do not build calendar creation in this version.
+  - Do not build full scheduling assistant in this version.
+  - Do not build team admin controls in this version.
 cut:
-  - WhatsApp reminders
-  - custom reminder templates
+  - Cut WhatsApp reminders from the first version if implementation time is tight.
+  - Cut custom reminder templates from the first version if implementation time is tight.
 ```
 
 ## User Experience

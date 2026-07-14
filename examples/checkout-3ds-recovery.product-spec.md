@@ -20,22 +20,26 @@ Merchants using hosted checkout lose otherwise valid orders when 3DS authenticat
 
 If 3DS failures return buyers to a recoverable checkout state with clear next steps and durable attempt evidence, more buyers will complete payment because authentication errors no longer feel like a dead end.
 
+## Product Summary
+
+A checkout recovery flow lets shoppers recover from a failed 3DS challenge without restarting checkout or contacting support.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - recoverable 3DS failure state
+  - Include recoverable 3DS failure state in this version.
   - retry payment with the same cart
   - alternate card entry after failed challenge
-  - payment-attempt audit record
+  - Include payment-attempt audit record in this version.
   - support-visible failure reason
 out:
-  - new payment processor
-  - merchant-defined recovery copy
-  - wallet-specific recovery flows
+  - Do not build new payment processor in this version.
+  - Do not build merchant-defined recovery copy in this version.
+  - Do not build wallet-specific recovery flows in this version.
 cut:
-  - SMS recovery link
-  - automatic support ticket creation
+  - Cut SMS recovery link from the first version if implementation time is tight.
+  - Cut automatic support ticket creation from the first version if implementation time is tight.
 ```
 
 ## User Experience

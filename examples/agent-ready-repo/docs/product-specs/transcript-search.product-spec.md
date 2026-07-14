@@ -19,20 +19,24 @@ Researchers using long video transcripts lose sourceable quotes because they mus
 
 If researchers can search a transcript by phrase and copy a timestamped passage in one action, they will cite video evidence more often because the sourceable quote is easier to recover and share.
 
+## Product Summary
+
+A transcript search feature lets a researcher search one transcript by phrase and open timestamped result snippets.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - transcript phrase search
-  - timestamped result snippets
+  - Include transcript phrase search in this version.
+  - Include timestamped result snippets in this version.
   - copy passage with video URL and timestamp
   - empty state for no matches
 out:
-  - team transcript libraries
-  - speaker labeling
+  - Do not build team transcript libraries in this version.
+  - Do not build speaker labeling in this version.
   - semantic search across multiple videos
 cut:
-  - AI-generated transcript summaries
+  - Cut AI-generated transcript summaries from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

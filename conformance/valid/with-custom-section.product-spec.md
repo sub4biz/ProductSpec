@@ -24,6 +24,10 @@ Support tickets repeatedly ask which rows failed and why.
 
 If failed imports produce row-level error reports, operations teams will retry imports successfully because they can correct the source file.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: row-level error report, downloadable CSV, and retry guidance.

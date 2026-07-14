@@ -41,9 +41,10 @@ In v0.1, the mandatory sections are:
 
 1. `problem`
 2. `hypothesis`
-3. `scope`
-4. `acceptance_criteria`
-5. `success_metrics`
+3. `product_summary`
+4. `scope`
+5. `acceptance_criteria`
+6. `success_metrics`
 
 `user_experience` is optional.
 

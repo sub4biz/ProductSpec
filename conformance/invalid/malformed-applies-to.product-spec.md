@@ -19,15 +19,19 @@ Researchers lose time finding exact video quotes.
 
 If transcript search returns timestamped passages, researchers will cite videos faster.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - transcript search
+  - Include transcript search in this version.
 out:
-  - team libraries
+  - Do not build team libraries in this version.
 cut:
-  - speaker labels
+  - Cut speaker labels from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

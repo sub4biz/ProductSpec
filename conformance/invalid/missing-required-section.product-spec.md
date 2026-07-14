@@ -15,6 +15,10 @@ This document intentionally omits Success Metrics.
 
 If required sections are missing, validation should fail.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: missing-section conformance.

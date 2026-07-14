@@ -57,6 +57,10 @@ Who is hurting, what pain do they feel, and why does it matter?
 
 If we ship this product change, what behavior will change, and why?
 
+## Product Summary
+
+A starter Product Spec captures the product summary, scope, acceptance criteria, and success metrics for the work.
+
 ## Scope
 
 In: what the first version includes.

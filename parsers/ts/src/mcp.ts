@@ -8,6 +8,7 @@ import {
   getAiEvals,
   getEvidenceChecklist,
   getProductSpec,
+  getProductSummary,
   getRelatedArtifacts,
   getScope,
   getSpecGraph,
@@ -62,6 +63,11 @@ const tools: Record<string, { description: string; inputSchema: object; handler:
     description: "Validate a Product Spec file.",
     inputSchema: specPathSchema(),
     handler: (args) => validateProductSpec(specPathArgs(args))
+  },
+  get_product_summary: {
+    description: "Return the Product Summary section from a Product Spec.",
+    inputSchema: specPathSchema(),
+    handler: (args) => getProductSummary(specPathArgs(args))
   },
   get_scope: {
     description: "Return the structured Scope block from a Product Spec.",

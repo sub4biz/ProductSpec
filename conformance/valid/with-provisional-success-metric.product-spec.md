@@ -15,15 +15,19 @@ Teams need to name the post-launch outcome before the baseline is fully known.
 
 If the spec preserves provisional targets explicitly, teams avoid recording guesses as committed intent.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 ```productspec-scope
 in:
   - provisional success metric target status
 out:
-  - analytics instrumentation
+  - Do not build analytics instrumentation in this version.
 cut:
-  - automated baseline calculation
+  - Cut automated baseline calculation from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

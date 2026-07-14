@@ -16,22 +16,26 @@ Parents coordinating shared family calendars miss school pickups, practices, and
 
 If the calendar warns parents when a new event conflicts with an existing family obligation, families will resolve schedule conflicts earlier because the issue appears at the moment of planning.
 
+## Product Summary
+
+A family calendar assistant detects schedule conflicts, alerts the right caregiver, and shows enough context to resolve the conflict quickly.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - shared calendar conflict detection
-  - mobile push alert
-  - conflict detail view
-  - one-tap ask partner message
-  - dismiss state
+  - Include shared calendar conflict detection in this version.
+  - Include mobile push alert in this version.
+  - Include conflict detail view in this version.
+  - Include one-tap ask partner message in this version.
+  - Include dismiss state in this version.
 out:
-  - automatic rescheduling
-  - childcare booking
-  - school calendar import
-  - recurring-event cleanup
+  - Do not build automatic rescheduling in this version.
+  - Do not build childcare booking in this version.
+  - Do not build school calendar import in this version.
+  - Do not build recurring-event cleanup in this version.
 cut:
-  - location-aware travel-time conflicts
+  - Cut location-aware travel-time conflicts from the first version if implementation time is tight.
 ```
 
 ## User Experience

@@ -20,21 +20,25 @@ Support leads at B2B SaaS companies cannot trust their daily SLA dashboard becau
 
 If support leads get a trustworthy daily SLA dataset with freshness, reopen handling, and visible data-quality status, they will make staffing and escalation decisions earlier because the morning dashboard will reflect yesterday's ticket reality.
 
+## Product Summary
+
+A support SLA analytics pipeline handles late ticket events, reopen logic, and historical backfill so teams can measure SLA performance accurately.
+
 ## Scope
 
 ```productspec-scope
 in:
   - daily SLA fact table for first response and resolution time
-  - late-arriving ticket event handling
-  - reopen event logic
-  - 90-day historical backfill
+  - Include late-arriving ticket event handling in this version.
+  - Include reopen event logic in this version.
+  - Include 90-day historical backfill in this version.
   - pipeline freshness and failure status surfaced to the dashboard
 out:
-  - agent performance compensation rules
-  - customer-facing SLA reporting
-  - real-time streaming updates
+  - Do not build agent performance compensation rules in this version.
+  - Do not build customer-facing SLA reporting in this version.
+  - Do not build real-time streaming updates in this version.
 cut:
-  - predictive staffing recommendations
+  - Cut predictive staffing recommendations from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

@@ -17,23 +17,27 @@ Support leads at B2B SaaS companies lose their morning planning window because u
 
 If incoming tickets are automatically labeled by urgency and likely owner, support leads will respond to urgent customer issues faster because the queue starts each day pre-sorted by consequence.
 
+## Product Summary
+
+A first support triage version labels ticket urgency, recommends owners, and exposes confidence before routing changes are automated.
+
 ## Scope
 
 ```productspec-scope
 in:
   - ticket ingestion from the helpdesk API
-  - urgency labels
-  - owner recommendation
-  - confidence score
-  - reviewer override
+  - Include urgency labels in this version.
+  - Include owner recommendation in this version.
+  - Include confidence score in this version.
+  - Include reviewer override in this version.
 out:
-  - auto-replies
-  - direct ticket reassignment
-  - customer-visible status changes
-  - custom routing rules
+  - Do not build auto-replies in this version.
+  - Do not build direct ticket reassignment in this version.
+  - Do not build customer-visible status changes in this version.
+  - Do not build custom routing rules in this version.
 cut:
-  - customer-tier lookup
-  - audit-log export
+  - Cut customer-tier lookup from the first version if implementation time is tight.
+  - Cut audit-log export from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

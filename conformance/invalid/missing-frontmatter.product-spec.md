@@ -6,6 +6,10 @@ This document has no frontmatter.
 
 If frontmatter is missing, validation should fail.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: missing-frontmatter conformance.

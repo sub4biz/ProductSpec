@@ -20,18 +20,22 @@ Researchers lose time finding exact quotes in long video transcripts because the
 
 If researchers can search a transcript and copy timestamped passages from the result list, they will cite video sources faster because the product gives them the exact quote and source location together.
 
+## Product Summary
+
+A transcript search feature lets researchers search a single generated transcript, copy timestamped passages, and attach evidence after launch.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - single-transcript keyword search
-  - timestamped result links
-  - copy passage with timestamp
+  - Include single-transcript keyword search in this version.
+  - Include timestamped result links in this version.
+  - Include copy passage with timestamp in this version.
 out:
-  - semantic search
-  - cross-video search
+  - Do not build semantic search in this version.
+  - Do not build cross-video search in this version.
 cut:
-  - speaker label extraction
+  - Cut speaker label extraction from the first version if implementation time is tight.
 ```
 
 ## User Experience

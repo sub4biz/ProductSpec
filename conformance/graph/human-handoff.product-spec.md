@@ -16,6 +16,10 @@ Hard conversations need a human, and today nothing decides when or carries the c
 
 If the handoff fires on extracted signals and carries the whole conversation, humans start warm instead of cold.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: signal-triggered handoff with full context transfer.

@@ -17,22 +17,26 @@ Enterprise sales teams lose late-stage deals when discount approvals sit in emai
 
 If discount approvals move into a visible workflow with owners, due dates, and escalation rules, sales teams will close approved deals faster because blockers are explicit before the customer deadline.
 
+## Product Summary
+
+An enterprise approval workflow collects deal context, routes it through the right approver chain, and tracks SLA state until approval.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - approval request form
-  - deal and customer context
-  - approver chain
-  - SLA clock
-  - reminder emails
-  - escalation to manager
-  - approval history export
+  - Include approval request form in this version.
+  - Include deal and customer context in this version.
+  - Include approver chain in this version.
+  - Include SLA clock in this version.
+  - Include reminder emails in this version.
+  - Include escalation to manager in this version.
+  - Include approval history export in this version.
 out:
-  - contract redlining
-  - CPQ price calculation
-  - billing-system updates
-  - legal clause approval
+  - Do not build contract redlining in this version.
+  - Do not build CPQ price calculation in this version.
+  - Do not build billing-system updates in this version.
+  - Do not build legal clause approval in this version.
 cut:
   - custom approval policies by region
 ```

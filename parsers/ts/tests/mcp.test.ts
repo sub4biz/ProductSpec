@@ -13,6 +13,7 @@ describe("ProductSpec MCP server", () => {
           expect.objectContaining({ name: "begin_spec_session" }),
           expect.objectContaining({ name: "check_spec_session" }),
           expect.objectContaining({ name: "list_product_specs" }),
+          expect.objectContaining({ name: "get_product_summary" }),
           expect.objectContaining({ name: "get_acceptance_criteria" }),
           expect.objectContaining({ name: "get_spec_graph" }),
           expect.objectContaining({ name: "get_evidence_checklist" }),

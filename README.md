@@ -50,7 +50,7 @@ With the parser, CLI, MCP server, and companion artifacts in this repo, agents c
 
 - validate Product Specs before planning or coding
 - pin `spec_revision` and content hash at the start of a work session
-- read Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts as structured data
+- read Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts as structured data
 - resolve a folder of specs into buildable, blocked, and ordered work
 - ask what evidence is expected for each `AC-`, `EVAL-`, and `SM-` item
 - check whether the Product Spec changed before claiming completion
@@ -127,7 +127,7 @@ npx --yes -p @productspec/parser@latest productspec mcp-config claude
 
 ```text
 Use ProductSpec MCP before coding.
-Validate examples/harness-demo/checkout-notifications.product-spec.md, call begin_spec_session, load Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
+Validate examples/harness-demo/checkout-notifications.product-spec.md, call begin_spec_session, load Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
 Stay inside scope.in, avoid scope.out and scope.cut, verify every AC- and EVAL- item, call check_spec_session before claiming done, and draft an Agent Run receipt.
 ```
 
@@ -219,23 +219,27 @@ Support leads at B2B SaaS companies lose their morning planning window because u
 
 If incoming tickets are automatically labeled by urgency, customer tier, and likely owner, support leads will respond to account-risk issues faster because the queue starts each day pre-sorted by consequence.
 
+## Product Summary
+
+An AI support triage workflow labels incoming tickets by urgency, customer tier, likely owner, and confidence so support leads can start from an ordered queue.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - ticket ingestion
-  - urgency labels
-  - customer-tier lookup
-  - owner recommendation
-  - confidence score
-  - reviewer override
-  - audit log
+  - Include ticket ingestion in this version.
+  - Include urgency labels in this version.
+  - Include customer-tier lookup in this version.
+  - Include owner recommendation in this version.
+  - Include confidence score in this version.
+  - Include reviewer override in this version.
+  - Include audit log in this version.
 out:
-  - auto-replies
-  - direct ticket reassignment
-  - customer-visible status changes
+  - Do not build auto-replies in this version.
+  - Do not build direct ticket reassignment in this version.
+  - Do not build customer-visible status changes in this version.
 cut:
-  - custom routing rules
+  - Cut custom routing rules from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria
@@ -287,7 +291,7 @@ For a team or organization, ProductSpec is most useful when coordination cost ap
 
 ## Where This Sits
 
-ProductSpec operates at the software intent layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, scope, user experience, acceptance criteria, and success metrics.
+ProductSpec operates at the software intent layer: the what and why that come before engineering specs are written. This is where a team commits to the problem, hypothesis, product summary, scope, user experience, acceptance criteria, and success metrics.
 
 OpenSpec and Spec Kit operate at the engineering spec layer. OpenSpec's flow is propose -> apply -> archive. Spec Kit's flow is constitution -> specify -> clarify -> plan -> tasks -> analyze -> implement. Those artifacts live in the repo and are consumed by AI agents to build code.
 
@@ -315,7 +319,7 @@ ProductSpec -> Engineering Spec -> Tasks -> Code -> Evaluation -> Learning
 - Analytics tools store outcome data.
 - OpenSpec and Spec Kit turn intent into engineering plans.
 - AI coding agents execute implementation tasks.
-- ProductSpec stores the software intent behind the work: the problem, hypothesis, scope, acceptance criteria, and success metrics that downstream tools should preserve.
+- ProductSpec stores the software intent behind the work: the problem, hypothesis, product summary, scope, acceptance criteria, and success metrics that downstream tools should preserve.
 
 ## Ecosystem
 
@@ -409,9 +413,10 @@ Mandatory sections, in order:
 
 1. `problem`
 2. `hypothesis`
-3. `scope`
-4. `acceptance_criteria`
-5. `success_metrics`
+3. `product_summary`
+4. `scope`
+5. `acceptance_criteria`
+6. `success_metrics`
 
 Optional sections:
 

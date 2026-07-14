@@ -39,7 +39,7 @@ This level makes product intent reviewable by product, design, engineering, data
 Recommended practice:
 
 - Keep Product Specs near the code or implementation work.
-- Ask reviewers to comment on intent, scope, acceptance criteria, and success metrics.
+- Ask reviewers to comment on intent, product summary, scope, acceptance criteria, and success metrics.
 - Merge the Product Spec before major implementation begins.
 
 ## Level 4: Link Product Specs To Work
@@ -63,7 +63,7 @@ This level preserves why the team changed direction over time.
 
 Recommended practice:
 
-- Record meaningful scope, acceptance criteria, UX, eval, and success metric drift.
+- Record meaningful product summary, scope, acceptance criteria, UX, eval, and success metric drift.
 - Record whether the team updated the Product Spec, changed implementation, accepted a tradeoff, or reopened work.
 - Link Decision Trace events back to Product Spec revisions, pull requests, issues, experiments, and outcome evidence.
 - Use `starter-kit/docs/decision-traces/example.decision-trace.json` as the smallest starting shape.

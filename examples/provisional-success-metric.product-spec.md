@@ -19,6 +19,10 @@ Revenue operations managers at mid-market SaaS companies lose planning time ever
 
 If revenue operations managers can export the current dashboard view directly into the team's spreadsheet format, they will spend less time preparing recurring reporting packets because the dashboard becomes the source of the meeting artifact.
 
+## Product Summary
+
+A scheduled export workflow writes customer analytics into Google Sheets while leaving the post-launch target provisional until baseline data exists.
+
 ## Scope
 
 ```productspec-scope
@@ -28,11 +32,11 @@ in:
   - applied filter and date range metadata in the export
   - audit event when an export is created
 out:
-  - scheduled exports
-  - Google Sheets writeback
-  - custom spreadsheet templates
+  - Do not build scheduled exports in this version.
+  - Do not build Google Sheets writeback in this version.
+  - Do not build custom spreadsheet templates in this version.
 cut:
-  - PDF export
+  - Cut PDF export from the first version if implementation time is tight.
   - export from unsaved ad hoc chart edits
 ```
 

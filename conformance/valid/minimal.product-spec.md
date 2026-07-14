@@ -16,6 +16,10 @@ Researchers using YouTube videos as source material spend too much time finding 
 
 If searchable transcripts expose timestamped passages, researchers will cite video sources more often because evidence becomes easier to find and verify.
 
+## Product Summary
+
+A YouTube transcription search product lets researchers create searchable, timestamped transcripts from video source material.
+
 ## Scope
 
 In: paste a YouTube URL, generate a transcript, search it, jump to timestamps, and copy citations.

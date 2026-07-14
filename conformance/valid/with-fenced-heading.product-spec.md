@@ -15,6 +15,10 @@ Teams adopting a spec format have no in-repo example, so every team invents a di
 
 If the repo ships a starter spec, new teams copy it instead of inventing a shape.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: a starter file at docs/product-specs/example.product-spec.md, containing:

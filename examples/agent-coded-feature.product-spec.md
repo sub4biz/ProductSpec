@@ -20,21 +20,25 @@ Researchers who repeatedly search the same transcript library miss newly uploade
 
 If researchers can save a transcript search and receive a weekly alert when new matching passages appear, they will return to the library more often because the product remembers their research thread for them.
 
+## Product Summary
+
+A saved-search alert feature emails account teams when new matching records appear and gives agents a precise Product Spec to implement against.
+
 ## Scope
 
 ```productspec-scope
 in:
   - saved search creation from the search results page
-  - weekly email alert
-  - alert unsubscribe link
-  - account-level saved search list
-  - agent-generated implementation plan
+  - Include weekly email alert in this version.
+  - Include alert unsubscribe link in this version.
+  - Include account-level saved search list in this version.
+  - Include agent-generated implementation plan in this version.
 out:
-  - real-time alerts
-  - team-shared saved searches
-  - Slack notifications
+  - Do not build real-time alerts in this version.
+  - Do not build team-shared saved searches in this version.
+  - Do not build Slack notifications in this version.
 cut:
-  - custom alert schedules
+  - Cut custom alert schedules from the first version if implementation time is tight.
 ```
 
 ## User Experience

@@ -17,6 +17,10 @@ Treasury teams at mid-size lenders track loan covenants — debt-service coverag
 
 If covenant compliance is computed automatically from live portfolio data instead of typed into a tracker, treasury leads will catch at-risk covenants before review deadlines because the system flags breaches when the underlying data changes, not when a person remembers to check.
 
+## Product Summary
+
+A covenant monitoring workflow shows lenders current covenant status and cannot-compute states when required source data is missing or stale.
+
 ## Scope
 
 ```productspec-scope
@@ -26,9 +30,9 @@ in:
   - breach and near-breach alerts ahead of lender review deadlines
   - reviewer confirmation step with a full audit trail
 out:
-  - lender-facing reporting portal
+  - Do not build lender-facing reporting portal in this version.
   - covenant negotiation or amendment workflows
-  - automatic communication to lenders
+  - Do not build automatic communication to lenders in this version.
 cut:
   - manual entry of computed covenant values. Considered and rejected. The system already holds the source data, and typed values reintroduce the spreadsheet failure mode this work exists to remove.
 ```

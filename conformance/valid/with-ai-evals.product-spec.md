@@ -16,6 +16,10 @@ Researchers lose time finding exact quotes in long video transcripts.
 
 If quote search returns cited transcript passages, researchers will trust the transcript as a source.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: transcript search, timestamp citations, and quote copy.

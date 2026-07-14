@@ -16,6 +16,10 @@ Sales managers miss customer calls when browser notifications are hidden during 
 
 If high-priority reminders can escalate to SMS, sales managers will miss fewer customer calls because the reminder reaches the device they are checking.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: calendar connection, high-priority meeting rules, SMS opt-in, and delivery logs.

@@ -217,6 +217,11 @@ export function getScope(args: ProductSpecMcpArgs): ProductSpecScope | null {
   return section?.scope ?? null;
 }
 
+export function getProductSummary(args: ProductSpecMcpArgs): string {
+  const section = readValidProductSpec(args).sections.find((candidate) => candidate.id === "product_summary");
+  return section?.content.trim() ?? "";
+}
+
 export function getAcceptanceCriteria(args: ProductSpecMcpArgs): ProductSpecAcceptanceCriterion[] {
   return readValidProductSpec(args).sections.flatMap((section) => section.acceptance_criteria ?? []);
 }

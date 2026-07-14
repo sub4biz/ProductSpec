@@ -17,24 +17,28 @@ Developer support engineers cannot safely replay failed customer webhooks withou
 
 If support engineers have a permissioned internal API for replaying failed webhooks, customers will recover integrations faster because the support team can resolve common delivery failures without engineering escalation.
 
+## Product Summary
+
+An internal webhook replay API lets authorized operators safely replay failed webhook deliveries with auditability and idempotency.
+
 ## Scope
 
 ```productspec-scope
 in:
   - internal API endpoint for replaying one failed webhook event by ID
-  - permission check
-  - replay audit log
-  - idempotency guard
+  - Include permission check in this version.
+  - Include replay audit log in this version.
+  - Include idempotency guard in this version.
   - structured success or failure response
 out:
-  - customer-facing UI
-  - bulk replay
-  - replay scheduling
-  - editing payloads before replay
+  - Do not build customer-facing UI in this version.
+  - Do not build bulk replay in this version.
+  - Do not build replay scheduling in this version.
+  - Do not build editing payloads before replay in this version.
   - replaying events older than 30 days
 cut:
-  - automatic retry policy changes
-  - customer self-serve replay
+  - Cut automatic retry policy changes from the first version if implementation time is tight.
+  - Cut customer self-serve replay from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

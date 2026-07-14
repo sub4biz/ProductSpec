@@ -15,6 +15,10 @@ This document declares an unsupported version.
 
 If the version is unsupported, validation should fail.
 
+## Product Summary
+
+This Product Spec describes the product behavior, user-facing shape, and implementation boundaries for the work.
+
 ## Scope
 
 In: unsupported-version conformance.

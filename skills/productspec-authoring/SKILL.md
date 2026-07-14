@@ -15,7 +15,7 @@ This skill covers producing that file. Reading a finished spec and building agai
 ## Always true
 
 - Files use the extension `.product-spec.md`: YAML frontmatter between `---` markers, then `## Section` headings.
-- Five sections are mandatory, in order: `problem`, `hypothesis`, `scope`, `acceptance_criteria`, `success_metrics`.
+- Six sections are mandatory, in order: `problem`, `hypothesis`, `product_summary`, `scope`, `acceptance_criteria`, `success_metrics`.
 - Headings match case- and separator-insensitively. `## Acceptance Criteria` and `## acceptance_criteria` are the same section. Title case is the convention.
 - Frontmatter requires `spec_format_version: "0.1"`, `title`, `artifact_type` (`hypothesis` | `prd` | `openspec_proposal`), `author`, `created_at`, `updated_at`. Optional: `spec_revision`, `linked_github_repo`, `applies_to`, `custom_sections`, `tool_metadata`.
 - `acceptance_criteria` and `success_metrics` each carry a required fenced block. Prose alone fails validation. Structured scope, AI evals, and related artifacts are optional.
@@ -40,4 +40,5 @@ Read only the reference the task needs.
 - Never renumber a durable id. `AC-2` means the same criterion tomorrow as it does today, because a ticket, an engineering spec, or another agent may cite it. Add new ids at the end.
 - A success metric needs a target and a window, and the block is required. When the number depends on a baseline that only exists after launch, write `target: tbd` with `target_status: provisional` and a named `target_owner`. Never invent a number to clear the validator.
 - Preserve the author's Markdown inside sections. Tables, lists, and links survive the format. Do not flatten them.
+- Write Scope items as complete sentences or imperative statements. Avoid terse tags like `search` or `storage`.
 - `spec_revision` increments only when product intent materially changes, never for typo or formatting edits.

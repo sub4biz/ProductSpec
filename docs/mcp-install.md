@@ -51,7 +51,7 @@ Restart Cursor or reload MCP servers after editing the config.
 Ask the agent:
 
 ```text
-Use ProductSpec MCP to list Product Specs in this repository. Then validate one of them and load its Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
+Use ProductSpec MCP to list Product Specs in this repository. Then validate one of them and load its Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
 ```
 
 For implementation work, start with the prompt in [`docs/agent-mcp.md`](agent-mcp.md).

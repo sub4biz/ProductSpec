@@ -21,23 +21,27 @@ Researchers, analysts, and students use video as primary source material, but lo
 
 If transcript search turns video into timestamped source text, researchers will use video more often in written work because the evidence becomes easy to find and verify.
 
+## Product Summary
+
+A YouTube transcript search product lets a researcher generate one transcript from a public video, search inside it, jump to timestamps, and copy cited passages.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - single-video transcript generation
-  - transcript search
-  - timestamp navigation
-  - copyable citations
+  - Include single-video transcript generation in this version.
+  - Include transcript search in this version.
+  - Include timestamp navigation in this version.
+  - Include copyable citations in this version.
 out:
-  - team libraries
-  - cross-video semantic search
-  - uploaded video files
-  - paid usage controls
+  - Do not build team libraries in this version.
+  - Do not build cross-video semantic search in this version.
+  - Do not build uploaded video files in this version.
+  - Do not build paid usage controls in this version.
 cut:
-  - transcript editing
-  - speaker labels
-  - folder organization
+  - Cut transcript editing from the first version if implementation time is tight.
+  - Cut speaker labels from the first version if implementation time is tight.
+  - Cut folder organization from the first version if implementation time is tight.
 ```
 
 ## User Experience

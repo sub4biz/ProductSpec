@@ -2,7 +2,7 @@
 
 ProductSpec includes a lightweight MCP server so coding agents can read Product Specs as structured intent, not just raw Markdown.
 
-Use it when an agent needs to implement work from a `.product-spec.md` file and should load scope, acceptance criteria, AI evals, success metrics, and related artifacts before writing code.
+Use it when an agent needs to implement work from a `.product-spec.md` file and should load product summary, scope, acceptance criteria, AI evals, success metrics, and related artifacts before writing code.
 
 In this mode, ProductSpec is the intent harness contract. Claude, Codex, Cursor, or another coding agent can still decide how to plan and edit code, but ProductSpec supplies the stable context, constraints, completion checks, evidence targets, and revision pin.
 
@@ -45,6 +45,7 @@ See [`docs/mcp-install.md`](mcp-install.md) for Claude Desktop and Cursor instal
 - `list_product_specs`: finds `.product-spec.md` files under a root directory.
 - `get_product_spec`: returns the parsed Product Spec document.
 - `validate_product_spec`: validates a Product Spec file.
+- `get_product_summary`: returns the plain-English product shape.
 - `get_scope`: returns structured scope.
 - `get_acceptance_criteria`: returns Acceptance Criteria.
 - `get_ai_evals`: returns AI Evals.
@@ -75,7 +76,7 @@ Implement the feature described by specs/search.product-spec.md.
 Use ProductSpec MCP before coding:
 1. Validate the Product Spec.
 2. Call begin_spec_session and include the pinned spec_revision in your plan.
-3. Load Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
+3. Load Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
 4. Keep implementation inside Scope.
 5. Resolve every `RESOLVE-IN-PLAN:` marker against the codebase with a source citation before coding.
 6. Before claiming done, call check_spec_session. If the Product Spec changed, re-read and re-plan.

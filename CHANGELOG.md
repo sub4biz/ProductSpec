@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.25.0 - Product Summary And Executable Scope
+
+Changed:
+
+- Product Specs now require `product_summary` between `hypothesis` and `scope`.
+- Structured Scope examples now use complete sentences or imperative statements instead of terse tags.
+- Validator now warns on fragment-like structured Scope items with `scope_item_fragment`.
+- MCP server now exposes `get_product_summary` so agents can load the product shape before Scope and Acceptance Criteria.
+
 ## v0.24.0 - MCP Install And Showcase Examples
 
 Added:

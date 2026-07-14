@@ -16,21 +16,25 @@ Backend engineers lose release time during traffic spikes because the current ca
 
 If the platform cache moves to a versioned invalidation model with a documented rollback path, backend teams will ship high-traffic features with fewer release freezes because cache behavior becomes predictable during deploys.
 
+## Product Summary
+
+A platform cache migration gives service teams versioned cache keys, rollback guidance, metrics, and migration instructions.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - versioned cache keys
+  - Include versioned cache keys in this version.
   - migration adapter for existing read paths
-  - rollback runbook
-  - deploy-time metrics dashboard
-  - service owner migration guide
+  - Include rollback runbook in this version.
+  - Include deploy-time metrics dashboard in this version.
+  - Include service owner migration guide in this version.
 out:
-  - rewriting all service caches
-  - changing database query shapes
-  - cross-region cache replication
+  - Do not build rewriting all service caches in this version.
+  - Do not build changing database query shapes in this version.
+  - Do not build cross-region cache replication in this version.
 cut:
-  - automatic per-service migration
+  - Cut automatic per-service migration from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

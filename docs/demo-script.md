@@ -42,7 +42,7 @@ npx --yes -p @productspec/parser@latest productspec mcp
 Ask the agent to use ProductSpec MCP:
 
 ```text
-Validate the Product Spec, begin a spec session, load scope, acceptance criteria, AI evals, success metrics, related artifacts, and evidence checklist before coding.
+Validate the Product Spec, begin a spec session, load product summary, scope, acceptance criteria, AI evals, success metrics, related artifacts, and evidence checklist before coding.
 ```
 
 Narration:

@@ -17,25 +17,29 @@ Support leads at B2B SaaS companies lose their morning planning window because a
 
 If incoming tickets are automatically labeled by urgency, customer tier, and likely owner, support leads will respond to account-risk issues faster because the queue starts each day pre-sorted by consequence.
 
+## Product Summary
+
+A second support triage version adds customer-tier context, reviewer override, and audit logging while keeping customer-facing actions out of scope.
+
 ## Scope
 
 ```productspec-scope
 in:
   - ticket ingestion from the helpdesk API
-  - urgency labels
-  - customer-tier lookup
-  - owner recommendation
-  - confidence score
-  - reviewer override
-  - audit log
+  - Include urgency labels in this version.
+  - Include customer-tier lookup in this version.
+  - Include owner recommendation in this version.
+  - Include confidence score in this version.
+  - Include reviewer override in this version.
+  - Include audit log in this version.
 out:
-  - auto-replies
-  - direct ticket reassignment
-  - customer-visible status changes
-  - custom routing rules
+  - Do not build auto-replies in this version.
+  - Do not build direct ticket reassignment in this version.
+  - Do not build customer-visible status changes in this version.
+  - Do not build custom routing rules in this version.
 cut:
-  - multi-language classification
-  - customer-specific routing policy configuration
+  - Cut multi-language classification from the first version if implementation time is tight.
+  - Cut customer-specific routing policy configuration from the first version if implementation time is tight.
 ```
 
 ## User Experience

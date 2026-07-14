@@ -20,20 +20,24 @@ Store operators lose recoverable orders because checkout failures are visible on
 
 If store operators receive a clear notification when a payment failure blocks checkout, they will recover more orders because they can contact the buyer or fix configuration issues before the buyer abandons the purchase.
 
+## Product Summary
+
+A checkout notification system emails failed-payment shoppers with a retry link while staying inside the first-version notification scope.
+
 ## Scope
 
 ```productspec-scope
 in:
   - payment failure detection from checkout worker events
   - operator notification in the admin order timeline
-  - retry payment action link
+  - Include retry payment action link in this version.
   - email notification for high-value failed orders
 out:
-  - SMS notifications
-  - automatic discount offers
-  - fraud review changes
+  - Do not build SMS notifications in this version.
+  - Do not build automatic discount offers in this version.
+  - Do not build fraud review changes in this version.
 cut:
-  - multi-store notification routing
+  - Cut multi-store notification routing from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria

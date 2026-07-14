@@ -24,10 +24,11 @@ Read these sections in order:
 
 1. `Problem`: who is hurting and why the work matters.
 2. `Hypothesis`: the causal bet behind the product.
-3. `Scope`: what is in, out, and deliberately cut.
-4. `Acceptance Criteria`: the build contract, including AI evals when present.
-5. `Success Metrics`: post-launch outcome checks.
-6. `Related Artifacts`: issues, pull requests, eval runs, dashboards, designs, engineering specs, or other Product Specs the work depends on.
+3. `Product Summary`: what should exist when the work is done.
+4. `Scope`: what is in, out, and deliberately cut.
+5. `Acceptance Criteria`: the build contract, including AI evals when present.
+6. `Success Metrics`: post-launch outcome checks.
+7. `Related Artifacts`: issues, pull requests, eval runs, dashboards, designs, engineering specs, or other Product Specs the work depends on.
 
 Acceptance Criteria are the build contract. Plans, tasks, code changes, tests, and pull request summaries should cite the relevant `AC-<number>` IDs.
 

@@ -20,22 +20,26 @@ Customer-success teams cannot trust the internal answer bot because it sometimes
 
 If answers are blocked unless they cite retrieved source passages that actually support the claim, customer-success teams will use the bot for account questions because every answer is auditable.
 
+## Product Summary
+
+A RAG answer quality pipeline generates source-grounded internal answers and evaluates whether responses stay faithful to retrieved material.
+
 ## Scope
 
 ```productspec-scope
 in:
-  - source-grounded answer generation
+  - Include source-grounded answer generation in this version.
   - citation requirement for every factual claim
   - refusal when retrieved context is insufficient
   - nightly eval run on the golden support-question set
   - eval result link in release notes
 out:
-  - retraining the embedding model
-  - external customer-facing answers
-  - Slack bot redesign
+  - Do not build retraining the embedding model in this version.
+  - Do not build external customer-facing answers in this version.
+  - Do not build Slack bot redesign in this version.
 cut:
-  - automatic knowledge-base article creation
-  - multi-hop account analytics questions
+  - Cut automatic knowledge-base article creation from the first version if implementation time is tight.
+  - Cut multi-hop account analytics questions from the first version if implementation time is tight.
 ```
 
 ## Acceptance Criteria
