@@ -6,6 +6,8 @@ As software development becomes AI-native, writing code becomes less scarce. The
 
 ProductSpec starts as a Product Spec document format. It becomes the intent layer when downstream systems compile from it and report back to it.
 
+That makes ProductSpec a Product Harness: the outer loop that keeps coding agents, engineering specs, pull requests, evals, and metrics attached to the product decision.
+
 ```text
 ProductSpec -> Engineering Spec -> Code -> Evaluation -> Learning
 what / why     how / plan / tasks   implementation  outcome
@@ -26,6 +28,8 @@ There is no equivalent standard for software intent: the problem, hypothesis, pr
 Today that intent is scattered across docs, chat threads, meetings, issue trackers, design comments, analytics dashboards, and people's memories.
 
 ProductSpec exists to make intent structured, portable, reviewable, executable by agents, and durable over time.
+
+As a Product Harness, ProductSpec does not replace coding harnesses, engineering spec systems, or agent tools. It gives them the product contract they execute against.
 
 ## The Layer
 

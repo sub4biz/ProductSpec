@@ -1703,7 +1703,7 @@ In: transcript search.
     const docs = readFileSync(`${root}/docs/agent-usage.md`, "utf8");
     const starterSkill = readFileSync(`${root}/starter-kit/skills/productspec/SKILL.md`, "utf8");
 
-    expect(skill).toContain("intent harness for the work");
+    expect(skill).toContain("product contract for the work");
     expect(skill).toContain("Acceptance Criteria are the build contract");
     expect(docs).toContain("Load `skills/productspec/SKILL.md`");
     expect(starterSkill).toBe(skill);

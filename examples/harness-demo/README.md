@@ -1,6 +1,6 @@
 # Harness Demo
 
-This folder shows ProductSpec as an agent harness contract:
+This folder shows ProductSpec as a Product Harness for agent-led work:
 
 - `checkout-notifications.product-spec.md`: the intent an agent should build against
 - `checkout-notifications.agent-run.json`: the receipt an agent leaves after checking the work

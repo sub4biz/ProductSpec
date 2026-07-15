@@ -120,7 +120,7 @@ This gives agents and reviewers a portable way to see which work, tests, evals, 
 
 Load `skills/productspec/SKILL.md` before asking an agent to implement work governed by a Product Spec.
 
-The skill tells agents to treat the Product Spec as the intent harness for the work, cite Acceptance Criteria IDs, respect `scope.out` and `scope.cut`, leave an Agent Run receipt when the repo uses them, and propose a Product Spec revision or Decision Trace when implementation diverges from intent.
+The skill tells agents to treat the Product Spec as the product contract for the work, cite Acceptance Criteria IDs, respect `scope.out` and `scope.cut`, leave an Agent Run receipt when the repo uses them, and propose a Product Spec revision or Decision Trace when implementation diverges from intent.
 
 ## Validate In CI
 

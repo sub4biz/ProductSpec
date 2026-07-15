@@ -1,6 +1,6 @@
 # Get Started With Agents
 
-This is the shortest path from a repo with product docs to agents using ProductSpec as the intent harness for consequential work.
+This is the shortest path from a repo with product docs to agents using ProductSpec as the Product Harness for consequential work.
 
 Use this when you want to:
 
@@ -98,7 +98,7 @@ Acceptance Criteria are the build contract. Success Metrics are not implementati
 
 ## 5. Record the agent run
 
-An Agent Run records what happened when Claude, Codex, Cursor, or another agent used a Product Spec as its harness.
+An Agent Run records what happened when Claude, Codex, Cursor, or another agent used a Product Spec as its product contract.
 
 It should include:
 

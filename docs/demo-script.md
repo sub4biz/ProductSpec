@@ -1,12 +1,12 @@
 # 60-second demo script
 
-Goal: show ProductSpec closing the agent harness loop in under 1 minute.
+Goal: show ProductSpec closing the Product Harness loop in under 1 minute.
 
 The demo should make one thing obvious: the agent is accountable to a Product Spec, not just a prompt.
 
 ## Setup
 
-Use the harness demo files:
+Use the Product Harness demo files:
 
 - `examples/harness-demo/checkout-notifications.product-spec.md`
 - `examples/harness-demo/checkout-notifications.agent-run.json`
@@ -92,7 +92,7 @@ Agent Run records execution. Decision Trace records drift or learning. The Produ
 Show this line:
 
 ```text
-ProductSpec is the harness contract for agent-led software work.
+ProductSpec is the Product Harness for agent-led software work.
 ```
 
 ## What To Avoid

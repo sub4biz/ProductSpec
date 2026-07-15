@@ -22,6 +22,8 @@ Those artifacts work better when they share the same product intent.
 
 A Product Spec states that intent directly: the problem, hypothesis, product summary, scope, acceptance criteria, and success metrics.
 
+That is the Product Harness frame: the spec is the product contract that downstream tools and agents execute against.
+
 ## Human-readable and agent-readable
 
 A Product Spec has two readers.

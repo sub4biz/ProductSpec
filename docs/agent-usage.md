@@ -1,6 +1,6 @@
 # Use ProductSpec With Agents
 
-ProductSpec gives agents an intent harness for the work.
+ProductSpec is the Product Harness for the work. For coding agents, it provides an intent harness.
 
 A Product Spec tells an agent what should be built, why it matters, what is in scope, what must pass before launch, and how the outcome will be measured later.
 
@@ -23,7 +23,7 @@ For repositories with an `AGENTS.md`, add:
 ```md
 # ProductSpec
 
-Product Specs are intent harnesses for consequential software work.
+Product Specs are the product contract for consequential software work.
 
 Before planning, coding, testing, or changing scope, load `skills/productspec/SKILL.md` and read the relevant `.product-spec.md` file.
 ```

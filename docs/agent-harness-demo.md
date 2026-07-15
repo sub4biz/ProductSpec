@@ -1,6 +1,6 @@
-# 5-minute agent harness demo
+# 5-minute Product Harness demo
 
-This demo shows ProductSpec as the control file for agent-led work.
+This demo shows ProductSpec as the Product Harness for agent-led work.
 
 The Product Spec states intent. MCP exposes that intent as structured tools. Agent Run records what the agent checked. Decision Trace records what changed when implementation pressure met product intent.
 
@@ -80,7 +80,7 @@ In the demo, the agent considered SMS notifications, but the Product Spec listed
 
 ## What this proves
 
-ProductSpec gives agents a harness:
+ProductSpec gives agents a product contract:
 
 - what to build
 - what not to build

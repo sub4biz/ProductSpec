@@ -37,7 +37,7 @@ ProductSpec adds the parts that make a spec portable across people, tools, and a
 - Agent Run receipts for what an agent checked
 - Decision Trace for drift, decisions, and learning
 
-A plain Markdown spec can be read by an agent. A Product Spec can be validated, cited, pinned, checked, linked to evidence, and used as a harness contract.
+A plain Markdown spec can be read by an agent. A Product Spec can be validated, cited, pinned, checked, linked to evidence, and used as a Product Harness.
 
 ## Do I need ProductSpec.io to use ProductSpec?
 

@@ -1,6 +1,6 @@
 # ProductSpec
 
-Product Specs are intent harnesses for consequential software work.
+Product Specs are the product contract for consequential software work.
 
 Before planning, coding, testing, or changing scope, load `skills/productspec/SKILL.md` and read the relevant `.product-spec.md` file.
 

@@ -31,7 +31,7 @@ skills/
 3. Rename `docs/agent-runs/example.agent-run.json` when an agent leaves the first run receipt.
 4. Rename `docs/decision-traces/example.decision-trace.json` when you record the first decision.
 5. Update `linked_github_repo`, `applies_to`, and Related Artifacts in the Product Spec.
-6. Keep `AGENTS.md`, `CLAUDE.md`, and `skills/productspec/SKILL.md` together so coding agents know how to treat Product Specs as intent harnesses.
+6. Keep `AGENTS.md`, `CLAUDE.md`, and `skills/productspec/SKILL.md` together so coding agents know how to treat Product Specs as the product contract.
 
 Validate the starter Product Spec:
 

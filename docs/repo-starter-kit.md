@@ -108,7 +108,7 @@ CLAUDE.md
 skills/productspec/SKILL.md
 ```
 
-This gives coding agents the same instruction: Product Specs are the intent harness for consequential work, Acceptance Criteria are the build contract, Success Metrics are post-launch outcomes, Agent Runs record execution receipts, and Decision Traces should be proposed when implementation diverges from intent.
+This gives coding agents the same instruction: Product Specs are the product contract for consequential work, Acceptance Criteria are the build contract, Success Metrics are post-launch outcomes, Agent Runs record execution receipts, and Decision Traces should be proposed when implementation diverges from intent.
 
 ## Suggested Decision Trace Setup
 

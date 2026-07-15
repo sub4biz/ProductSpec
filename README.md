@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/@productspec/parser.svg)](https://www.npmjs.com/package/@productspec/parser)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-ProductSpec is the open standard and harness that tells coding agents what to build, what not to build, how to prove completion, and when to stop.
+ProductSpec is the open standard for product intent. It acts as a Product Harness for AI-native software work: what to build, what not to build, how to prove completion, and when intent changes.
 
 It gives teams and agents a portable way to define intent up front, attach evidence after work starts, and preserve what changed when reality disagreed.
 
@@ -15,7 +15,7 @@ Product Spec -> Engineering Spec -> Code -> Evaluation -> Learning
 what / why      how / plan / tasks   implementation   outcome
 ```
 
-For agent-led work, ProductSpec acts as the harness contract:
+For agent-led work, ProductSpec gives coding agents a product contract:
 
 ```text
 Product Spec
@@ -34,9 +34,9 @@ ProductSpec is neutral. It defines structure, section IDs, portable review annot
 
 Design principle: structure the parts machines must execute or compare. Leave the parts humans must reason about readable.
 
-ProductSpec can act as the intent harness for agent-led work. The Product Spec tells Claude, Codex, Cursor, and other coding agents what to build, what not to build, how to prove completion, and when to stop and re-plan. The repo includes `skills/productspec/SKILL.md`, a loadable agent skill that tells coding agents how to read Product Specs, cite Acceptance Criteria, respect scope, and propose a Decision Trace when implementation diverges from intent. `skills/productspec-authoring/SKILL.md` covers the other direction: writing a Product Spec, validating it, and converting an existing PRD into one. Both are installable with `npx skills add gokulrajaram/ProductSpec`.
+ProductSpec acts as a Product Harness for agent-led work. The Product Spec tells Claude, Codex, Cursor, and other coding agents what to build, what not to build, how to prove completion, and when to stop and re-plan. For those agents, ProductSpec provides an intent harness: structured context, scope guardrails, acceptance criteria, evals, evidence targets, and revision checks. The repo includes `skills/productspec/SKILL.md`, a loadable agent skill that tells coding agents how to read Product Specs, cite Acceptance Criteria, respect scope, and propose a Decision Trace when implementation diverges from intent. `skills/productspec-authoring/SKILL.md` covers the other direction: writing a Product Spec, validating it, and converting an existing PRD into one. Both are installable with `npx skills add gokulrajaram/ProductSpec`.
 
-Agent Run is the optional companion artifact for recording what happened when an agent used ProductSpec as a harness: the pinned spec revision, checked criteria and evals, linked evidence, drift status, and completion claim.
+Agent Run is the optional companion artifact for recording what happened when an agent used ProductSpec as its product contract: the pinned spec revision, checked criteria and evals, linked evidence, drift status, and completion claim.
 
 Decision Trace is the optional companion standard for recording how consequential decisions, drift, revisions, and outcomes are handled over time.
 
@@ -94,19 +94,20 @@ See `examples/revisions/` for a Product Spec that evolves from revision 1 to rev
 
 ## Quick Start
 
-If you want to use ProductSpec as an intent harness for coding agents, start here:
+If you want to use ProductSpec as a Product Harness for coding agents, start here:
 
 - [Get started with agents](docs/get-started-with-agents.md): install the skills, convert a PRD, validate in CI, implement from a Product Spec, and record drift.
 - [Use the MCP server](docs/agent-mcp.md): expose Product Specs to coding agents as structured tools.
 - [Install MCP in Claude or Cursor](docs/mcp-install.md): generate a copy-pasteable MCP client config.
-- [5-minute agent harness demo](docs/agent-harness-demo.md): see Product Spec, MCP, Agent Run, and Decision Trace working together.
+- [5-minute Product Harness demo](docs/agent-harness-demo.md): see Product Spec, MCP, Agent Run, and Decision Trace working together.
+- [Product Harness](docs/product-harness.md): the outer-loop frame around coding agents and engineering specs.
 - [Agent Handoff](docs/agent-handoff.md): generate an implementation brief from a Product Spec without making handoff a canonical spec section.
 - [60-second demo script](docs/demo-script.md): record the ProductSpec loop closing in a short GIF or Loom.
 - [Status badge spec](docs/status-badge.md): factual badge shapes for valid specs, run receipts, evidence, and revisions.
 - [Evidence loop](docs/evidence-loop.md): connect Product Specs to implementation, evals, metrics, and Decision Trace.
 - [Agent Run](docs/agent-run.md): record one Claude, Codex, Cursor, or other agent execution against a pinned Product Spec.
 
-1. Try the harness demo:
+1. Try the Product Harness demo:
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate examples/harness-demo/checkout-notifications.product-spec.md
@@ -367,6 +368,7 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [docs/faq.md](docs/faq.md): answers to common ProductSpec adoption questions.
 - [docs/get-started-with-agents.md](docs/get-started-with-agents.md): the shortest path from existing docs to agent-authored and agent-implemented Product Specs.
 - [docs/use-in-your-repo.md](docs/use-in-your-repo.md): copy-paste setup for using ProductSpec in an existing repository.
+- [docs/product-harness.md](docs/product-harness.md): how ProductSpec acts as the Product Harness above coding agents and engineering specs.
 - [docs/agent-usage.md](docs/agent-usage.md): how to use ProductSpec as an intent harness for coding agents.
 - [docs/agent-handoff.md](docs/agent-handoff.md): how to generate an implementation brief from a Product Spec without duplicating canonical intent.
 - [docs/agent-run.md](docs/agent-run.md): how to record one agent execution against a pinned Product Spec.
@@ -396,7 +398,7 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [examples/README.md](examples/README.md): guide to choosing the right example.
 - [examples/](examples/): minimal and expanded examples.
 - [examples/decision-traces/](examples/decision-traces/): companion Decision Trace examples.
-- [examples/agent-ready-repo/](examples/agent-ready-repo/): ProductSpec as an intent harness in a small repo layout.
+- [examples/agent-ready-repo/](examples/agent-ready-repo/): ProductSpec as a Product Harness in a small repo layout.
 - [parsers/ts](parsers/ts): TypeScript reference parser, validator, and CLI.
 
 Examples include AI features, consumer UX, enterprise workflows, internal APIs, and agent handoffs:

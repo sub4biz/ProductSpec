@@ -2,7 +2,7 @@
 
 Agent Run is an optional companion artifact for recording one AI agent execution against a Product Spec.
 
-ProductSpec is the intent harness contract. Agent Run is the receipt.
+ProductSpec is the Product Harness. Agent Run is the receipt.
 
 Use it when Claude, Codex, Cursor, or another coding agent implements against a `.product-spec.md` file and the repo needs a durable record of:
 
