@@ -4,6 +4,7 @@ import {
   checkCompletionClaim,
   checkSpecSession,
   draftAgentRun,
+  generateAgentHandoff,
   getAcceptanceCriteria,
   getAiEvals,
   getEvidenceChecklist,
@@ -104,6 +105,11 @@ const tools: Record<string, { description: string; inputSchema: object; handler:
     inputSchema: specPathSchema(),
     handler: (args) => getEvidenceChecklist(specPathArgs(args))
   },
+  get_agent_handoff: {
+    description: "Return a generated Agent Handoff Markdown build contract for a Product Spec.",
+    inputSchema: specPathSchema(),
+    handler: (args) => generateAgentHandoff(specPathArgs(args))
+  },
   draft_agent_run: {
     description: "Draft an Agent Run receipt from a Product Spec, with every AC, EVAL, and SM marked not_checked.",
     inputSchema: objectSchema({
@@ -134,7 +140,7 @@ const tools: Record<string, { description: string; inputSchema: object; handler:
   }
 };
 
-const SERVER_VERSION = "0.22.0";
+const SERVER_VERSION = "0.26.0";
 
 export function runProductSpecMcpServer() {
   const rl = createInterface({ input: process.stdin, crlfDelay: Infinity });

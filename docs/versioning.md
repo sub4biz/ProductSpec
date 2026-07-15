@@ -127,6 +127,14 @@ v0.22 keeps the Product Spec document shape at `spec_format_version: "0.1"` and 
 - `draft_agent_run` exposes the same draft receipt through MCP.
 - Agent Run accepts `status: "draft"` until the agent records checked items, evidence, drift, and a completion claim.
 
+## v0.26 Agent Handoff Milestone
+
+v0.26 keeps the Product Spec document shape at `spec_format_version: "0.1"` and adds generated Agent Handoff views:
+
+- `productspec handoff <spec.product-spec.md> [handoff.md]` generates an Agent Handoff Markdown build contract.
+- `get_agent_handoff` exposes the same build contract through MCP.
+- Agent Handoff remains generated from Product Spec. It is not a canonical ProductSpec section.
+
 ## v1.0 Bar
 
 v1.0 is the first compatibility promise.

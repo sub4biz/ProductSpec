@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.26.0 - Product Harness And Agent Handoff
+
+Added:
+
+- `productspec handoff <spec.product-spec.md> [handoff.md]` generates an Agent Handoff Markdown build contract from a Product Spec.
+- `get_agent_handoff` MCP tool returns the same generated handoff for MCP-aware agents.
+- Product Harness explainer doc.
+- Product Harness example folder with Product Spec, generated Agent Handoff, Agent Run, and Decision Trace.
+
+Changed:
+
+- README, agent docs, skills, starter kit, and examples now use Product Harness as the top-level frame and reserve intent harness for the coding-agent use case.
+
 ## v0.25.0 - Product Summary And Executable Scope
 
 Changed:

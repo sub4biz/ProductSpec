@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
-import { draftAgentRun } from "./mcp-tools.js";
+import { draftAgentRun, generateAgentHandoff } from "./mcp-tools.js";
 import {
   resolveProductSpecGraph,
   validateAgentRunJson,
@@ -126,6 +126,32 @@ if (command === "init-run" && filePath) {
   }
 }
 
+if (command === "handoff" && filePath) {
+  try {
+    const handoff = generateAgentHandoff({ root: process.cwd(), path: filePath });
+    if (!handoff.spec_valid) {
+      for (const error of handoff.errors) {
+        console.error(`${error.code}: ${error.message}`);
+      }
+      process.exit(1);
+    }
+    if (outputPath) {
+      if (existsSync(outputPath)) {
+        console.error(`${outputPath} already exists`);
+        process.exit(1);
+      }
+      writeFileSync(outputPath, handoff.markdown, "utf8");
+      console.log(`${outputPath}: created`);
+    } else {
+      process.stdout.write(handoff.markdown);
+    }
+    process.exit(0);
+  } catch (error) {
+    console.error(`error: ${error instanceof Error ? error.message : String(error)}`);
+    process.exit(1);
+  }
+}
+
 if (command === "mcp") {
   runProductSpecMcpServer();
   process.stdin.resume();
@@ -218,7 +244,7 @@ if (command === "mcp") {
   }
   process.exit(0);
 } else if (command !== "validate" || !filePath) {
-  console.error("Usage: productspec validate path/to/file.product-spec.md\n       productspec validate-trace path/to/file.decision-trace.json\n       productspec validate-run path/to/file.agent-run.json\n       productspec graph path/to/spec-directory [--json]\n       productspec init path/to/file.product-spec.md\n       productspec init-run path/to/file.product-spec.md [path/to/file.agent-run.json]\n       productspec mcp\n       productspec mcp-config claude|cursor");
+  console.error("Usage: productspec validate path/to/file.product-spec.md\n       productspec validate-trace path/to/file.decision-trace.json\n       productspec validate-run path/to/file.agent-run.json\n       productspec graph path/to/spec-directory [--json]\n       productspec init path/to/file.product-spec.md\n       productspec init-run path/to/file.product-spec.md [path/to/file.agent-run.json]\n       productspec handoff path/to/file.product-spec.md [path/to/file.agent-handoff.md]\n       productspec mcp\n       productspec mcp-config claude|cursor");
   process.exit(1);
 } else {
   const result = validateProductSpecMarkdown(readFileOrExit(filePath));

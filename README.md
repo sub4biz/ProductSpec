@@ -113,7 +113,13 @@ If you want to use ProductSpec as a Product Harness for coding agents, start her
 npm exec --package @productspec/parser -- productspec validate examples/harness-demo/checkout-notifications.product-spec.md
 ```
 
-2. Start the MCP server:
+2. Generate an Agent Handoff:
+
+```bash
+npm exec --package @productspec/parser -- productspec handoff examples/product-harness/video-transcript.product-spec.md
+```
+
+3. Start the MCP server:
 
 ```bash
 npx --yes -p @productspec/parser@latest productspec mcp
@@ -125,15 +131,15 @@ Generate a Claude or Cursor MCP config:
 npx --yes -p @productspec/parser@latest productspec mcp-config claude
 ```
 
-3. Ask Claude, Codex, Cursor, or another MCP-aware agent to implement against the Product Spec:
+4. Ask Claude, Codex, Cursor, or another MCP-aware agent to implement against the Product Spec:
 
 ```text
 Use ProductSpec MCP before coding.
-Validate examples/harness-demo/checkout-notifications.product-spec.md, call begin_spec_session, load Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, and Related Artifacts.
+Validate examples/harness-demo/checkout-notifications.product-spec.md, call begin_spec_session, load Product Summary, Scope, Acceptance Criteria, AI Evals, Success Metrics, Related Artifacts, and Agent Handoff.
 Stay inside scope.in, avoid scope.out and scope.cut, verify every AC- and EVAL- item, call check_spec_session before claiming done, and draft an Agent Run receipt.
 ```
 
-4. Draft the run receipt:
+5. Draft the run receipt:
 
 ```bash
 npm exec --package @productspec/parser -- productspec init-run examples/harness-demo/checkout-notifications.product-spec.md /tmp/checkout-notifications.agent-run.json
@@ -398,6 +404,7 @@ Early ecosystem contributions are welcome: examples, importer/exporter experimen
 - [examples/README.md](examples/README.md): guide to choosing the right example.
 - [examples/](examples/): minimal and expanded examples.
 - [examples/decision-traces/](examples/decision-traces/): companion Decision Trace examples.
+- [examples/product-harness/](examples/product-harness/): Product Spec, generated Agent Handoff, Agent Run, and Decision Trace in one loop.
 - [examples/agent-ready-repo/](examples/agent-ready-repo/): ProductSpec as a Product Harness in a small repo layout.
 - [parsers/ts](parsers/ts): TypeScript reference parser, validator, and CLI.
 
@@ -439,7 +446,7 @@ ProductSpec distinguishes the standard version from the document revision:
 - `spec_format_version` tells tools which ProductSpec format the file uses.
 - `spec_revision` is an optional positive integer for this particular product decision. It starts at `1` and increments when intent materially changes.
 
-The current v0.x standard includes conformance fixtures, a structured validator, examples, a CLI, optional `spec_revision` frontmatter, traceability fields, an MCP server, a loadable agent skill, a copyable repo starter kit, Decision Trace validation, and Agent Run drafting and validation:
+The current v0.x standard includes conformance fixtures, a structured validator, examples, a CLI, optional `spec_revision` frontmatter, traceability fields, an MCP server, a loadable agent skill, a copyable repo starter kit, generated Agent Handoffs, Decision Trace validation, and Agent Run drafting and validation:
 
 ```bash
 npm exec --package @productspec/parser -- productspec validate examples/minimal.product-spec.md
@@ -461,6 +468,12 @@ To draft an Agent Run from a Product Spec:
 
 ```bash
 npm exec --package @productspec/parser -- productspec init-run examples/minimal.product-spec.md examples/minimal.agent-run.json
+```
+
+To generate an Agent Handoff from a Product Spec:
+
+```bash
+npm exec --package @productspec/parser -- productspec handoff examples/product-harness/video-transcript.product-spec.md
 ```
 
 To create a starter Product Spec:

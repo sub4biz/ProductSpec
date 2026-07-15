@@ -25,6 +25,14 @@ Code, tests, evals, evidence, learning
 
 ProductSpec does not replace coding tools. It gives them a product contract.
 
+Generate the agent-facing build contract with:
+
+```bash
+productspec handoff specs/example.product-spec.md
+```
+
+MCP-aware agents can call `get_agent_handoff` to get the same generated view.
+
 ## What the Product Harness controls
 
 A Product Harness gives people and agents:

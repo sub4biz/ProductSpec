@@ -61,6 +61,13 @@ export interface EvidenceChecklistItem {
   related_artifacts: ProductSpecRelatedArtifact[];
 }
 
+export interface AgentHandoff {
+  spec_valid: boolean;
+  markdown: string;
+  errors: ProductSpecValidationError[];
+  warnings: ProductSpecValidationWarning[];
+}
+
 export interface ProductSpecSession {
   session_id: string;
   path: string;
@@ -285,6 +292,118 @@ export function getEvidenceChecklist(args: ProductSpecMcpArgs): EvidenceChecklis
   };
 }
 
+export function generateAgentHandoff(args: ProductSpecMcpArgs): AgentHandoff {
+  const result = validateProductSpec(args);
+  if (!result.valid) {
+    return {
+      spec_valid: false,
+      markdown: "",
+      errors: result.errors,
+      warnings: result.warnings
+    };
+  }
+
+  const root = resolveRoot(args.root);
+  if (!args.path) throw new Error("path is required");
+  const absolutePath = resolveSpecPath(root, args.path);
+  const path = relative(root, absolutePath);
+  const document = result.document;
+  const productSummary = document.sections.find((section) => section.id === "product_summary")?.content.trim();
+  const scope = document.sections.find((section) => section.id === "scope")?.scope;
+  const acceptanceCriteria = document.sections.flatMap((section) => section.acceptance_criteria ?? []);
+  const aiEvals = document.sections.flatMap((section) => section.ai_evals ?? []);
+  const successMetrics = document.sections.flatMap((section) => section.success_metrics ?? []);
+  const relatedArtifacts = document.sections.flatMap((section) => section.related_artifacts ?? []);
+
+  const lines = [
+    `# Agent Handoff: ${document.frontmatter.title}`,
+    "",
+    "## Build Contract",
+    "",
+    `Implement ProductSpec revision ${document.frontmatter.spec_revision ?? 1}.`,
+    `Source Product Spec: \`${path}\`.`,
+    "Satisfy every acceptance criterion before claiming the work is done.",
+    "Stay inside scope. If implementation pressure changes product intent, stop and propose a Product Spec update or Decision Trace.",
+    "",
+    "## Product Summary",
+    "",
+    productSummary || "No Product Summary found.",
+    "",
+    "## Scope Guardrails",
+    ""
+  ];
+
+  appendScope(lines, "In", scope?.in ?? []);
+  appendScope(lines, "Out", scope?.out ?? []);
+  appendScope(lines, "Cut if needed", scope?.cut ?? []);
+
+  lines.push("", "## Must Satisfy", "");
+  if (acceptanceCriteria.length) {
+    for (const criterion of acceptanceCriteria) lines.push(`- ${criterion.id}: ${criterion.criterion}`);
+  } else {
+    lines.push("- No Acceptance Criteria found.");
+  }
+
+  lines.push("", "## Suggested Verification", "");
+  if (acceptanceCriteria.length) {
+    for (const criterion of acceptanceCriteria) {
+      lines.push(`- Verification for ${criterion.id}: prove that "${criterion.criterion}" is true in the built product.`);
+    }
+  } else {
+    lines.push("- Add verification for each Acceptance Criterion.");
+  }
+
+  if (aiEvals.length) {
+    lines.push("", "## AI Evals", "");
+    for (const evalSpec of aiEvals) {
+      lines.push(`- ${evalSpec.id}: ${evalSpec.type}, evaluator ${evalSpec.evaluator}, pass threshold ${evalSpec.pass_threshold}`);
+      evalSpec.cases.forEach((testCase, index) => {
+        lines.push(`  - Case ${index + 1}`);
+        lines.push(`    - Input: ${testCase.input}`);
+        lines.push(`    - Expected: ${testCase.expected}`);
+      });
+    }
+  }
+
+  lines.push("", "## Success Metrics", "");
+  if (successMetrics.length) {
+    for (const metric of successMetrics) {
+      const status = metric.target_status === "provisional" ? "provisional" : "committed";
+      lines.push(`- ${metric.id}: ${metric.metric} targets ${metric.target} over ${metric.window} (${status}).`);
+    }
+  } else {
+    lines.push("- No Success Metrics found.");
+  }
+
+  if (relatedArtifacts.length) {
+    lines.push("", "## Existing Evidence And Links", "");
+    for (const artifact of relatedArtifacts) {
+      const target = artifact.item_id ? ` for ${artifact.item_id}` : "";
+      const label = artifact.title ?? artifact.url ?? artifact.product_spec_path ?? "Untitled artifact";
+      lines.push(`- ${artifact.type}${target}: ${label}`);
+    }
+  }
+
+  lines.push(
+    "",
+    "## Evidence To Return",
+    "",
+    "- Pull request URL.",
+    "- Verification result for each acceptance criterion.",
+    "- Eval run result for each AI eval.",
+    "- Screenshots or demo link if UI changed.",
+    "- Decision Trace if implementation changes product intent.",
+    ""
+  );
+
+  return {
+    spec_valid: true,
+    markdown: lines.join("\n"),
+    errors: [],
+    warnings: result.warnings
+  };
+}
+
 export function draftAgentRun(args: DraftAgentRunArgs): AgentRunDocument {
   const root = resolveRoot(args.root);
   if (!args.path) throw new Error("path is required");
@@ -357,6 +476,14 @@ export function checkCompletionClaim(args: ProductSpecMcpArgs & { claim?: string
 
 function artifactsForItem(artifacts: ProductSpecRelatedArtifact[], itemId: string): ProductSpecRelatedArtifact[] {
   return artifacts.filter((artifact) => artifact.item_id === itemId);
+}
+
+function appendScope(lines: string[], label: string, items: string[]) {
+  if (!items.length) {
+    lines.push(`- ${label}: none specified.`);
+    return;
+  }
+  for (const item of items) lines.push(`- ${label}: ${item}`);
 }
 
 function readValidProductSpec(args: ProductSpecMcpArgs): ProductSpecDocument {

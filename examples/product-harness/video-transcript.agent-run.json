@@ -1,0 +1,87 @@
+{
+  "agent_run_format_version": "0.1",
+  "run_id": "video-transcript-run",
+  "agent": {
+    "name": "Codex",
+    "version": "cli"
+  },
+  "product_spec": {
+    "path": "examples/product-harness/video-transcript.product-spec.md",
+    "spec_revision": 1,
+    "content_hash": "sha256:example"
+  },
+  "started_at": "2026-07-15T00:00:00Z",
+  "completed_at": "2026-07-15T00:30:00Z",
+  "status": "completed",
+  "checked_items": [
+    {
+      "item_id": "AC-1",
+      "status": "passed",
+      "evidence": [
+        {
+          "type": "github_pr",
+          "url": "https://github.com/example/video-transcript/pull/34",
+          "title": "Implement transcript jobs and search"
+        }
+      ]
+    },
+    {
+      "item_id": "AC-2",
+      "status": "passed",
+      "evidence": [
+        {
+          "type": "code",
+          "url": "apps/web/src/transcripts/transcript-page.tsx",
+          "title": "Transcript page"
+        }
+      ]
+    },
+    {
+      "item_id": "AC-3",
+      "status": "passed",
+      "evidence": [
+        {
+          "type": "code",
+          "url": "apps/web/src/transcripts/search-results.tsx",
+          "title": "Transcript search results"
+        }
+      ]
+    },
+    {
+      "item_id": "AC-4",
+      "status": "passed",
+      "evidence": [
+        {
+          "type": "code",
+          "url": "apps/web/src/transcripts/empty-state.tsx",
+          "title": "Transcript search empty state"
+        }
+      ]
+    },
+    {
+      "item_id": "EVAL-1",
+      "status": "passed",
+      "evidence": [
+        {
+          "type": "eval_run",
+          "url": "./video-transcript.eval-run.json",
+          "title": "Transcript search deterministic eval"
+        }
+      ]
+    },
+    {
+      "item_id": "SM-1",
+      "status": "not_checked",
+      "notes": "Post-launch search success metric. Do not block implementation completion."
+    },
+    {
+      "item_id": "SM-2",
+      "status": "not_checked",
+      "notes": "Post-launch transcript job failure metric. Do not block implementation completion."
+    }
+  ],
+  "drift": {
+    "detected": false
+  },
+  "completion_claim": "Video transcript search satisfies AC-1 through AC-4 and EVAL-1. SM-1 and SM-2 are post-launch checks."
+}

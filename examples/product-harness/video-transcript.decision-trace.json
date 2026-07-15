@@ -1,0 +1,52 @@
+{
+  "decision_trace_format_version": "0.1",
+  "trace_id": "video-transcript-trace",
+  "title": "Video Transcript Search Decision Trace",
+  "created_at": "2026-07-15T00:00:00Z",
+  "updated_at": "2026-07-15T00:30:00Z",
+  "subject": {
+    "type": "product_spec",
+    "id": "video-transcript-search",
+    "title": "Video Transcript Search",
+    "product_spec_path": "./video-transcript.product-spec.md",
+    "product_spec_revision": 1
+  },
+  "events": [
+    {
+      "event_id": "semantic-search-kept-out-of-scope",
+      "event_type": "implementation_tradeoff",
+      "occurred_at": "2026-07-15T00:20:00Z",
+      "summary": "Implementation considered semantic search, but kept the first version to keyword search because semantic search is listed in scope.out.",
+      "source": {
+        "product_spec_revision": 1,
+        "links": [
+          {
+            "type": "github_pr",
+            "url": "https://github.com/example/video-transcript/pull/34",
+            "title": "Implement transcript jobs and search"
+          }
+        ]
+      },
+      "decision": {
+        "outcome": "no_action",
+        "rationale": "The Product Spec explicitly excludes semantic search from the first version. The agent kept implementation inside scope instead of redefining intent.",
+        "approved_by": ["Transcript product lead"]
+      },
+      "result": {
+        "linked_artifacts": [
+          {
+            "type": "product_spec",
+            "url": "./video-transcript.product-spec.md",
+            "title": "Video Transcript Search"
+          },
+          {
+            "type": "code",
+            "url": "apps/web/src/transcripts/search-results.tsx",
+            "title": "Transcript search results"
+          }
+        ],
+        "learning": "Scope.out should be checked before agents add technically convenient features."
+      }
+    }
+  ]
+}

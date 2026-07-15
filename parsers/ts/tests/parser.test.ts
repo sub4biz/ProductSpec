@@ -15,6 +15,8 @@ import {
   validateProductSpecMarkdown,
   type ProductSpecGraphInput
 } from "../src/index";
+import { handleRequest } from "../src/mcp";
+import { generateAgentHandoff } from "../src/mcp-tools";
 
 const root = fileURLToPath(new URL("../../..", import.meta.url));
 const packageRoot = fileURLToPath(new URL("..", import.meta.url));
@@ -2170,6 +2172,82 @@ Keep this around.
     expect(invalid.status).toBe(1);
     expect(invalid.stderr).toContain("missing_required_agent_run_field");
   }, 30000);
+
+  it("generates an Agent Handoff from a Product Spec", () => {
+    const handoff = generateAgentHandoff({
+      root,
+      path: "examples/harness-demo/checkout-notifications.product-spec.md"
+    });
+
+    expect(handoff.spec_valid).toBe(true);
+    expect(handoff.markdown).toContain("# Agent Handoff: Checkout Failure Notifications");
+    expect(handoff.markdown).toContain("## Build Contract");
+    expect(handoff.markdown).toContain("## Product Summary");
+    expect(handoff.markdown).toContain("- In:");
+    expect(handoff.markdown).toContain("- AC-1:");
+    expect(handoff.markdown).toContain("- EVAL-1:");
+    expect(handoff.markdown).toContain("- SM-1:");
+    expect(handoff.markdown).toContain("## Existing Evidence And Links");
+    expect(handoff.markdown).toContain("- github_issue for AC-1:");
+    expect(handoff.markdown).toContain("- Decision Trace if implementation changes product intent.");
+  });
+
+  it("generates an Agent Handoff from the CLI", () => {
+    const build = spawnSync("npm", ["run", "build"], { cwd: packageRoot, encoding: "utf8" });
+    expect(build.status, build.stderr).toBe(0);
+
+    const dir = mkdtempSync(join(tmpdir(), "productspec-handoff-"));
+    const specPath = join(dir, "search.product-spec.md");
+    const handoffPath = join(dir, "search.agent-handoff.md");
+
+    try {
+      writeFileSync(specPath, readFileSync(`${root}/examples/harness-demo/checkout-notifications.product-spec.md`, "utf8"), "utf8");
+
+      const stdoutHandoff = spawnSync("node", [
+        fileURLToPath(new URL("../dist/cli.js", import.meta.url)),
+        "handoff",
+        "search.product-spec.md"
+      ], { cwd: dir, encoding: "utf8" });
+
+      expect(stdoutHandoff.status).toBe(0);
+      expect(stdoutHandoff.stdout).toContain("# Agent Handoff: Checkout Failure Notifications");
+      expect(stdoutHandoff.stdout).toContain("## Evidence To Return");
+
+      const fileHandoff = spawnSync("node", [
+        fileURLToPath(new URL("../dist/cli.js", import.meta.url)),
+        "handoff",
+        "search.product-spec.md",
+        "search.agent-handoff.md"
+      ], { cwd: dir, encoding: "utf8" });
+
+      expect(fileHandoff.status).toBe(0);
+      expect(fileHandoff.stdout).toContain("created");
+      expect(readFileSync(handoffPath, "utf8")).toContain("## Scope Guardrails");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }, 30000);
+
+  it("exposes Agent Handoff through MCP", () => {
+    const listResponse = handleRequest({ jsonrpc: "2.0", id: 1, method: "tools/list" }) as any;
+    expect(listResponse.result.tools.map((tool: { name: string }) => tool.name)).toContain("get_agent_handoff");
+
+    const callResponse = handleRequest({
+      jsonrpc: "2.0",
+      id: 2,
+      method: "tools/call",
+      params: {
+        name: "get_agent_handoff",
+        arguments: {
+          root,
+          path: "examples/harness-demo/checkout-notifications.product-spec.md"
+        }
+      }
+    }) as any;
+
+    expect(callResponse.result.content[0].text).toContain("# Agent Handoff: Checkout Failure Notifications");
+    expect(callResponse.result.content[0].text).toContain("## Must Satisfy");
+  });
 
   it("prints MCP client configs from the CLI", () => {
     const build = spawnSync("npm", ["run", "build"], { cwd: packageRoot, encoding: "utf8" });

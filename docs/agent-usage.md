@@ -77,6 +77,12 @@ Do not add `## Agent Handoff` to the Product Spec itself. If the handoff needs p
 
 See [Agent Handoff](agent-handoff.md) for the recommended generated shape.
 
+Generate one locally:
+
+```bash
+productspec handoff specs/example.product-spec.md
+```
+
 ## Pull Request Summary Pattern
 
 ```md

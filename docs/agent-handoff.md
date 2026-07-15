@@ -14,6 +14,20 @@ ProductSpec remains the source of truth. An Agent Handoff is a view compiled fro
 - Related Artifacts
 - Decision Trace, when present
 
+Generate one with the CLI:
+
+```bash
+productspec handoff specs/example.product-spec.md
+```
+
+Or write it to a file:
+
+```bash
+productspec handoff specs/example.product-spec.md specs/example.agent-handoff.md
+```
+
+MCP-aware agents can call `get_agent_handoff` to retrieve the same generated Markdown.
+
 A generated handoff should usually include:
 
 - Build Contract: spec path and `spec_revision`.
